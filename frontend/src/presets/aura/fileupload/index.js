@@ -16,7 +16,7 @@ export default {
             "flex-wrap",
 
             // Colors
-            "bg-white-0",
+            "bg-white",
             "dark:bg-white-900",
             "text-surface-700",
             "dark:text-white/80",
@@ -43,7 +43,7 @@ export default {
             "relative",
 
             // Colors
-            "bg-white-0",
+            "bg-white",
             "dark:bg-white-900",
             "text-surface-700",
             "dark:text-white/80",

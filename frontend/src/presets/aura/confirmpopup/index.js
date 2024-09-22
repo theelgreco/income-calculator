@@ -11,7 +11,7 @@ export default {
             "mt-3 absolute left-0 top-0",
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-700 dark:text-surface-0/80",
 
             // Before: Arrow
@@ -42,7 +42,7 @@ export default {
             "rounded-b-lg",
 
             // Colors
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-700 dark:text-surface-0/80",
             "border-x border-b border-surface-200 dark:border-surface-700",
         ],

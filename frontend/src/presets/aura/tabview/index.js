@@ -33,7 +33,7 @@ export default {
             "rounded-none",
 
             // Colors
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-700 dark:text-surface-0/80",
             "shadow-sm",
         ],
@@ -54,7 +54,7 @@ export default {
 
             // Colors
             "text-surface-700 dark:text-surface-0/80",
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "shadow-sm",
         ],
     },
@@ -68,7 +68,7 @@ export default {
             "p-0 m-0",
 
             // Colors
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border-b border-surface-200 dark:border-surface-700",
             "text-surface-900 dark:text-surface-0/80",
         ],
@@ -107,10 +107,10 @@ export default {
                 // Colors and Conditions
                 {
                     "border-surface-200 dark:border-surface-700": parent.state.d_activeIndex !== context.index,
-                    "bg-white-0 dark:bg-white-900": parent.state.d_activeIndex !== context.index,
+                    "bg-white dark:bg-white-900": parent.state.d_activeIndex !== context.index,
                     "text-surface-700 dark:text-surface-0/80": parent.state.d_activeIndex !== context.index,
 
-                    "bg-white-0 dark:bg-white-900": parent.state.d_activeIndex === context.index,
+                    "bg-white dark:bg-white-900": parent.state.d_activeIndex === context.index,
                     "border-primary": parent.state.d_activeIndex === context.index,
                     "text-primary": parent.state.d_activeIndex === context.index,
                 },
@@ -118,7 +118,7 @@ export default {
                 // States
                 "focus:outline-none focus:outline-offset-0 focus-visible:ring-1 ring-inset focus-visible:ring-primary-400 dark:focus-visible:ring-primary-300",
                 {
-                    "hover:bg-white-0 dark:hover:bg-white-800/80": parent.state.d_activeIndex !== context.index,
+                    "hover:bg-white dark:hover:bg-white-800/80": parent.state.d_activeIndex !== context.index,
                     "hover:text-surface-900 dark:hover:text-surface-0": parent.state.d_activeIndex !== context.index,
                 },
 
@@ -149,7 +149,7 @@ export default {
             "border-br-md border-bl-md",
 
             // Colors
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-900 dark:text-surface-0/80",
         ],
     },

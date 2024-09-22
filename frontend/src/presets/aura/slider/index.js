@@ -54,7 +54,7 @@ export default {
             // Shape
             "rounded-full",
 
-            "before:block before:w-[16px] before:h-[16px] before:rounded-full before:bg-white-0 dark:before:bg-white-950 before:shadow-md",
+            "before:block before:w-[16px] before:h-[16px] before:rounded-full before:bg-white dark:before:bg-white-950 before:shadow-md",
 
             // Colors
             "bg-white-200 dark:bg-white-800",
@@ -86,7 +86,7 @@ export default {
             // Shape
             "rounded-full",
 
-            "before:block before:w-[16px] before:h-[16px] before:rounded-full before:bg-white-0 dark:before:bg-white-950 before:shadow-md",
+            "before:block before:w-[16px] before:h-[16px] before:rounded-full before:bg-white dark:before:bg-white-950 before:shadow-md",
 
             // Colors
             "bg-white-200 dark:bg-white-800",
@@ -118,7 +118,7 @@ export default {
             // Shape
             "rounded-full",
 
-            "before:block before:w-[16px] before:h-[16px] before:rounded-full before:bg-white-0 dark:before:bg-white-950 before:shadow-md",
+            "before:block before:w-[16px] before:h-[16px] before:rounded-full before:bg-white dark:before:bg-white-950 before:shadow-md",
 
             // Colors
             "bg-white-200 dark:bg-white-800",

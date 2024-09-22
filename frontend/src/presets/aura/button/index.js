@@ -143,7 +143,7 @@ export default {
             // Contrast Button
             {
                 "text-white dark:text-surface-900": props.severity === "contrast" && !props.text && !props.outlined && !props.plain,
-                "bg-white-900 dark:bg-white-0": props.severity === "contrast" && !props.text && !props.outlined && !props.plain,
+                "bg-white-900 dark:bg-white": props.severity === "contrast" && !props.text && !props.outlined && !props.plain,
                 "border border-surface-900 dark:border-surface-0":
                     props.severity === "contrast" && !props.text && !props.outlined && !props.plain,
             },

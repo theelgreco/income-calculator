@@ -24,7 +24,7 @@ export default {
             "before:h-4 before:w-4",
             "before:rounded-full",
             "before:duration-200",
-            "before:bg-white-0 before:dark:bg-white-500",
+            "before:bg-white before:dark:bg-white-500",
 
             // Colors
             "border",

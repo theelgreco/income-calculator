@@ -31,7 +31,7 @@ export default {
             // Color
             {
                 "text-surface-600 dark:text-white/80": !context?.selected,
-                "bg-white-0 dark:bg-white-900": !context?.selected,
+                "bg-white dark:bg-white-900": !context?.selected,
                 "bg-highlight": context?.selected,
             },
 

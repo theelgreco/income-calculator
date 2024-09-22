@@ -9,7 +9,7 @@ export default {
             "p-1",
 
             // Colors
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-700 dark:text-white/80",
             "border border-surface-200 dark:border-surface-700",
         ],
@@ -101,7 +101,7 @@ export default {
             "rounded-tr-none",
 
             // Colors
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-400 dark:text-surface-600",
         ],
     },

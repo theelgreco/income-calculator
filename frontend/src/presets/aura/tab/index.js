@@ -15,10 +15,10 @@ export default {
             "outline-transparent",
             {
                 "border-surface-200 dark:border-surface-700": !context.active,
-                "bg-white-0 dark:bg-white-900": !context.active,
+                "bg-white dark:bg-white-900": !context.active,
                 "text-surface-700 dark:text-surface-0/80": !context.active,
 
-                "bg-white-0 dark:bg-white-900": context.active,
+                "bg-white dark:bg-white-900": context.active,
                 "text-primary": context.active,
 
                 "opacity-60 cursor-default user-select-none select-none pointer-events-none": props?.disabled,

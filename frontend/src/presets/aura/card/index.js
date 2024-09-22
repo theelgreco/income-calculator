@@ -9,7 +9,7 @@ export default {
             "shadow-md",
 
             //Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-700 dark:text-surface-0",
         ],
     },

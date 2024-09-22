@@ -17,7 +17,7 @@ export default {
             "rounded-md",
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border border-surface-200 dark:border-surface-700",
             "outline-none",
         ],

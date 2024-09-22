@@ -47,7 +47,7 @@ export default {
             "flex-auto",
 
             // Color and Background
-            "bg-transparent",
+            "bg-white",
             "border-0",
             {
                 "text-surface-800 dark:text-white/80": props.modelValue != undefined,
@@ -101,7 +101,7 @@ export default {
     overlay: {
         class: [
             // Colors
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-700 dark:text-white/80",
 
             // Shape
@@ -202,7 +202,7 @@ export default {
 
             // Color
             "text-surface-700 dark:text-white/80",
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border-surface-300 dark:border-surface-700",
         ],
     },

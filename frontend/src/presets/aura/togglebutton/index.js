@@ -12,7 +12,7 @@ export default {
             "bg-white-100 dark:bg-white-950",
             {
                 "text-surface-600 dark:text-white/60 before:bg-transparent": !context.active,
-                "text-surface-800 dark:text-white/80 before:bg-white-0 dark:before:bg-white-800": context.active,
+                "text-surface-800 dark:text-white/80 before:bg-white dark:before:bg-white-800": context.active,
             },
 
             // States

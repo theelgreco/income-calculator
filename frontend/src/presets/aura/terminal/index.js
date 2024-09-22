@@ -8,7 +8,7 @@ export default {
             "rounded-md",
 
             // Color
-            "bg-white-0 dark:bg-white-950 text-surface-700 dark:text-surface-0",
+            "bg-white dark:bg-white-950 text-surface-700 dark:text-surface-0",
             "border border-surface-200 dark:border-surface-700",
 
             // Sizing & Overflow

@@ -55,7 +55,7 @@ export default {
             "w-[1.125rem] h-[1.125rem]",
 
             // Appearance
-            "rounded-full border-2 border-surface-200 bg-white-0 dark:border-surface-700 dark:bg-white-950",
+            "rounded-full border-2 border-surface-200 bg-white dark:border-surface-700 dark:bg-white-950",
 
             // Before
             "before:rounded-full before:w-[0.375rem] before:h-[0.375rem] before:bg-primary",

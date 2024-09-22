@@ -24,7 +24,7 @@ export default {
                 "text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-500/20": props.severity === "info",
                 "text-orange-700 dark:text-orange-300 bg-orange-100 dark:bg-orange-500/20": props.severity === "warn",
                 "text-red-700 dark:text-red-300 bg-red-100 dark:bg-red-500/20": props.severity === "danger",
-                "text-surface-0 dark:text-surface-900 bg-white-900 dark:bg-white-0": props.severity === "contrast",
+                "text-surface-0 dark:text-surface-900 bg-white-900 dark:bg-white": props.severity === "contrast",
             },
         ],
     }),

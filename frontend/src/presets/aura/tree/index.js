@@ -9,7 +9,7 @@ export default {
             "border-none",
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-700 dark:text-white/80",
             "[&_[data-pc-name=pcfilter]]:w-full",
         ],

@@ -24,7 +24,7 @@ export default {
             "rounded-md",
 
             // Colors
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border border-surface-300 dark:border-surface-700",
 
             // States

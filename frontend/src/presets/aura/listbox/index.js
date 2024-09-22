@@ -4,7 +4,7 @@ export default {
             "rounded-md",
 
             // Colors
-            { "bg-white-0 dark:bg-white-900": !props.disabled },
+            { "bg-white dark:bg-white-900": !props.disabled },
             "text-surface-700 dark:text-white/80",
             "border",
             { "border-surface-300 dark:border-surface-700": !props.invalid },
@@ -101,7 +101,7 @@ export default {
 
             // Color
             "text-surface-700 dark:text-white/80",
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border-surface-300 dark:border-surface-700",
 
             "[&_[data-pc-name=pcfilter]]:w-full",

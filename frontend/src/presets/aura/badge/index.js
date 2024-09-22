@@ -40,7 +40,7 @@ export default {
                 "bg-orange-500 dark:bg-orange-400": props.severity === "warn",
                 "bg-purple-500 dark:bg-purple-400": props.severity === "help",
                 "bg-red-500 dark:bg-red-400": props.severity === "danger",
-                "text-surface-0 dark:text-surface-900 bg-white-900 dark:bg-white-0": props.severity === "contrast",
+                "text-surface-0 dark:text-surface-900 bg-white-900 dark:bg-white": props.severity === "contrast",
             },
         ],
     }),

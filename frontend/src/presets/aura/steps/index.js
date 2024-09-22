@@ -40,7 +40,7 @@ export default {
             "rounded-md",
 
             // Colors
-            "bg-white-0",
+            "bg-white",
             "dark:bg-transparent",
 
             // States
@@ -72,7 +72,7 @@ export default {
             "font-medium",
 
             // Colors
-            "bg-white-0 dark:bg-white-800",
+            "bg-white dark:bg-white-800",
             "border-surface-100 dark:border-surface-700",
             {
                 "text-surface-400 dark:text-white/60": !context.active,

@@ -14,7 +14,7 @@ export default {
             "rounded-md",
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border border-surface-200 dark:border-surface-700",
         ],
     },
@@ -45,7 +45,7 @@ export default {
             "border-0",
 
             // Color
-            "bg-white-0 dark:bg-white-900 sm:bg-transparent",
+            "bg-white dark:bg-white-900 sm:bg-transparent",
 
             // Misc
             "outline-none",
@@ -137,7 +137,7 @@ export default {
             { "sm:absolute sm:left-full sm:top-0": props.level > 1 },
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
         ],
     }),
     separator: {

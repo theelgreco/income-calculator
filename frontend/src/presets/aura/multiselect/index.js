@@ -12,7 +12,7 @@ export default {
             "rounded-md",
 
             // Color and Background
-            { "bg-white-0 dark:bg-white-950": !props.disabled },
+            { "bg-white dark:bg-white-950": !props.disabled },
             "border",
             { "border-surface-300 dark:border-surface-600": !props.invalid },
 
@@ -80,7 +80,7 @@ export default {
     overlay: {
         class: [
             // Colors
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-700 dark:text-white/80",
 
             // Shape
@@ -106,7 +106,7 @@ export default {
 
             // Color
             "text-surface-700 dark:text-white/80",
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border-surface-300 dark:border-surface-700",
 
             "[&_[data-pc-name=pcfiltercontainer]]:!flex-auto",

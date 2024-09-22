@@ -22,7 +22,7 @@ export default {
                 // Colors
                 "text-surface-600 dark:text-surface-200",
                 "placeholder:text-surface-400 dark:placeholder:text-surface-500",
-                { "bg-white-0 dark:bg-white-950": !props.disabled },
+                { "bg-white dark:bg-white-950": !props.disabled },
                 "border",
                 { "border-surface-300 dark:border-surface-600": !props.invalid },
 
@@ -131,7 +131,7 @@ export default {
 
             // Colors
             "text-surface-700 dark:text-white/80",
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border-surface-200 dark:border-surface-700",
         ],
     },

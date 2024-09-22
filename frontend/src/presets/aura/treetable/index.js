@@ -50,7 +50,7 @@ export default {
             "p-4",
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border-surface-200 dark:border-surface-700",
             "text-surface-700 dark:text-white/80",
         ],
@@ -66,7 +66,7 @@ export default {
             "p-4",
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border-surface-200 dark:border-surface-700",
             "text-surface-700 dark:text-white/80",
         ],
@@ -117,7 +117,7 @@ export default {
             // Color
             "text-surface-700 dark:text-white/80",
             { "bg-highlight": context.selected },
-            { "bg-white-0 text-surface-600 dark:bg-white-900": !context.selected },
+            { "bg-white text-surface-600 dark:bg-white-900": !context.selected },
 
             // Hover & Flexbox
             {
@@ -154,7 +154,7 @@ export default {
             // Color
             (props.sortable === "" || props.sortable) && context.sorted
                 ? "bg-highlight"
-                : "bg-white-0 text-surface-700 dark:text-white/80 dark:bg-white-900",
+                : "bg-white text-surface-700 dark:text-white/80 dark:bg-white-900",
             "border-surface-200 dark:border-surface-700",
 
             // States
@@ -196,7 +196,7 @@ export default {
                 // Color
                 (props.sortable === "" || props.sortable) && context.sorted
                     ? "bg-highlight"
-                    : "bg-white-0 text-surface-700 dark:text-white/80 dark:bg-white-900",
+                    : "bg-white text-surface-700 dark:text-white/80 dark:bg-white-900",
                 "border-surface-200 dark:border-surface-700",
 
                 // States

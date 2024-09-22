@@ -9,7 +9,7 @@ export default {
 
             // Color
             "text-surface-700 dark:text-white/80",
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
         ],
     },
     header: {
@@ -21,7 +21,7 @@ export default {
 
             // Color
             "text-surface-800 dark:text-white/80",
-            "bg-white-00 dark:bg-white-900",
+            "bg-white0 dark:bg-white-900",
             "border-b border-surface-200 dark:border-surface-700",
         ],
     },

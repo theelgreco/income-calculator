@@ -19,7 +19,7 @@ export default {
             "shadow-lg",
 
             // Colors
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-700 dark:text-white/80",
             "dark:border-surface-700",
 
@@ -41,7 +41,7 @@ export default {
             "p-[1.125rem]",
 
             // Colors
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-700 dark:text-surface-0/80",
         ],
     },

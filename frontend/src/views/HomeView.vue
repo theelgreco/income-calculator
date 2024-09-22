@@ -82,7 +82,7 @@ function closeModal() {
             </div>
             <div class="flex flex-col gap-2">
                 <label class="w-fit" for="frequency">Payment frequency (days)</label>
-                <InputNumber v-model="frequency" inputId="frequency" placeholder="Select a number" min="1" />
+                <InputNumber v-model="frequency" inputId="frequency" placeholder="Select a number" :min="1" />
             </div>
         </div>
     </Dialog>

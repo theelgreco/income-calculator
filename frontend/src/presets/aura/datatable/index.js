@@ -52,7 +52,7 @@ export default {
             "p-4",
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border-surface-200 dark:border-surface-700",
             "text-surface-700 dark:text-white/80",
         ],
@@ -63,7 +63,7 @@ export default {
     thead: ({ context }) => ({
         class: [
             {
-                "bg-white-0 dark:bg-white-900 top-0 z-40 sticky": context.scrollable,
+                "bg-white dark:bg-white-900 top-0 z-40 sticky": context.scrollable,
             },
         ],
     }),
@@ -72,13 +72,13 @@ export default {
             {
                 "sticky z-20": instance.frozenRow && context.scrollable,
             },
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
         ],
     }),
     tfoot: ({ context }) => ({
         class: [
             {
-                "bg-white-0 bottom-0 z-0": context.scrollable,
+                "bg-white bottom-0 z-0": context.scrollable,
             },
         ],
     }),
@@ -93,7 +93,7 @@ export default {
             "p-4",
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border-surface-200 dark:border-surface-700",
             "text-surface-700 dark:text-white/80",
         ],
@@ -163,7 +163,7 @@ export default {
                 // Shape
                 "border-0 border-b border-solid",
                 { "first:border-l border-r border-b": context?.showGridlines },
-                { "bg-white-0 dark:bg-white-900": parent.instance.frozenRow || props.frozen || props.frozen === "" },
+                { "bg-white dark:bg-white-900": parent.instance.frozenRow || props.frozen || props.frozen === "" },
 
                 // Spacing
                 { "py-[0.375rem] px-2": context?.size === "small" && !state["d_editing"] },
@@ -198,7 +198,7 @@ export default {
                 // Color
                 "border-surface-200 dark:border-surface-700",
                 "text-surface-700 dark:text-white/80",
-                "bg-white-0 dark:bg-white-900",
+                "bg-white dark:bg-white-900",
             ],
         }),
         sortIcon: ({ context }) => ({
@@ -223,7 +223,7 @@ export default {
                 "min-w-[12.5rem]",
 
                 // Color
-                "bg-white-0 dark:bg-white-900",
+                "bg-white dark:bg-white-900",
                 "text-surface-800 dark:text-white/80",
                 "dark:border-surface-700",
             ],
@@ -250,7 +250,7 @@ export default {
 
                 // Color
                 { "text-surface-700 dark:text-white/80": !context?.highlighted },
-                { "bg-white-0 dark:bg-white-900 text-surface-700 dark:text-white/80": !context?.highlighted },
+                { "bg-white dark:bg-white-900 text-surface-700 dark:text-white/80": !context?.highlighted },
                 { "bg-highlight": context?.highlighted },
 
                 //States
@@ -278,7 +278,7 @@ export default {
 
                 // Color
                 "text-surface-700 dark:text-white/80",
-                "bg-white-0 dark:bg-white-700",
+                "bg-white dark:bg-white-700",
                 "[&>[data-pc-name=pcfilteroperatordropdown]]:w-full",
             ],
         },
@@ -352,10 +352,10 @@ export default {
             // Color
             "dark:text-white/80",
             { "bg-highlight": context.selected && props.highlightOnSelect },
-            { "bg-white-0 text-surface-600 dark:bg-white-900": !context.selected },
-            { "font-bold bg-white-0 dark:bg-white-900 z-20": props.frozenRow },
+            { "bg-white text-surface-600 dark:bg-white-900": !context.selected },
+            { "font-bold bg-white dark:bg-white-900 z-20": props.frozenRow },
             {
-                "odd:bg-white-0 odd:text-surface-600 dark:odd:bg-white-900 even:bg-white-50 even:text-surface-600 dark:even:bg-white-800/50":
+                "odd:bg-white odd:text-surface-600 dark:odd:bg-white-900 even:bg-white-50 even:text-surface-600 dark:even:bg-white-800/50":
                     context.stripedRows,
             },
 
@@ -370,13 +370,13 @@ export default {
         ],
     }),
     rowExpansion: {
-        class: "bg-white-0 dark:bg-white-900 text-surface-600 dark:text-white/80",
+        class: "bg-white dark:bg-white-900 text-surface-600 dark:text-white/80",
     },
     rowGroupHeader: {
-        class: ["sticky z-20", "bg-white-0 text-surface-600 dark:text-white/70", "dark:bg-white-900"],
+        class: ["sticky z-20", "bg-white text-surface-600 dark:text-white/70", "dark:bg-white-900"],
     },
     rowGroupFooter: {
-        class: ["sticky z-20", "bg-white-0 text-surface-600 dark:text-white/70", "dark:bg-white-900"],
+        class: ["sticky z-20", "bg-white text-surface-600 dark:text-white/70", "dark:bg-white-900"],
     },
     rowToggleButton: {
         class: [

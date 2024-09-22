@@ -6,7 +6,7 @@ export default {
 
             //Colors
             "border border-surface-200 dark:border-surface-700",
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
         ],
     },
     header: ({ props }) => ({

@@ -12,7 +12,7 @@ export default {
                 "bg-white-100/70 dark:bg-white-500/20": props.severity == "secondary",
                 "bg-orange-100/70 dark:bg-orange-500/20": props.severity == "warn",
                 "bg-red-100/70 dark:bg-red-500/20": props.severity == "error",
-                "bg-white-950 dark:bg-white-0": props.severity == "contrast",
+                "bg-white-950 dark:bg-white": props.severity == "contrast",
             },
             {
                 "outline-blue-200 dark:outline-blue-500/20": props.severity == "info",
@@ -75,7 +75,7 @@ export default {
             "transition duration-200 ease-in-out",
 
             // States
-            "hover:bg-white-0/30 dark:hover:bg-[rgba(255,255,255,0.03)]",
+            "hover:bg-white/30 dark:hover:bg-[rgba(255,255,255,0.03)]",
             "focus:outline-none focus:outline-offset-0 focus:ring-1",
             {
                 "focus:ring-blue-500 dark:focus:ring-blue-400": props.severity == "info",

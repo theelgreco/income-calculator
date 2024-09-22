@@ -91,7 +91,7 @@ export default {
             "bg-transparent text-white w-8 h-8 rounded-full transition duration-200 ease-in-out",
 
             // Hover Effects
-            "hover:bg-white-0/10 hover:text-white",
+            "hover:bg-white/10 hover:text-white",
 
             // Focus Effects
             "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
@@ -147,7 +147,7 @@ export default {
             "bg-transparent text-white w-8 h-8 rounded-full transition duration-200 ease-in-out",
 
             // Hover Effects
-            "hover:bg-white-0/10 hover:text-white",
+            "hover:bg-white/10 hover:text-white",
 
             // Focus Effects
             "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
@@ -224,7 +224,7 @@ export default {
             "text-white bg-transparent w-12 h-12 rounded-full transition duration-200 ease-in-out",
 
             // Hover Effect
-            "hover:text-white hover:bg-white-0/10",
+            "hover:text-white hover:bg-white/10",
 
             // Focus Effects
             "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
@@ -255,7 +255,7 @@ export default {
             },
 
             // Hover Effect
-            "hover:bg-white-0/10 hover:text-white",
+            "hover:bg-white/10 hover:text-white",
 
             // Focus Effects
             "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
@@ -283,7 +283,7 @@ export default {
             },
 
             // Hover Effect
-            "hover:bg-white-0/10 hover:text-white",
+            "hover:bg-white/10 hover:text-white",
 
             // Focus Effects
             "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",

@@ -2,7 +2,7 @@ export default {
     root: ({ context }) => ({
         class: [
             // Colors
-            "bg-white-0",
+            "bg-white",
             "dark:bg-white-900",
             "text-surface-700",
             "dark:text-surface-0/80",

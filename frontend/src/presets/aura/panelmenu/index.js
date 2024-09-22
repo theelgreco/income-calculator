@@ -11,7 +11,7 @@ export default {
             "rounded-[4px]",
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "text-surface-600 dark:text-surface-0/80",
             { "text-surface-900": context.active },
 
@@ -58,7 +58,7 @@ export default {
 
             // Color
             "text-surface-700 dark:text-white/80",
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
         ],
     },
     rootList: {
@@ -101,7 +101,7 @@ export default {
             // States
             "hover:bg-white-100 dark:hover:bg-[rgba(255,255,255,0.03)] hover:text-surface-700 dark:hover:text-white/80",
             {
-                "bg-white-200 text-surface-700 dark:text-white/80 dark:bg-white-0/10": context.focused,
+                "bg-white-200 text-surface-700 dark:text-white/80 dark:bg-white/10": context.focused,
             },
 
             // Misc

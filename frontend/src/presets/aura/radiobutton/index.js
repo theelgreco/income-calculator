@@ -91,7 +91,7 @@ export default {
 
             // Conditions
             {
-                "bg-white-0 dark:bg-white-900": context.checked,
+                "bg-white dark:bg-white-900": context.checked,
                 "bg-primary": !context.checked,
                 "backface-hidden invisible scale-[0.1]": !context.checked,
                 "transform visible translate-z-0 scale-[1,1]": context.checked,

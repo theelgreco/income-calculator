@@ -10,7 +10,7 @@ export default {
             "rounded-md",
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
             "border border-surface-200 dark:border-surface-700",
             { "p-2 items-center": props.orientation == "horizontal", "flex-col sm:w-48 p-1": props.orientation !== "horizontal" },
         ],
@@ -42,7 +42,7 @@ export default {
             "border-0",
 
             // Color
-            "bg-white-0 dark:bg-white-900 sm:bg-transparent dark:sm:bg-transparent",
+            "bg-white dark:bg-white-900 sm:bg-transparent dark:sm:bg-transparent",
 
             // Misc
             "outline-none",
@@ -126,7 +126,7 @@ export default {
             "rounded-md",
 
             // Color
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
 
             // Position
             "static sm:absolute",
@@ -155,7 +155,7 @@ export default {
 
             // Color
             "text-surface-400 dark:text-surface-500",
-            "bg-white-0 dark:bg-white-900",
+            "bg-white dark:bg-white-900",
         ],
     },
     separator: {
