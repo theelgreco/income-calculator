@@ -15,6 +15,7 @@ async function signUp() {
     if (email.value && password.value) {
         try {
             await authServer.signUp({ email: email.value, password: password.value });
+            await login();
         } catch (err: any) {
             console.error(err);
         }

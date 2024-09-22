@@ -1,25 +1,25 @@
 export default {
-    root: 'flex',
+    root: "flex",
     controls: {
         class: [
             // Flexbox & Alignment
-            'flex xl:flex-col justify-center gap-2',
+            "flex xl:flex-col justify-center gap-2",
 
             // Spacing
-            'p-[1.125rem]'
-        ]
+            "p-[1.125rem]",
+        ],
     },
     container: {
         class: [
-            'flex-auto',
+            "flex-auto",
 
             // Shape
-            'rounded-md',
+            "rounded-md",
 
             // Color
-            'bg-surface-0 dark:bg-surface-900',
-            'border border-surface-200 dark:border-surface-700',
-            'outline-none'
-        ]
-    }
+            "bg-white-0 dark:bg-white-900",
+            "border border-surface-200 dark:border-surface-700",
+            "outline-none",
+        ],
+    },
 };

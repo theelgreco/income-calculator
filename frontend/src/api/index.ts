@@ -81,4 +81,23 @@ export class IncomeCalculatorApi {
             throw err;
         }
     }
+
+    async getYearData(year: number): Promise<any> {
+        try {
+            const headers: HeadersInit = {};
+
+            if (this.authorisationHeader) {
+                headers.Authorization = this.authorisationHeader;
+            }
+
+            const response = await fetch(`${this.basePath}/transactions/${year}`, {
+                method: "GET",
+                headers,
+            });
+
+            return response;
+        } catch (err: any) {
+            throw err;
+        }
+    }
 }

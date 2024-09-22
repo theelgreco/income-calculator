@@ -2,62 +2,62 @@ export default {
     root: {
         class: [
             // Shape
-            'rounded-md',
+            "rounded-md",
 
             // Spacing
-            'p-4',
+            "p-4",
 
             // Color
-            'bg-surface-0 dark:bg-surface-900',
+            "bg-white-0 dark:bg-white-900",
 
             // Misc
-            'overflow-x-auto'
-        ]
+            "overflow-x-auto",
+        ],
     },
     list: {
         class: [
             // Flex & Alignment
-            'flex items-center flex-nowrap',
+            "flex items-center flex-nowrap",
 
             // Spacing
-            'm-0 p-0 list-none leading-none'
-        ]
+            "m-0 p-0 list-none leading-none",
+        ],
     },
     itemLink: {
         class: [
             // Flex & Alignment
-            'flex items-center gap-2',
+            "flex items-center gap-2",
 
             // Shape
-            'rounded-md',
+            "rounded-md",
 
             // Color
-            'text-surface-600 dark:text-white/70',
+            "text-surface-600 dark:text-white/70",
 
             // States
-            'focus-visible:outline-none focus-visible:outline-offset-0',
-            'focus-visible:ring-1 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
+            "focus-visible:outline-none focus-visible:outline-offset-0",
+            "focus-visible:ring-1 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400",
 
             // Transitions
-            'transition-shadow duration-200',
+            "transition-shadow duration-200",
 
             // Misc
-            'text-decoration-none'
-        ]
+            "text-decoration-none",
+        ],
     },
     itemIcon: {
-        class: 'text-surface-600 dark:text-white/70'
+        class: "text-surface-600 dark:text-white/70",
     },
     separator: {
         class: [
             // Flex & Alignment
-            'flex items-center',
+            "flex items-center",
 
             // Spacing
-            'mx-2',
+            "mx-2",
 
             // Color
-            'text-surface-600 dark:text-white/70'
-        ]
-    }
+            "text-surface-600 dark:text-white/70",
+        ],
+    },
 };
