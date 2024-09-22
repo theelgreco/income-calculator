@@ -21,7 +21,7 @@ model Transaction {
   userId                     String
   isExpense                  Boolean  @default(false)
   startTime                  DateTime
-  finishTime                 DateTime
+  finishTime                 DateTime?
   amount_in_pence            Int
   frequency_interval_in_days Int
   user                       User     @relation(fields: [userId], references: [id])
