@@ -13,6 +13,7 @@ export async function getYearData(request: Request, response: Response, next: Ne
     if (id && year && year.toString().length === 4) {
         try {
             const transactions = await getYearTransactions(year, id);
+            response.status(200).send(transactions);
         } catch (err: any) {
             next(err);
         }

@@ -23,14 +23,12 @@ export function authenticateJWT(request: Request, response: Response, next: Next
                 if (JWT && typeof JWT === "object") {
                     customRequest.user = await getUser(JWT.user_id);
 
-                    if (!customRequest.user && JWT.name && JWT.email && JWT.id) {
+                    if (!customRequest.user) {
                         const userData: {
                             user_id: string;
-                            name: string;
                             email: string;
                         } = {
                             user_id: JWT.user_id,
-                            name: JWT.name,
                             email: JWT.email,
                         };
 

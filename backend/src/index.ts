@@ -29,6 +29,8 @@ app.get("/api/schema", (request: Request, response: Response) => {
     response.send(openapiSpecification);
 });
 
+app.use(authenticateJWT);
+
 /**
  * @openapi
  * /api/transactions/{year}:
