@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import e from "cors";
 import { authenticateJWT } from "./jwt/jwt";
 import { handleCustomErrors } from "./errors/middleware";
-import { getYearData } from "./controllers/controllers";
+import { getYearData, postNewTransaction } from "./controllers/controllers";
 import swaggerUi from "swagger-ui-express";
 import { openapiSpecification } from "../swagger";
 
@@ -50,6 +50,8 @@ app.use(authenticateJWT);
  *              description: Returns the transactions for a user in a given year
  */
 app.get("/api/transactions/:year", getYearData);
+
+app.post("/api/transactions", postNewTransaction);
 
 // error-handling middleware
 app.use(handleCustomErrors);
