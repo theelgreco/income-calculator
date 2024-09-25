@@ -13,7 +13,9 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-    <div class="flex flex-col items-center gap-5 border-1 rounded-lg p-5 shadow">
+    <div
+        class="flex flex-col items-center gap-5 border-1/2 rounded-lg p-5 shadow cursor-pointer hover:border-black hover:shadow-md transition-all group"
+    >
         <div class="flex items-center justify-center w-full font-medium">{{ monthName }}</div>
         <div class="flex flex-col w-full gap-5">
             <div class="flex flex-col justify-between">
@@ -28,7 +30,7 @@ const props = defineProps<Props>();
             </div>
             <div class="flex justify-between">
                 <p class="font-extralight">Spare</p>
-                <p class="text-4xl">£{{ remaining }}</p>
+                <p class="text-4xl group-hover:font-bold transition-all">£{{ remaining }}</p>
             </div>
         </div>
     </div>

@@ -5,6 +5,21 @@ interface SignUpData {
 
 interface LoginData extends SignUpData {}
 
+export interface TransactionCreateSerializer {
+    name: string;
+    isExpense: boolean | null;
+    amountInPence: number | null;
+    startDate: Date | null;
+    finishDate: Date | null;
+    isRecurring: boolean | null;
+    recurrenceType: "day" | "week" | "month" | "year" | null;
+    recurrenceRate: number | null;
+    recurrenceRateType: "first_business" | "last_business" | "last" | "specific" | null;
+    specificDayOfWeek: number | null;
+    specificDayOfMonth: number | null;
+    firstLastDayOfMonth: "first_business" | "last_business" | "last" | "specific" | null;
+}
+
 export class AuthenticationServer {
     // prettier-ignore
     // @ts-ignore
@@ -92,6 +107,28 @@ export class IncomeCalculatorApi {
 
             const response = await fetch(`${this.basePath}/transactions/${year}`, {
                 method: "GET",
+                headers,
+            });
+
+            return response;
+        } catch (err: any) {
+            throw err;
+        }
+    }
+
+    async transactionCreate(data: TransactionCreateSerializer) {
+        try {
+            const headers: HeadersInit = {
+                "Content-Type": "application/json",
+            };
+
+            if (this.authorisationHeader) {
+                headers.Authorization = this.authorisationHeader;
+            }
+
+            const response = await fetch(`${this.basePath}/transactions`, {
+                method: "POST",
+                body: JSON.stringify(data),
                 headers,
             });
 

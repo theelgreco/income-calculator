@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { IncomeCalculatorApi } from "@/api";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, defineProps, defineEmits, watch } from "vue";
 import CalendarYear from "./CalendarYear.vue";
 import CalendarMonth from "./CalendarMonth.vue";
 
 interface Props {
-    year?: number;
+    updateTrigger: boolean;
+}
+
+interface Emits {
+    (event: "update:updateTrigger", value: boolean): void;
 }
 
 interface Month {
@@ -15,11 +19,13 @@ interface Month {
     remaining: number;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-    year: new Date().getFullYear(),
-});
+const props = defineProps<Props>();
+
+const emit = defineEmits<Emits>();
 
 const api = new IncomeCalculatorApi();
+
+const year = ref<number>(new Date().getFullYear());
 
 const months = ref<Month[]>([
     {
@@ -98,11 +104,22 @@ const months = ref<Month[]>([
 
 async function getYearData() {
     try {
-        await api.getYearData(props.year);
+        const response = await api.getYearData(year.value);
+        months.value = await response.json();
     } catch (err: any) {
         console.error(err);
     }
 }
+
+watch(
+    () => props.updateTrigger,
+    async () => {
+        if (props.updateTrigger) {
+            await getYearData();
+            emit("update:updateTrigger", false);
+        }
+    }
+);
 
 onMounted(async () => {
     await getYearData();
@@ -111,7 +128,7 @@ onMounted(async () => {
 
 <template>
     <div class="w-full h-full flex flex-col gap-5">
-        <CalendarYear :year="year" />
+        <CalendarYear v-model:year="year" @update:year="getYearData" />
         <div class="flex flex-wrap justify-between max-w-full max-h-full gap-4">
             <CalendarMonth
                 v-for="(month, index) in months"
