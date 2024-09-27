@@ -30,5 +30,5 @@ model Transaction {
   recurrenceRateType         String? // specific_day_of_week, specific_day_of_month, first_last_day_of_month ** not using **
   specificDayOfWeek          Int? // 0 - 6 (Sunday - 0, Saturday - 6)
   specificDayOfMonth         Int? // 1 - 28
-  firstLastDayOfMonth        String? // first_business, last_business, last
+  firstLastDayOfMonth        String? // first_business, last_business, last, specific
 }

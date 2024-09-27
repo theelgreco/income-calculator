@@ -46,7 +46,7 @@
  *                  maximum: 28
  *              firstLastDayOfMonth:
  *                  type: string
- *                  enum: [first_business, last_business, last]
+ *                  enum: [first_business, last_business, last, specific]
  *      CreateTransactionResponse:
  *          type: object
  *          properties:
@@ -91,5 +91,5 @@
  *                  maximum: 28
  *              firstLastDayOfMonth:
  *                  type: string
- *                  enum: [first_business, last_business, last]
+ *                  enum: [first_business, last_business, last, specific]
  */
