@@ -14,7 +14,7 @@ export function authenticateJWT(request: Request, response: Response, next: Next
 
         verify(token, process.env.JWT_KEY as Secret, async (err, JWT) => {
             if (err) {
-                throw new UnauthorisedError("Invalid JWT provided");
+                next(new UnauthorisedError("Invalid JWT provided"));
             }
 
             try {

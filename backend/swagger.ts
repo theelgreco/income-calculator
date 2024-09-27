@@ -22,7 +22,7 @@ const options: OAS3Options = {
             },
         ],
     },
-    apis: ["./src/index.ts", "./src/controllers/controllers.ts"],
+    apis: ["./src/index.ts", "./src/controllers/controllers.ts", "./src/schema/*.ts"],
 };
 
 export const openapiSpecification = swaggerJSDoc(options);

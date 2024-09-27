@@ -7,7 +7,7 @@ export function handleCustomErrors(error: any, request: Request, response: Respo
 
     if (name === "ValidationError" || name === "KeyError") {
         response.status(400).send({ [name]: message });
-    } else if (name === "InvalidLoginError" || "UnauthorisedError") {
+    } else if (name === "InvalidLoginError" || name === "UnauthorisedError") {
         response.status(401).send({ [name]: message });
     } else if (name === "ForbiddenError") {
         response.status(403).send({ [name]: message });
