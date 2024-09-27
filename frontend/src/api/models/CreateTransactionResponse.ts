@@ -139,7 +139,8 @@ export type CreateTransactionResponseRecurrenceRateTypeEnum = typeof CreateTrans
 export const CreateTransactionResponseFirstLastDayOfMonthEnum = {
     FirstBusiness: 'first_business',
     LastBusiness: 'last_business',
-    Last: 'last'
+    Last: 'last',
+    Specific: 'specific'
 } as const;
 export type CreateTransactionResponseFirstLastDayOfMonthEnum = typeof CreateTransactionResponseFirstLastDayOfMonthEnum[keyof typeof CreateTransactionResponseFirstLastDayOfMonthEnum];
 

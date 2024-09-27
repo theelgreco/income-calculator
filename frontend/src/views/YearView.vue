@@ -11,10 +11,14 @@ import { ref, watch } from "vue";
 import Select from "primevue/select";
 import { IncomeCalculatorApi, type TransactionCreateSerializer } from "@/customApi";
 import { useRoute } from "vue-router";
+import { TransactionsApi, type CreateTransactionInput } from "@/api";
+import { defaultApiConfiguration } from "@/fetch";
 
 const route = useRoute();
 
 const api = new IncomeCalculatorApi();
+
+const transactionApi = new TransactionsApi(defaultApiConfiguration);
 
 const updateTrigger = ref(false);
 
@@ -68,19 +72,19 @@ const firstLastDayOfMonthChoices = ref<{ label: string; value: "first_business" 
     { label: "Specific day of the month (1st - 28th)", value: "specific" },
 ]);
 
-const transactionForm = ref<TransactionCreateSerializer>({
+const transactionForm = ref<CreateTransactionInput>({
     name: "",
-    isExpense: null,
-    amountInPence: null,
-    startDate: null,
-    finishDate: null,
-    isRecurring: null,
-    recurrenceType: null,
-    recurrenceRate: null,
-    recurrenceRateType: null,
-    specificDayOfWeek: null,
-    specificDayOfMonth: null,
-    firstLastDayOfMonth: null,
+    isExpense: false,
+    amountInPence: 0.01,
+    startDate: undefined,
+    finishDate: undefined,
+    isRecurring: false,
+    recurrenceType: undefined,
+    recurrenceRate: undefined,
+    recurrenceRateType: undefined,
+    specificDayOfWeek: undefined,
+    specificDayOfMonth: undefined,
+    firstLastDayOfMonth: undefined,
 });
 
 function openModal(type: "expense" | "income") {
@@ -96,23 +100,24 @@ function closeModal() {
 function resetTransactionForm() {
     transactionForm.value = {
         name: "",
-        isExpense: null,
-        amountInPence: null,
-        startDate: null,
-        finishDate: null,
-        isRecurring: null,
-        recurrenceType: null,
-        recurrenceRate: null,
-        recurrenceRateType: null,
-        specificDayOfWeek: null,
-        specificDayOfMonth: null,
-        firstLastDayOfMonth: null,
+        isExpense: false,
+        amountInPence: 0.01,
+        startDate: undefined,
+        finishDate: undefined,
+        isRecurring: false,
+        recurrenceType: undefined,
+        recurrenceRate: undefined,
+        recurrenceRateType: undefined,
+        specificDayOfWeek: undefined,
+        specificDayOfMonth: undefined,
+        firstLastDayOfMonth: undefined,
     };
 }
 
 async function createTransaction() {
     try {
-        await api.transactionCreate(transactionForm.value);
+        // await api.transactionCreate(transactionForm.value);
+        await transactionApi.apiTransactionsPost({ createTransactionInput: transactionForm.value });
         updateTrigger.value = true;
         closeModal();
     } catch (err: any) {
@@ -123,12 +128,11 @@ async function createTransaction() {
 watch(
     () => transactionForm.value.recurrenceType,
     () => {
-        transactionForm.value.recurrenceRate = null;
-        transactionForm.value.recurrenceRate = null;
-        transactionForm.value.recurrenceRateType = null;
-        transactionForm.value.specificDayOfWeek = null;
-        transactionForm.value.specificDayOfMonth = null;
-        transactionForm.value.firstLastDayOfMonth = null;
+        transactionForm.value.recurrenceRate = undefined;
+        transactionForm.value.recurrenceRateType = undefined;
+        transactionForm.value.specificDayOfWeek = undefined;
+        transactionForm.value.specificDayOfMonth = undefined;
+        transactionForm.value.firstLastDayOfMonth = undefined;
     }
 );
 </script>
@@ -193,7 +197,7 @@ watch(
                 ></Button>
             </div>
             <!-- Recurring -->
-            <template v-if="transactionForm.isRecurring !== null && transactionForm.isRecurring">
+            <template v-if="transactionForm.isRecurring">
                 <InputNumber
                     v-model="transactionForm.amountInPence"
                     placeholder="Value of the payment (£)"
@@ -237,7 +241,7 @@ watch(
                     </div>
                     <div v-if="transactionForm.recurrenceType === 'day'" class="flex flex-col flex-grow gap-3">
                         <InputNumber v-model="transactionForm.recurrenceRate" placeholder="Every how many days?" :min="1" />
-                        <p v-if="transactionForm.recurrenceRate !== null">
+                        <p v-if="transactionForm.recurrenceRate !== undefined">
                             Payment occurs every <b>{{ transactionForm.recurrenceRate }}</b> days
                         </p>
                     </div>
@@ -250,7 +254,7 @@ watch(
                             optionLabel="label"
                             optionValue="value"
                         />
-                        <p v-if="transactionForm.specificDayOfWeek !== null && transactionForm.recurrenceRate !== null">
+                        <p v-if="transactionForm.specificDayOfWeek !== undefined && transactionForm.recurrenceRate !== undefined">
                             Payment occurs every <b>{{ transactionForm.recurrenceRate }}</b> weeks on
                             <b>{{ daysOfWeek[transactionForm.specificDayOfWeek].label }}</b>
                         </p>
@@ -272,12 +276,12 @@ watch(
                                 optionValue="value"
                                 placeholder="Select a day of the month"
                             />
-                            <p v-if="transactionForm.specificDayOfMonth !== null && transactionForm.recurrenceRate !== null">
+                            <p v-if="transactionForm.specificDayOfMonth !== undefined && transactionForm.recurrenceRate !== undefined">
                                 Payment occurs every <b>{{ transactionForm.recurrenceRate }}</b> months on the
                                 <b>{{ daysOfMonth[transactionForm.specificDayOfMonth - 1].label }}</b>
                             </p>
                         </template>
-                        <p v-else-if="transactionForm.recurrenceRate !== null && transactionForm.firstLastDayOfMonth !== null">
+                        <p v-else-if="transactionForm.recurrenceRate !== undefined && transactionForm.firstLastDayOfMonth !== undefined">
                             Payment occurs every <b>{{ transactionForm.recurrenceRate }}</b> months on the
                             <b>{{
                                 firstLastDayOfMonthChoices
