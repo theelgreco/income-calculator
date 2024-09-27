@@ -92,4 +92,25 @@
  *              firstLastDayOfMonth:
  *                  type: string
  *                  enum: [first_business, last_business, last, specific]
+ *      GetTransactionYearParams:
+ *          type: integer
+ *      GetTransactionYearResponse:
+ *          type: array
+ *          items:
+ *              type: object
+ *              properties:
+ *                  monthName:
+ *                      type: string
+ *                      enum: [January, February, March, April, May, June, July, August, September, October, November, December]
+ *                  income:
+ *                      type: number
+ *                      min: 0
+ *                  expenses:
+ *                      type: number
+ *                      min: 0
+ *                  remaining:
+ *                      type: number
+ *                      min: 0
+ *          minItems: 12
+ *          maxItems: 12
  */

@@ -70,17 +70,21 @@ app.get("/api/validateJWT", (request: Request, response: Response) => {
  *  get:
  *      tags:
  *          -   Transactions
+ *      summary: Retrieve the transactions for a user in a given year
  *      parameters:
  *          -   in: path
  *              name: year
  *              schema:
- *                  type: integer
+ *                  $ref: '#/components/schemas/GetTransactionYearParams'
  *              required: true
  *              desciption: Number representing the year to retrieve the transactions for
- *      summary: Retrieve the transactions for a user in a given year
  *      responses:
  *          200:
- *              description: Returns the transactions for a user in a given year
+ *              description: Success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/GetTransactionYearResponse'
  *          400:
  *              description: Bad request
  */
