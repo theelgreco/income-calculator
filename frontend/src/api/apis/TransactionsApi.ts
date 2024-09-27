@@ -17,12 +17,15 @@ import * as runtime from '../runtime';
 import type {
   CreateTransactionInput,
   CreateTransactionResponse,
+  GetTransactionYearResponseInner,
 } from '../models/index';
 import {
     CreateTransactionInputFromJSON,
     CreateTransactionInputToJSON,
     CreateTransactionResponseFromJSON,
     CreateTransactionResponseToJSON,
+    GetTransactionYearResponseInnerFromJSON,
+    GetTransactionYearResponseInnerToJSON,
 } from '../models/index';
 
 export interface ApiTransactionsPostRequest {
@@ -85,7 +88,7 @@ export class TransactionsApi extends runtime.BaseAPI {
     /**
      * Retrieve the transactions for a user in a given year
      */
-    async apiTransactionsYearGetRaw(requestParameters: ApiTransactionsYearGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async apiTransactionsYearGetRaw(requestParameters: ApiTransactionsYearGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GetTransactionYearResponseInner>>> {
         if (requestParameters['year'] == null) {
             throw new runtime.RequiredError(
                 'year',
@@ -112,14 +115,15 @@ export class TransactionsApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GetTransactionYearResponseInnerFromJSON));
     }
 
     /**
      * Retrieve the transactions for a user in a given year
      */
-    async apiTransactionsYearGet(requestParameters: ApiTransactionsYearGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiTransactionsYearGetRaw(requestParameters, initOverrides);
+    async apiTransactionsYearGet(requestParameters: ApiTransactionsYearGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetTransactionYearResponseInner>> {
+        const response = await this.apiTransactionsYearGetRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
 }

@@ -9,14 +9,11 @@ import InputNumber from "primevue/inputnumber";
 import InputText from "primevue/inputtext";
 import { ref, watch } from "vue";
 import Select from "primevue/select";
-import { IncomeCalculatorApi, type TransactionCreateSerializer } from "@/customApi";
 import { useRoute } from "vue-router";
 import { TransactionsApi, type CreateTransactionInput } from "@/api";
 import { defaultApiConfiguration } from "@/fetch";
 
 const route = useRoute();
-
-const api = new IncomeCalculatorApi();
 
 const transactionApi = new TransactionsApi(defaultApiConfiguration);
 

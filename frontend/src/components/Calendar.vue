@@ -5,6 +5,8 @@ import CalendarYear from "./CalendarYear.vue";
 import CalendarMonth from "./CalendarMonth.vue";
 import { useRoute } from "vue-router";
 import router from "@/router";
+import { TransactionsApi, type GetTransactionYearResponseInner } from "@/api";
+import { defaultApiConfiguration } from "@/fetch";
 
 interface Props {
     updateTrigger: boolean;
@@ -12,13 +14,6 @@ interface Props {
 
 interface Emits {
     (event: "update:updateTrigger", value: boolean): void;
-}
-
-interface Month {
-    monthName: string;
-    income: number;
-    expenses: number;
-    remaining: number;
 }
 
 const route = useRoute();
@@ -29,9 +24,11 @@ const emit = defineEmits<Emits>();
 
 const api = new IncomeCalculatorApi();
 
+const transactionsApi = new TransactionsApi(defaultApiConfiguration);
+
 const year = ref<number>(Array.isArray(route.params.year) ? parseInt(route.params.year[0]) : parseInt(route.params.year));
 
-const months = ref<Month[]>([
+const months = ref<GetTransactionYearResponseInner[]>([
     {
         monthName: "January",
         income: 0.0,
@@ -108,8 +105,8 @@ const months = ref<Month[]>([
 
 async function getYearData() {
     try {
-        const response = await api.getYearData(year.value);
-        months.value = await response.json();
+        const response = await transactionsApi.apiTransactionsYearGet({ year: year.value });
+        months.value = response;
     } catch (err: any) {
         console.error(err);
     }

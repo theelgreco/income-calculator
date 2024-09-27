@@ -7,5 +7,6 @@ models/ApiValidateJWTGet200Response.ts
 models/ApiValidateJWTGet401Response.ts
 models/CreateTransactionInput.ts
 models/CreateTransactionResponse.ts
+models/GetTransactionYearResponseInner.ts
 models/index.ts
 runtime.ts
