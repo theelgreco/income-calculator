@@ -14,6 +14,20 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  CreateTransactionInput,
+  CreateTransactionResponse,
+} from '../models/index';
+import {
+    CreateTransactionInputFromJSON,
+    CreateTransactionInputToJSON,
+    CreateTransactionResponseFromJSON,
+    CreateTransactionResponseToJSON,
+} from '../models/index';
+
+export interface ApiTransactionsPostRequest {
+    createTransactionInput: CreateTransactionInput;
+}
 
 export interface ApiTransactionsYearGetRequest {
     year: number;
@@ -23,6 +37,50 @@ export interface ApiTransactionsYearGetRequest {
  * 
  */
 export class TransactionsApi extends runtime.BaseAPI {
+
+    /**
+     * Create a new transaction
+     */
+    async apiTransactionsPostRaw(requestParameters: ApiTransactionsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateTransactionResponse>> {
+        if (requestParameters['createTransactionInput'] == null) {
+            throw new runtime.RequiredError(
+                'createTransactionInput',
+                'Required parameter "createTransactionInput" was null or undefined when calling apiTransactionsPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/api/transactions`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateTransactionInputToJSON(requestParameters['createTransactionInput']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreateTransactionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a new transaction
+     */
+    async apiTransactionsPost(requestParameters: ApiTransactionsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateTransactionResponse> {
+        const response = await this.apiTransactionsPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Retrieve the transactions for a user in a given year

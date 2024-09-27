@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
 import { IncomeCalculatorApi } from "@/customApi";
+import { AuthenticationApi } from "@/api";
+import { defaultApiConfiguration } from "@/fetch";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,13 +29,14 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     if (to.meta.requiresAuth) {
-        const incomeCalculatorApi = new IncomeCalculatorApi();
+        const authenticationApi = new AuthenticationApi(defaultApiConfiguration);
 
         try {
-            await incomeCalculatorApi.validateJWT();
+            await authenticationApi.apiValidateJWTGet();
             next();
         } catch (err: any) {
-            localStorage.removeItem("jwt");
+            console.error(await err.response.json());
+            // localStorage.removeItem("jwt");
             next("/login");
         }
     } else {
