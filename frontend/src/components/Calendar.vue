@@ -127,7 +127,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="w-full h-full flex flex-col gap-5">
+    <div class="w-full h-full flex flex-col gap-4">
         <CalendarYear v-model:year="year" @update:year="getYearData" />
         <div class="flex flex-wrap justify-between max-w-full max-h-full gap-4">
             <CalendarMonth

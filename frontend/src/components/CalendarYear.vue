@@ -17,9 +17,13 @@ const emit = defineEmits<Emits>();
 </script>
 
 <template>
-    <div class="flex w-full justify-between items-center border-1 rounded-lg p-4 shadow">
-        <SvgIcon type="mdi" :path="mdiChevronLeft" @click="emit('update:year', year - 1)" />
-        <h1 class="text-3xl font-medium">{{ year }}</h1>
-        <SvgIcon type="mdi" :path="mdiChevronRight" @click="emit('update:year', year + 1)" />
+    <div class="flex w-full justify-between items-center">
+        <div class="p-1 cursor-pointer hover:bg-grays-light-100">
+            <SvgIcon type="mdi" :path="mdiChevronLeft" @click="emit('update:year', year - 1)" class="cursor-pointer" />
+        </div>
+        <h1 class="text-lg font-medium">{{ year }}</h1>
+        <div class="p-1 cursor-pointer hover:bg-grays-light-100">
+            <SvgIcon type="mdi" :path="mdiChevronRight" @click="emit('update:year', year + 1)" />
+        </div>
     </div>
 </template>

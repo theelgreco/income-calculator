@@ -50,7 +50,7 @@ export default {
             // Primary Button
             {
                 "text-white": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
-                "bg-primary-600": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
+                "bg-grays-light-800": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
                 "border border-primary": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
             },
             // Primary Text Button
@@ -268,6 +268,7 @@ export default {
         class: [
             "text-base leading-4",
             "mx-0",
+            "!text-black",
             {
                 "mr-2": props.iconPos == "left" && props.label != null,
                 "ml-2 order-1": props.iconPos == "right" && props.label != null,

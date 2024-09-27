@@ -2,7 +2,7 @@
 import Calendar from "@/components/Calendar.vue";
 import DatePicker from "primevue/datepicker";
 import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiPlus } from "@mdi/js";
+import { mdiFinance, mdiPlus } from "@mdi/js";
 import Button from "primevue/button";
 import Dialog from "primevue/dialog";
 import InputNumber from "primevue/inputnumber";
@@ -130,13 +130,31 @@ watch(
 </script>
 
 <template>
-    <main class="px-10 py-6 w-full h-full flex">
-        <Calendar v-model:updateTrigger="updateTrigger" />
-        <div class="flex w-full fixed bottom-0 left-0">
+    <main class="w-full h-full flex flex-col gap-5 overscroll-none">
+        <div class="flex h-[70px] justify-between items-center px-10 py-5 gap-5 shadow-md sticky top-0 bg-white z-50">
+            <div class="flex items-center gap-3">
+                <SvgIcon type="mdi" :path="mdiFinance" />
+                <h2 class="font-medium">Income Tracker</h2>
+            </div>
+            <div class="flex gap-5">
+                <Button label="Add expense">
+                    <template #icon>
+                        <SvgIcon type="mdi" :path="mdiPlus" />
+                    </template>
+                </Button>
+                <Button label="Add income">
+                    <template #icon>
+                        <SvgIcon type="mdi" :path="mdiPlus" />
+                    </template>
+                </Button>
+            </div>
+        </div>
+        <Calendar v-model:updateTrigger="updateTrigger" class="px-10" />
+        <!-- <div class="flex w-full fixed bottom-0 left-0">
             <Button class="rounded-full !bg-black text-white shadow-lg ml-2 mb-2" @click="openModal">
                 <SvgIcon type="mdi" :path="mdiPlus" />
             </Button>
-        </div>
+        </div> -->
     </main>
     <Dialog
         v-model:visible="modalOpen"
