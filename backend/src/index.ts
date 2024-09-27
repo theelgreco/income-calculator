@@ -16,7 +16,12 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(e());
 
-app.use("/api/documentation", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
+const swaggerUiOptions = {
+    customCss: ".swagger-ui .topbar { display: none }",
+    customJsStr: 'document.title = "Income Calculator API"',
+};
+
+app.use("/api/documentation", swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerUiOptions));
 
 app.get("/api/schema", (request: Request, response: Response) => {
     response.setHeader("Content-Disposition", "attachment");
