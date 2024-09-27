@@ -9,7 +9,7 @@ import InputNumber from "primevue/inputnumber";
 import InputText from "primevue/inputtext";
 import { ref, watch } from "vue";
 import Select from "primevue/select";
-import { IncomeCalculatorApi, type TransactionCreateSerializer } from "@/api";
+import { IncomeCalculatorApi, type TransactionCreateSerializer } from "@/customApi";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
@@ -83,7 +83,8 @@ const transactionForm = ref<TransactionCreateSerializer>({
     firstLastDayOfMonth: null,
 });
 
-function openModal() {
+function openModal(type: "expense" | "income") {
+    transactionForm.value.isExpense = type === "expense";
     modalOpen.value = true;
 }
 
@@ -140,12 +141,12 @@ watch(
                 <h2 class="font-medium">Income Tracker</h2>
             </div>
             <div class="flex gap-5">
-                <Button label="Add expense">
+                <Button label="Add expense" @click="openModal('expense')">
                     <template #icon>
                         <SvgIcon type="mdi" :path="mdiPlus" />
                     </template>
                 </Button>
-                <Button label="Add income">
+                <Button label="Add income" @click="openModal('expense')">
                     <template #icon>
                         <SvgIcon type="mdi" :path="mdiPlus" />
                     </template>
@@ -169,28 +170,11 @@ watch(
     >
         <template v-slot:header>
             <div class="flex flex-col gap-2">
-                <h1 class="text-2xl font-medium">Choose transaction type</h1>
+                <h1 class="text-2xl font-medium">Add a new {{ transactionForm.isExpense ? "expense" : "income" }}</h1>
             </div>
         </template>
-        <div class="flex flex-col justify-between mt-3 gap-12">
+        <div class="flex flex-col justify-between mt-3 gap-8">
             <InputText v-model="transactionForm.name" placeholder="Name of transaction" />
-            <!-- Transaction Type -->
-            <div class="flex w-full gap-3">
-                <Button
-                    class="flex-grow w-[50%] hover:opacity-100"
-                    :class="{ 'bg-black text-white': transactionForm.isExpense === false, 'opacity-50': transactionForm.isExpense }"
-                    severity="secondary"
-                    label="Income"
-                    @click="transactionForm.isExpense = false"
-                ></Button>
-                <Button
-                    class="flex-grow w-[50%] hover:opacity-100"
-                    :class="{ 'bg-black text-white': transactionForm.isExpense, 'opacity-50': transactionForm.isExpense === false }"
-                    severity="secondary"
-                    label="Expense"
-                    @click="transactionForm.isExpense = true"
-                ></Button>
-            </div>
             <!-- One Off -->
             <div v-if="transactionForm.isExpense !== null" class="flex w-full gap-3">
                 <Button
@@ -210,7 +194,15 @@ watch(
             </div>
             <!-- Recurring -->
             <template v-if="transactionForm.isRecurring !== null && transactionForm.isRecurring">
-                <div class="flex flex-col gap-3 border-1 p-5 rounded-lg">
+                <InputNumber
+                    v-model="transactionForm.amountInPence"
+                    placeholder="Value of the payment (£)"
+                    mode="currency"
+                    currency="GBP"
+                    locale="en-GB"
+                    :min="0.01"
+                />
+                <div class="flex flex-col gap-3 rounded-lg">
                     <div class="flex justify-between gap-3">
                         <Button
                             class="flex-grow hover:opacity-100"
@@ -294,19 +286,9 @@ watch(
                             }}</b>
                         </p>
                     </div>
-                </div>
-                <div class="flex flex-col gap-5">
                     <DatePicker v-model="transactionForm.startDate" placeholder="Start Date (optional)" showIcon iconDisplay="input" />
                     <DatePicker v-model="transactionForm.finishDate" placeholder="Finish Date (optional)" showIcon iconDisplay="input" />
                 </div>
-                <InputNumber
-                    v-model="transactionForm.amountInPence"
-                    placeholder="Value of the payment (£)"
-                    mode="currency"
-                    currency="GBP"
-                    locale="en-GB"
-                    :min="0.01"
-                />
                 <div class="flex justify-between w-full">
                     <Button severity="secondary" label="Cancel" @click="closeModal" />
                     <Button label="Create" @click="createTransaction" />

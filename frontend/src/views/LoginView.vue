@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AuthenticationServer } from "@/api";
+import { AuthenticationServer } from "@/customApi";
 import router from "@/router";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";

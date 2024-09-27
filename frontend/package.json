@@ -1,34 +1,36 @@
 {
-  "name": "frontend",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build --force"
-  },
-  "dependencies": {
-    "@jamescoyle/vue-icon": "^0.1.2",
-    "@mdi/js": "^7.4.47",
-    "lodash": "^4.17.21",
-    "primevue": "^4.0.7",
-    "vue": "^3.4.29",
-    "vue-router": "^4.3.3"
-  },
-  "devDependencies": {
-    "@tsconfig/node20": "^20.1.4",
-    "@vitejs/plugin-vue": "^5.0.5",
-    "@vue/tsconfig": "^0.5.1",
-    "autoprefixer": "^10.4.20",
-    "npm-run-all2": "^6.2.0",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.12",
-    "typescript": "~5.4.0",
-    "vite": "^5.3.1",
-    "vite-plugin-vue-devtools": "^7.3.1",
-    "vue-tsc": "^2.0.21"
-  }
+    "name": "frontend",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "run-p type-check \"build-only {@}\" --",
+        "preview": "vite preview",
+        "build-only": "vite build",
+        "type-check": "vue-tsc --build --force",
+        "codegen": "rm -rf ./src/api; openapi-generator-cli generate -i ../backend/schema.json -o ./src/api -g typescript-fetch --skip-validate-spec"
+    },
+    "dependencies": {
+        "@jamescoyle/vue-icon": "^0.1.2",
+        "@mdi/js": "^7.4.47",
+        "@openapitools/openapi-generator-cli": "^2.13.9",
+        "lodash": "^4.17.21",
+        "primevue": "^4.0.7",
+        "vue": "^3.4.29",
+        "vue-router": "^4.3.3"
+    },
+    "devDependencies": {
+        "@tsconfig/node20": "^20.1.4",
+        "@vitejs/plugin-vue": "^5.0.5",
+        "@vue/tsconfig": "^0.5.1",
+        "autoprefixer": "^10.4.20",
+        "npm-run-all2": "^6.2.0",
+        "postcss": "^8.4.47",
+        "tailwindcss": "^3.4.12",
+        "typescript": "~5.4.0",
+        "vite": "^5.3.1",
+        "vite-plugin-vue-devtools": "^7.3.1",
+        "vue-tsc": "^2.0.21"
+    }
 }

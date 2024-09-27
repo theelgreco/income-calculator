@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IncomeCalculatorApi } from "@/api";
+import { IncomeCalculatorApi } from "@/customApi";
 import { onMounted, ref, defineProps, defineEmits, watch } from "vue";
 import CalendarYear from "./CalendarYear.vue";
 import CalendarMonth from "./CalendarMonth.vue";
