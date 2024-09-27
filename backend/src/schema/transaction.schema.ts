@@ -111,6 +111,7 @@
  *                  remaining:
  *                      type: number
  *                      min: 0
+ *              required: [monthName, income, expenses, remaining]
  *          minItems: 12
  *          maxItems: 12
  */
