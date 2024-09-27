@@ -27,7 +27,7 @@ async function login() {
         try {
             const { jwt } = await authServer.login({ email: email.value, password: password.value });
             localStorage.setItem("jwt", jwt);
-            router.replace("/");
+            router.replace({ name: "year", params: { year: new Date().getFullYear() } });
         } catch (err: any) {
             console.error(err);
         }

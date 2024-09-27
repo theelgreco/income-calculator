@@ -10,6 +10,9 @@ import InputText from "primevue/inputtext";
 import { ref, watch } from "vue";
 import Select from "primevue/select";
 import { IncomeCalculatorApi, type TransactionCreateSerializer } from "@/api";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 const api = new IncomeCalculatorApi();
 

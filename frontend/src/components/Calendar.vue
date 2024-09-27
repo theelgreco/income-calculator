@@ -3,6 +3,8 @@ import { IncomeCalculatorApi } from "@/api";
 import { onMounted, ref, defineProps, defineEmits, watch } from "vue";
 import CalendarYear from "./CalendarYear.vue";
 import CalendarMonth from "./CalendarMonth.vue";
+import { useRoute } from "vue-router";
+import router from "@/router";
 
 interface Props {
     updateTrigger: boolean;
@@ -19,13 +21,15 @@ interface Month {
     remaining: number;
 }
 
+const route = useRoute();
+
 const props = defineProps<Props>();
 
 const emit = defineEmits<Emits>();
 
 const api = new IncomeCalculatorApi();
 
-const year = ref<number>(new Date().getFullYear());
+const year = ref<number>(Array.isArray(route.params.year) ? parseInt(route.params.year[0]) : parseInt(route.params.year));
 
 const months = ref<Month[]>([
     {
@@ -121,6 +125,14 @@ watch(
     }
 );
 
+watch(
+    () => route.params.year,
+    async () => {
+        year.value = Array.isArray(route.params.year) ? parseInt(route.params.year[0]) : parseInt(route.params.year);
+        await getYearData();
+    }
+);
+
 onMounted(async () => {
     await getYearData();
 });
@@ -128,7 +140,7 @@ onMounted(async () => {
 
 <template>
     <div class="w-full h-full flex flex-col gap-4">
-        <CalendarYear v-model:year="year" @update:year="getYearData" />
+        <CalendarYear v-model:year="year" @update:year="router.replace({ name: 'year', params: { year } })" />
         <div class="flex flex-wrap justify-between max-w-full max-h-full gap-4">
             <CalendarMonth
                 v-for="(month, index) in months"

@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
-import LoginView from "@/views/LoginView.vue";
 import { IncomeCalculatorApi } from "@/api";
 
 const router = createRouter({
@@ -10,22 +8,20 @@ const router = createRouter({
             path: "/login",
             name: "login",
             meta: { title: "Login", requiresAuth: false },
-            component: LoginView,
+            component: () => import("@/views/LoginView.vue"),
         },
         {
             path: "/",
-            name: "home",
-            meta: { title: "Home", requiresAuth: true },
-            component: HomeView,
+            redirect: () => {
+                return new Date().getFullYear().toString();
+            },
         },
-        // {
-        //   path: '/about',
-        //   name: 'about',
-        //   // route level code-splitting
-        //   // this generates a separate chunk (About.[hash].js) for this route
-        //   // which is lazy-loaded when the route is visited.
-        //   component: () => import('../views/AboutView.vue')
-        // }
+        {
+            path: "/:year",
+            name: "year",
+            meta: { title: "Home", requiresAuth: true, hasYear: true },
+            component: () => import("@/views/YearView.vue"),
+        },
     ],
 });
 
@@ -42,6 +38,18 @@ router.beforeEach(async (to, from, next) => {
         }
     } else {
         next();
+    }
+});
+
+router.afterEach((to, from) => {
+    if (to.meta.hasYear) {
+        let { year } = to.params;
+
+        if (Array.isArray(year)) year = year[0];
+
+        if (!parseInt(year) || (parseInt(year) < 1900 && parseInt(year) > 3024)) {
+            router.replace({ name: to.name, params: { ...to.params, year: new Date().getFullYear().toString() } });
+        }
     }
 });
 
