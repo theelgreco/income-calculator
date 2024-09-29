@@ -8,7 +8,7 @@ interface LoginData extends SignUpData {}
 export class AuthenticationServer {
     // prettier-ignore
     // @ts-ignore
-    basePath : string = process.env.NODE_ENV === "production" ? "https://ftp-l4ir.onrender.com" : "http://localhost:9090"
+    basePath : string = process.env.NODE_ENV === "production" ? "https://auth-server-602v.onrender.com" : "http://localhost:9090"
     authorisationHeader = null;
 
     async signUp(data: SignUpData): Promise<any> {
