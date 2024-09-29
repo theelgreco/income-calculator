@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import e from "cors";
 import { authenticateJWT } from "./jwt/jwt";
 import { handleCustomErrors } from "./errors/middleware";
-import { getMonthData, getYearData, postNewTransaction } from "./controllers/controllers";
+import { getMonthData, getUserData, getYearData, postNewTransaction } from "./controllers/controllers";
 import swaggerUi from "swagger-ui-express";
 import { openapiSpecification } from "../swagger";
 
@@ -63,6 +63,25 @@ app.use(authenticateJWT);
 app.get("/api/validateJWT", (request: Request, response: Response) => {
     response.status(200).send({ msg: "Your JWT is valid" });
 });
+
+/**
+ * @openapi
+ * /api/user:
+ *  get:
+ *      tags:
+ *          -   Users
+ *      summary: Retrieve the user's profile information
+ *      responses:
+ *          200:
+ *              description: Success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/User'
+ *          400:
+ *              description: Bad request
+ */
+app.get("/api/user", getUserData);
 
 /**
  * @openapi
