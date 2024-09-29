@@ -1,6 +1,7 @@
 .openapi-generator-ignore
 apis/AuthenticationApi.ts
 apis/TransactionsApi.ts
+apis/UsersApi.ts
 apis/index.ts
 index.ts
 models/ApiValidateJWTGet200Response.ts
@@ -9,5 +10,6 @@ models/CreateTransactionInput.ts
 models/GetTransactionMonthResponseInner.ts
 models/GetTransactionYearResponseInner.ts
 models/Transaction.ts
+models/User.ts
 models/index.ts
 runtime.ts

@@ -6,3 +6,4 @@ export * from './CreateTransactionInput';
 export * from './GetTransactionMonthResponseInner';
 export * from './GetTransactionYearResponseInner';
 export * from './Transaction';
+export * from './User';
