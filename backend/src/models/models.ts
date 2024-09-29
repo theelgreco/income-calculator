@@ -8,6 +8,8 @@ export async function createUser(data: { user_id: string; email: string }): Prom
         return await prisma.user.create({ data: { id: data.user_id, email: data.email } });
     } catch (err) {
         throw err;
+    } finally {
+        prisma.$disconnect();
     }
 }
 
