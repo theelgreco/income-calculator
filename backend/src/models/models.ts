@@ -16,6 +16,8 @@ export async function getUser(authSlug: string): Promise<User | null> {
         return await prisma.user.findUnique({ where: { id: authSlug } });
     } catch (err: any) {
         throw err;
+    } finally {
+        prisma.$disconnect();
     }
 }
 
@@ -34,6 +36,8 @@ export async function getYearTransactions(year: number, userId: string): Promise
         return groupTransactionsByMonth(transactions, year);
     } catch (err: any) {
         throw err;
+    } finally {
+        prisma.$disconnect();
     }
 }
 
@@ -52,6 +56,8 @@ export async function getMonthTransactions(year: number, month: number, userId: 
         return groupTransactionsByDaysInMonth(transactions, year, month);
     } catch (err: any) {
         throw err;
+    } finally {
+        prisma.$disconnect();
     }
 }
 
@@ -61,5 +67,7 @@ export async function createNewTransaction(data: Omit<Transaction, "id" | "creat
         return transaction;
     } catch (err: any) {
         throw err;
+    } finally {
+        prisma.$disconnect();
     }
 }
