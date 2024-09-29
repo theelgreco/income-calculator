@@ -1,0 +1,14 @@
+name: Deploy Hook
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Make a GET request to deploy hook
+              run: curl -X GET ${{secrets.API_DEPLOY_HOOK}}
