@@ -1,30 +1,73 @@
 import { NextFunction, Request, Response } from "express";
-import { createNewTransaction, getYearTransactions } from "../models/models";
-import { NewTransactionData } from "../types/types";
-import { Transaction } from "@prisma/client";
+import { createNewTransaction, getMonthTransactions, getYearTransactions } from "../models/models";
+import { Transaction, User } from "@prisma/client";
+import { GetTransactionMonthParams, GetTransactionYearParams } from "../schema/transaction.schema";
+import { validMonthStrings } from "../constants";
 
 export function validateJWT(request: Request, response: Response) {
     response.status(200).send({ msg: "Your JWT is valid" });
 }
 
-export async function getYearData(request: Request, response: Response, next: NextFunction) {
-    const customRequest = request as Request & { user?: any };
-    const year = Number(customRequest.params?.year);
-    const id = customRequest?.user.id;
-
-    if (id && year && year.toString().length === 4) {
-        try {
-            const transactions = await getYearTransactions(year, id);
-            response.status(200).send(transactions);
-        } catch (err: any) {
-            next(err);
+export async function getYearData(
+    request: Request & { user?: User; params: GetTransactionYearParams },
+    response: Response,
+    next: NextFunction
+) {
+    try {
+        if (!request.user) {
+            throw new Error("No user provided");
         }
+
+        if (!request.params.year) {
+            throw new Error("No year provided");
+        } else if (request.params.year.length !== 4 || !parseInt(request.params.year)) {
+            throw new Error("Invalid year provided");
+        }
+
+        const id = request.user.id;
+        const year = Number(request.params.year);
+        const transactions = await getYearTransactions(year, id);
+        response.status(200).send(transactions);
+    } catch (err: any) {
+        next(err);
     }
 }
 
-export async function postNewTransaction(request: Request, response: Response, next: NextFunction) {
-    const customRequest = request as Request & { user?: any };
+export async function getMonthData(
+    request: Request & { user?: User; params: GetTransactionMonthParams },
+    response: Response,
+    next: NextFunction
+) {
+    try {
+        const monthIndex = validMonthStrings.findIndex((el) => el === request.params.month);
 
+        if (!request.user) {
+            throw new Error("No user provided");
+        }
+
+        if (!request.params.year) {
+            throw new Error("No year provided");
+        } else if (request.params.year.length !== 4 || !parseInt(request.params.year)) {
+            throw new Error("Invalid year provided");
+        }
+
+        if (!request.params.month) {
+            throw new Error("No month provided");
+        } else if (monthIndex === -1) {
+            throw new Error("Invalid month provided");
+        }
+
+        const id = request.user.id;
+        const year = Number(request.params.year);
+        const month = monthIndex;
+        const transactions = await getMonthTransactions(year, month, id);
+        response.status(200).send(transactions);
+    } catch (err: any) {
+        next(err);
+    }
+}
+
+export async function postNewTransaction(request: Request & { user?: any }, response: Response, next: NextFunction) {
     let {
         name,
         isExpense,
@@ -45,7 +88,7 @@ export async function postNewTransaction(request: Request, response: Response, n
     if (finishDate) finishDate = new Date(finishDate);
 
     const data: Omit<Transaction, "id" | "createdAt"> = {
-        userId: customRequest.user.id,
+        userId: request.user.id,
         name,
         isExpense,
         amountInPence,

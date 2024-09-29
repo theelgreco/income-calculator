@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import e from "cors";
 import { authenticateJWT } from "./jwt/jwt";
 import { handleCustomErrors } from "./errors/middleware";
-import { getYearData, postNewTransaction } from "./controllers/controllers";
+import { getMonthData, getYearData, postNewTransaction } from "./controllers/controllers";
 import swaggerUi from "swagger-ui-express";
 import { openapiSpecification } from "../swagger";
 
@@ -75,7 +75,7 @@ app.get("/api/validateJWT", (request: Request, response: Response) => {
  *          -   in: path
  *              name: year
  *              schema:
- *                  $ref: '#/components/schemas/GetTransactionYearParams'
+ *                  type: integer
  *              required: true
  *              desciption: Number representing the year to retrieve the transactions for
  *      responses:
@@ -89,6 +89,39 @@ app.get("/api/validateJWT", (request: Request, response: Response) => {
  *              description: Bad request
  */
 app.get("/api/transactions/:year", getYearData);
+
+/**
+ * @openapi
+ * /api/transactions/{year}/{month}:
+ *  get:
+ *      tags:
+ *          -   Transactions
+ *      summary: Retrieve the transactions for a user in a given month
+ *      parameters:
+ *          -   in: path
+ *              name: year
+ *              schema:
+ *                  type: integer
+ *              required: true
+ *              desciption: Number representing the year to retrieve the transactions for
+ *          -   in: path
+ *              name: month
+ *              schema:
+ *                  type: string
+ *                  enum: [january, february, march, april, may, june, july, august, september, october, november, december]
+ *              required: true
+ *              desciption: The month to retrieve the transactions for
+ *      responses:
+ *          200:
+ *              description: Success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/GetTransactionMonthResponse'
+ *          400:
+ *              description: Bad request
+ */
+app.get("/api/transactions/:year/:month", getMonthData);
 
 /**
  * @openapi

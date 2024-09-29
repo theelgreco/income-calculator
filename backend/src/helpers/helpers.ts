@@ -1,104 +1,207 @@
 import { Transaction } from "@prisma/client";
-import { addDays, addWeeks, addMonths, isWeekend, subDays } from "date-fns";
-import { MonthSerializer } from "../types/types";
+import {
+    addDays,
+    addWeeks,
+    addMonths,
+    isWeekend,
+    subDays,
+    differenceInCalendarDays,
+    differenceInCalendarWeeks,
+    differenceInCalendarMonths,
+    type Day,
+    nextDay,
+    addBusinessDays,
+    subBusinessDays,
+} from "date-fns";
+import { MonthDate, MonthSerializer } from "../types/types";
 
-// Function to get the first business day of the month
-const getFirstBusinessDay = (date: Date) => {
-    let firstDay = new Date(date.getFullYear(), date.getMonth());
-    while (isWeekend(firstDay)) {
-        firstDay = addDays(firstDay, 1); // Move forward until it's a business day
+// Function to add the ordinal suffix
+export function getOrdinalSuffix(day: number): "th" | "st" | "nd" | "rd" {
+    if (day > 3 && day < 21) return "th"; // Deal with teens (11th, 12th, 13th, etc.)
+    switch (day % 10) {
+        case 1:
+            return "st";
+        case 2:
+            return "nd";
+        case 3:
+            return "rd";
+        default:
+            return "th";
     }
-    return firstDay;
-};
-
-// Function to get the last business day of the month
-const getLastBusinessDayOfMonth = (date: Date) => {
-    let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0); // Last day of the month
-    while (isWeekend(lastDay)) {
-        lastDay = subDays(lastDay, 1); // Move back until it's a business day
-    }
-    return lastDay;
-};
+}
 
 // Function to get transaction dates for the year and populate months
-export const getTransactionDatesInYear = (transaction: Transaction, months: MonthSerializer[], year: number) => {
-    const {
-        isExpense,
-        recurrenceType,
-        recurrenceRate,
-        startDate,
-        finishDate,
-        specificDayOfWeek,
-        specificDayOfMonth,
-        firstLastDayOfMonth,
-        amountInPence,
-    } = transaction;
+export const getTransactionDatesInYear = (transaction: Transaction, months: MonthSerializer[], year: number): void => {
+    const { isExpense, recurrenceType, recurrenceRate, startDate, finishDate, amountInPence } = transaction as {
+        isExpense: boolean;
+        recurrenceType: "day" | "week" | "month";
+        recurrenceRate: number;
+        startDate?: Date;
+        finishDate?: Date;
+        amountInPence: number;
+    };
+
+    const firstDayOfYear: Date = new Date(year, 0);
+    const lastDayOfYear = new Date(year, 11);
+
+    const start = startDate ?? firstDayOfYear;
 
     // Set the current year and initialize the starting date
     // @ts-ignore
-    let currentDate: Date = startDate ? new Date(Math.max(new Date(`${year}-01-01`), startDate)) : new Date(`${year}-01-01`); // Start from Jan 1st or the transaction start date
+    let currentDate: Date = startDate ? new Date(Math.max(firstDayOfYear, startDate)) : firstDayOfYear;
 
     // Limit the end date to the end of the year or finish date (if provided)
     // @ts-ignore
-    const endDate: Date = finishDate ? new Date(Math.min(new Date(`${year}-12-31`), finishDate)) : new Date(`${year}-12-31`);
+    const endDate: Date = finishDate ? new Date(Math.min(lastDayOfYear, finishDate)) : lastDayOfYear;
 
-    // Daily recurrence
-    if (recurrenceType === "day" && recurrenceRate) {
-        while (currentDate <= endDate) {
-            const monthIndex = currentDate.getMonth();
-            isExpense ? (months[monthIndex].expenses += amountInPence) : (months[monthIndex].income += amountInPence);
-            currentDate = addDays(currentDate, recurrenceRate);
+    const fnMap = {
+        day: {
+            difference: differenceInCalendarDays,
+            add: addDays,
+        },
+        week: {
+            difference: differenceInCalendarWeeks,
+            add: addWeeks,
+        },
+        month: {
+            difference: differenceInCalendarMonths,
+            add: addMonths,
+        },
+    };
+
+    if (start < firstDayOfYear) {
+        // calculate the difference in recurrence type between start date and first day of year
+        let difference: number = fnMap[recurrenceType].difference(firstDayOfYear, start);
+
+        // add 1 recurrence type to current date until difference is a multiple of recurrence rate
+        while (difference % recurrenceRate !== 0) {
+            currentDate = fnMap[recurrenceType].add(currentDate, 1);
+            difference++;
         }
     }
 
-    // Weekly recurrence
-    else if (recurrenceType === "week" && recurrenceRate) {
-        // Ensure the current date matches the desired day of the week
-        while (currentDate.getDay() !== specificDayOfWeek) {
-            currentDate = addDays(currentDate, 1);
-        }
-        while (currentDate <= endDate) {
-            const monthIndex = currentDate.getMonth();
-            isExpense ? (months[monthIndex].expenses += amountInPence) : (months[monthIndex].income += amountInPence);
-            currentDate = addWeeks(currentDate, recurrenceRate);
+    while (currentDate <= endDate) {
+        const monthIndex = currentDate.getMonth();
+        isExpense ? (months[monthIndex].expenses += amountInPence) : (months[monthIndex].income += amountInPence);
+        currentDate = fnMap[recurrenceType].add(currentDate, recurrenceRate);
+    }
+};
+
+export const getTransactionDatesInMonth = (transaction: Transaction, daysInMonth: MonthDate[], year: number, month: number): void => {
+    const { recurrenceType, recurrenceRate, startDate, finishDate, specificDayOfWeek, specificDayOfMonth, firstLastDayOfMonth } =
+        transaction as {
+            recurrenceType: "day" | "week" | "month";
+            recurrenceRate: number;
+            startDate?: Date;
+            finishDate?: Date;
+            specificDayOfWeek?: number;
+            specificDayOfMonth?: number;
+            firstLastDayOfMonth?: "first_business" | "last_business" | "last" | "specific";
+        };
+
+    const firstDayOfMonth: Date = new Date(year, month);
+    const lastDayOfMonth = new Date(year, month + 1, 0);
+
+    const start = startDate ?? firstDayOfMonth;
+
+    // Set the current year and initialize the starting date
+    // @ts-ignore
+    let currentDate: Date = startDate ? new Date(Math.max(firstDayOfMonth, startDate)) : firstDayOfMonth;
+
+    // Limit the end date to the end of the month or finish date (if provided)
+    // @ts-ignore
+    const endDate: Date = finishDate ? new Date(Math.min(lastDayOfMonth, finishDate)) : lastDayOfMonth;
+
+    const fnMap = {
+        day: {
+            difference: differenceInCalendarDays,
+            add: addDays,
+        },
+        week: {
+            difference: differenceInCalendarWeeks,
+            add: addWeeks,
+        },
+        month: {
+            difference: differenceInCalendarMonths,
+            add: addMonths,
+        },
+    };
+
+    if (start < firstDayOfMonth) {
+        // calculate the difference in recurrence type between start date and first day of month
+        let difference: number = fnMap[recurrenceType].difference(firstDayOfMonth, start);
+
+        // add 1 recurrence type to current date until difference is a multiple of recurrence rate
+        while (difference % recurrenceRate !== 0 && currentDate <= lastDayOfMonth) {
+            currentDate = fnMap[recurrenceType].add(currentDate, 1);
+            difference++;
         }
     }
 
-    // Monthly recurrence
-    else if (recurrenceType === "month" && recurrenceRate) {
-        while (currentDate <= endDate) {
-            const monthIndex = currentDate.getMonth();
-            if (firstLastDayOfMonth === "first_business") {
-                const firstBusinessDay = getFirstBusinessDay(currentDate); // Get first day of the month
-                isExpense ? (months[monthIndex].expenses += amountInPence) : (months[monthIndex].income += amountInPence);
+    // Only add the transaction if it is in the month
+    if (currentDate <= lastDayOfMonth) {
+        // Set the day to the specific day of week, if it is not already
+        if (recurrenceType === "week" && currentDate.getDay() !== specificDayOfWeek) {
+            currentDate = nextDay(currentDate, specificDayOfWeek as Day);
+        } else if (recurrenceType === "month") {
+            if (firstLastDayOfMonth === "first_business" && isWeekend(currentDate)) {
+                currentDate = addBusinessDays(currentDate, 1);
             } else if (firstLastDayOfMonth === "last_business") {
-                const lastBusinessDay = getLastBusinessDayOfMonth(currentDate);
-                isExpense ? (months[monthIndex].expenses += amountInPence) : (months[monthIndex].income += amountInPence);
+                currentDate = isWeekend(lastDayOfMonth) ? subBusinessDays(lastDayOfMonth, 1) : lastDayOfMonth;
             } else if (firstLastDayOfMonth === "last") {
-                const lastDay = new Date(currentDate.getFullYear(), monthIndex + 1, 0); // Get last day of the month
-                isExpense ? (months[monthIndex].expenses += amountInPence) : (months[monthIndex].income += amountInPence);
-            } else if (specificDayOfMonth) {
-                const dayInMonth = Math.min(specificDayOfMonth, new Date(currentDate.getFullYear(), monthIndex + 1, 0).getDate()); // Adjust if specific day exceeds month's days
-                const date = new Date(currentDate.getFullYear(), monthIndex, dayInMonth);
-                if (date <= endDate) {
-                    isExpense ? (months[monthIndex].expenses += amountInPence) : (months[monthIndex].income += amountInPence);
-                }
+                currentDate = lastDayOfMonth;
+            } else if (firstLastDayOfMonth === "specific") {
+                currentDate = new Date(year, month, specificDayOfMonth);
             }
-            currentDate = addMonths(currentDate, recurrenceRate);
         }
+
+        while (currentDate <= endDate) {
+            const dateIndex = currentDate.getDate() - 1;
+            daysInMonth[dateIndex].transactions.push(transaction);
+            currentDate = fnMap[recurrenceType].add(currentDate, recurrenceRate);
+        }
+    }
+};
+
+export const groupTransactionsByMonth = (transactions: Transaction[], year: number): MonthSerializer[] => {
+    const months: MonthSerializer[] = [
+        { monthName: "January", income: 0, expenses: 0, remaining: 0 },
+        { monthName: "February", income: 0, expenses: 0, remaining: 0 },
+        { monthName: "March", income: 0, expenses: 0, remaining: 0 },
+        { monthName: "April", income: 0, expenses: 0, remaining: 0 },
+        { monthName: "May", income: 0, expenses: 0, remaining: 0 },
+        { monthName: "June", income: 0, expenses: 0, remaining: 0 },
+        { monthName: "July", income: 0, expenses: 0, remaining: 0 },
+        { monthName: "August", income: 0, expenses: 0, remaining: 0 },
+        { monthName: "September", income: 0, expenses: 0, remaining: 0 },
+        { monthName: "October", income: 0, expenses: 0, remaining: 0 },
+        { monthName: "November", income: 0, expenses: 0, remaining: 0 },
+        { monthName: "December", income: 0, expenses: 0, remaining: 0 },
+    ];
+
+    transactions.forEach((transaction) => {
+        getTransactionDatesInYear(transaction, months, year);
+    });
+
+    months.forEach((month) => {
+        month.remaining = month.income - month.expenses;
+    });
+
+    return months;
+};
+
+export const groupTransactionsByDaysInMonth = (transactions: Transaction[], year: number, month: number): MonthDate[] => {
+    const daysInMonth: MonthDate[] = [];
+
+    const lastDay = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDay; i++) {
+        daysInMonth.push({ date: `${i}${getOrdinalSuffix(i)}`, transactions: [] });
     }
 
-    // Yearly recurrence
-    else if (recurrenceType === "year" && recurrenceRate) {
-        while (currentDate <= endDate) {
-            const monthIndex = currentDate.getMonth();
-            if (specificDayOfMonth) {
-                const date = new Date(currentDate.getFullYear(), monthIndex, specificDayOfMonth);
-                if (date <= endDate) {
-                    isExpense ? (months[monthIndex].expenses += amountInPence) : (months[monthIndex].income += amountInPence);
-                }
-            }
-            currentDate.setFullYear(currentDate.getFullYear() + recurrenceRate);
-        }
-    }
+    transactions.forEach((transaction) => {
+        getTransactionDatesInMonth(transaction, daysInMonth, year, month);
+    });
+
+    return daysInMonth;
 };

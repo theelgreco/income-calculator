@@ -2,8 +2,9 @@ import { Secret, verify } from "jsonwebtoken";
 import { UnauthorisedError } from "../errors/errors";
 import { getUser, createUser } from "../models/models";
 import type { Request, Response, NextFunction } from "express";
+import { User } from "@prisma/client";
 
-export function authenticateJWT(request: Request, response: Response, next: NextFunction): void {
+export function authenticateJWT(request: Request & { user?: User | null }, response: Response, next: NextFunction): void {
     const authHeader = request.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
 
@@ -18,12 +19,10 @@ export function authenticateJWT(request: Request, response: Response, next: Next
             }
 
             try {
-                const customRequest = request as Request & { user?: any };
-
                 if (JWT && typeof JWT === "object") {
-                    customRequest.user = await getUser(JWT.user_id);
+                    request.user = await getUser(JWT.user_id);
 
-                    if (!customRequest.user) {
+                    if (!request.user) {
                         const userData: {
                             user_id: string;
                             email: string;
@@ -32,7 +31,7 @@ export function authenticateJWT(request: Request, response: Response, next: Next
                             email: JWT.email,
                         };
 
-                        customRequest.user = await createUser(userData);
+                        request.user = await createUser(userData);
                     }
                 }
 

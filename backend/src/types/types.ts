@@ -1,15 +1,4 @@
-import { Request } from "express";
-
-export interface UserModel {
-    id: string;
-    createdAt: Date;
-    name: string;
-    email: string;
-}
-
-export interface CustomRequest extends Request {
-    user?: UserModel;
-}
+import { Transaction } from "@prisma/client";
 
 export interface JWT {
     exp: Date;
@@ -19,15 +8,6 @@ export interface JWT {
     email: string;
     service: string;
     session_id: number;
-}
-
-export interface NewTransactionData {
-    startTime: Date;
-    finishTime: Date | null;
-    isExpense: boolean;
-    amount_in_pence: number;
-    frequency_interval_in_days: number;
-    userId: string;
 }
 
 type MonthName =
@@ -49,4 +29,9 @@ export interface MonthSerializer {
     income: number;
     expenses: number;
     remaining: number;
+}
+
+export interface MonthDate {
+    date: string;
+    transactions: Transaction[];
 }
