@@ -10,7 +10,7 @@ export function validateJWT(request: Request, response: Response) {
 
 export async function getUserData(request: Request & { user?: any }, response: Response, next: NextFunction) {
     try {
-        return await getUser(request.user.id);
+        response.status(200).send(request.user);
     } catch (err: any) {
         next(err);
     }
