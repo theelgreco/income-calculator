@@ -7,7 +7,7 @@ const defaultApiConfigurationParameters: ConfigurationParameters = {
         });
     },
     // @ts-ignore
-    basePath: process.env.NODE_ENV === "production" ? "" : "http://localhost:8080",
+    basePath: process.env.NODE_ENV === "production" ? "https://auth-server-602v.onrender.com" : "http://localhost:8080",
 };
 
 export const defaultApiConfiguration = new Configuration(defaultApiConfigurationParameters);

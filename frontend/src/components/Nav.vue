@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mdiFinance, mdiPlus } from "@mdi/js";
+import { mdiFinance, mdiMenu, mdiPlus } from "@mdi/js";
 import { ref } from "vue";
 import Button from "primevue/button";
 import SvgIcon from "@jamescoyle/vue-icon";
@@ -18,25 +18,26 @@ function openModal(value: "expense" | "income") {
 </script>
 
 <template>
-    <div class="flex h-[70px] justify-between items-center px-10 py-5 gap-5 shadow-md bg-white z-50">
+    <div class="flex h-[70px] justify-between items-center px-5 sm:px-10 py-5 gap-5 shadow-md bg-white z-50">
         <RouterLink :to="{ name: 'year' }">
             <div class="flex items-center gap-3 select-none cursor-pointer">
                 <SvgIcon type="mdi" :path="mdiFinance" />
-                <h2 class="font-medium max-sm:hidden">Income Tracker</h2>
+                <h2 class="font-medium">Income Tracker</h2>
             </div>
         </RouterLink>
         <div class="flex gap-5 items-center">
-            <Button label="Add expense" @click="openModal('expense')">
+            <Button label="Add expense" @click="openModal('expense')" class="max-sm:hidden">
                 <template #icon>
                     <SvgIcon type="mdi" :path="mdiPlus" />
                 </template>
             </Button>
-            <Button label="Add income" @click="openModal('income')">
+            <Button label="Add income" @click="openModal('income')" class="max-sm:hidden">
                 <template #icon>
                     <SvgIcon type="mdi" :path="mdiPlus" />
                 </template>
             </Button>
-            <ProfileAvatar />
+            <ProfileAvatar class="max-sm:hidden" />
+            <SvgIcon type="mdi" :path="mdiMenu" class="cursor-pointer hover:bg-grays-light-100 sm:hidden" />
         </div>
     </div>
     <CreateTransactionDialog v-model:expenseType="expenseType" v-model:modalOpen="modalOpen" />

@@ -37,11 +37,12 @@ onMounted(() => {
         v-if="user"
         @click="(event) => popover.toggle(event)"
         class="w-[40px] h-[40px] rounded-full bg-grays-light-100 border-1 border-grays-light-400 cursor-pointer hover:bg-grays-light-200"
-    ></div>
-    <Popover ref="popover">
-        <div class="flex flex-col gap-5">
-            <p>{{ user?.email }}</p>
-            <Button label="Sign out" @click="logout"></Button>
-        </div>
-    </Popover>
+    >
+        <Popover ref="popover">
+            <div class="flex flex-col gap-5">
+                <p>{{ user?.email }}</p>
+                <Button label="Sign out" @click="logout"></Button>
+            </div>
+        </Popover>
+    </div>
 </template>

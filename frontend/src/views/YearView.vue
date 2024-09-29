@@ -6,5 +6,5 @@ const updateTrigger = ref(false);
 </script>
 
 <template>
-    <Calendar v-model:updateTrigger="updateTrigger" class="px-10" />
+    <Calendar v-model:updateTrigger="updateTrigger" class="px-5 sm:px-10" />
 </template>
