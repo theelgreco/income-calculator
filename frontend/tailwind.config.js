@@ -107,6 +107,9 @@ export default {
                 "1/2": "0.5px",
                 1: "1px",
             },
+            outlineWidth: {
+                1: "1px",
+            },
         },
         screens: {
             "2xs": "384px",

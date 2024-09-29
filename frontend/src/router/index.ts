@@ -8,7 +8,7 @@ const router = createRouter({
         {
             path: "/login",
             name: "login",
-            meta: { title: "Login", requiresAuth: false },
+            meta: { title: "Login", requiresAuth: false, showNav: false },
             component: () => import("@/views/LoginView.vue"),
         },
         {
@@ -26,13 +26,13 @@ const router = createRouter({
                 {
                     path: ":year",
                     name: "year",
-                    meta: { title: "Home", requiresAuth: true, hasYear: true },
+                    meta: { title: "Home", requiresAuth: true, hasYear: true, showNav: true },
                     component: () => import("@/views/YearView.vue"),
                 },
                 {
                     path: ":year/:month",
                     name: "month",
-                    meta: { title: "Month", requiresAuth: true, hasYear: true, hasMonth: true },
+                    meta: { title: "Month", requiresAuth: true, hasYear: true, hasMonth: true, showNav: true },
                     component: () => import("@/views/MonthView.vue"),
                 },
             ],
