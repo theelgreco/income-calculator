@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
-import { IncomeCalculatorApi } from "@/customApi";
 import { AuthenticationApi } from "@/api";
 import { defaultApiConfiguration } from "@/fetch";
 
@@ -15,14 +14,28 @@ const router = createRouter({
         {
             path: "/",
             redirect: () => {
-                return new Date().getFullYear().toString();
+                return `calendar/${new Date().getFullYear().toString()}`;
             },
         },
         {
-            path: "/:year",
-            name: "year",
-            meta: { title: "Home", requiresAuth: true, hasYear: true },
-            component: () => import("@/views/YearView.vue"),
+            path: "/calendar",
+            redirect: () => {
+                return `calendar/${new Date().getFullYear().toString()}`;
+            },
+            children: [
+                {
+                    path: ":year",
+                    name: "year",
+                    meta: { title: "Home", requiresAuth: true, hasYear: true },
+                    component: () => import("@/views/YearView.vue"),
+                },
+                {
+                    path: ":year/:month",
+                    name: "month",
+                    meta: { title: "Month", requiresAuth: true, hasYear: true, hasMonth: true },
+                    component: () => import("@/views/MonthView.vue"),
+                },
+            ],
         },
     ],
 });
@@ -50,8 +63,39 @@ router.afterEach((to, from) => {
 
         if (Array.isArray(year)) year = year[0];
 
-        if (!parseInt(year) || (parseInt(year) < 1900 && parseInt(year) > 3024)) {
+        const parsedYear = parseInt(year);
+
+        if (!parsedYear || (parsedYear < 1900 && parsedYear > 3024)) {
             router.replace({ name: to.name, params: { ...to.params, year: new Date().getFullYear().toString() } });
+        }
+    }
+
+    if (to.meta.hasMonth) {
+        const monthNames = [
+            "january",
+            "february",
+            "march",
+            "april",
+            "may",
+            "june",
+            "july",
+            "august",
+            "september",
+            "october",
+            "november",
+            "december",
+        ];
+
+        let { month } = to.params;
+
+        if (Array.isArray(month)) month = month[0];
+
+        const monthLower = month.toLowerCase();
+
+        if (!monthNames.includes(monthLower)) {
+            router.replace({ name: to.name, params: { ...to.params, month: monthNames[new Date().getMonth()] } });
+        } else if (!monthNames.includes(month)) {
+            router.replace({ name: to.name, params: { ...to.params, month: monthLower } });
         }
     }
 });

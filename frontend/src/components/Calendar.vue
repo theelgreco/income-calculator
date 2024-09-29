@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { IncomeCalculatorApi } from "@/customApi";
 import { onMounted, ref, defineProps, defineEmits, watch } from "vue";
 import CalendarYear from "./CalendarYear.vue";
 import CalendarMonth from "./CalendarMonth.vue";
@@ -7,6 +6,7 @@ import { useRoute } from "vue-router";
 import router from "@/router";
 import { TransactionsApi, type GetTransactionYearResponseInner } from "@/api";
 import { defaultApiConfiguration } from "@/fetch";
+import { RouterLink } from "vue-router";
 
 interface Props {
     updateTrigger: boolean;
@@ -21,8 +21,6 @@ const route = useRoute();
 const props = defineProps<Props>();
 
 const emit = defineEmits<Emits>();
-
-const api = new IncomeCalculatorApi();
 
 const transactionsApi = new TransactionsApi(defaultApiConfiguration);
 
@@ -139,16 +137,20 @@ onMounted(async () => {
     <div class="w-full h-full flex flex-col gap-4">
         <CalendarYear v-model:year="year" @update:year="router.replace({ name: 'year', params: { year } })" />
         <div class="flex flex-wrap justify-between max-w-full max-h-full gap-4">
-            <CalendarMonth
-                v-for="(month, index) in months"
+            <RouterLink
                 class="min-w-[300px] max-w-full w-[30%] flex-grow"
-                :key="month.monthName"
-                :monthName="month.monthName"
-                :income="month.income"
-                :expenses="month.expenses"
-                :remaining="month.remaining"
-                :isCurrentMonth="new Date().getMonth() === index"
-            />
+                v-for="(month, index) in months"
+                :to="{ name: 'month', params: { year, month: month.monthName } }"
+            >
+                <CalendarMonth
+                    :key="month.monthName"
+                    :monthName="month.monthName"
+                    :income="month.income"
+                    :expenses="month.expenses"
+                    :remaining="month.remaining"
+                    :isCurrentMonth="new Date().getMonth() === index"
+                />
+            </RouterLink>
         </div>
     </div>
 </template>

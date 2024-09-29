@@ -137,9 +137,9 @@ watch(
 <template>
     <main class="w-full h-full flex flex-col gap-5 overscroll-none">
         <div class="flex h-[70px] justify-between items-center px-10 py-5 gap-5 shadow-md sticky top-0 bg-white z-50">
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 select-none">
                 <SvgIcon type="mdi" :path="mdiFinance" />
-                <h2 class="font-medium">Income Tracker</h2>
+                <h2 class="font-medium max-sm:hidden">Income Tracker</h2>
             </div>
             <div class="flex gap-5">
                 <Button label="Add expense" @click="openModal('expense')">
@@ -147,7 +147,7 @@ watch(
                         <SvgIcon type="mdi" :path="mdiPlus" />
                     </template>
                 </Button>
-                <Button label="Add income" @click="openModal('expense')">
+                <Button label="Add income" @click="openModal('income')">
                     <template #icon>
                         <SvgIcon type="mdi" :path="mdiPlus" />
                     </template>

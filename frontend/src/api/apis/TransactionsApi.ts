@@ -16,16 +16,19 @@
 import * as runtime from '../runtime';
 import type {
   CreateTransactionInput,
-  CreateTransactionResponse,
+  GetTransactionMonthResponseInner,
   GetTransactionYearResponseInner,
+  Transaction,
 } from '../models/index';
 import {
     CreateTransactionInputFromJSON,
     CreateTransactionInputToJSON,
-    CreateTransactionResponseFromJSON,
-    CreateTransactionResponseToJSON,
+    GetTransactionMonthResponseInnerFromJSON,
+    GetTransactionMonthResponseInnerToJSON,
     GetTransactionYearResponseInnerFromJSON,
     GetTransactionYearResponseInnerToJSON,
+    TransactionFromJSON,
+    TransactionToJSON,
 } from '../models/index';
 
 export interface ApiTransactionsPostRequest {
@@ -36,6 +39,11 @@ export interface ApiTransactionsYearGetRequest {
     year: number;
 }
 
+export interface ApiTransactionsYearMonthGetRequest {
+    year: number;
+    month: ApiTransactionsYearMonthGetMonthEnum;
+}
+
 /**
  * 
  */
@@ -44,7 +52,7 @@ export class TransactionsApi extends runtime.BaseAPI {
     /**
      * Create a new transaction
      */
-    async apiTransactionsPostRaw(requestParameters: ApiTransactionsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateTransactionResponse>> {
+    async apiTransactionsPostRaw(requestParameters: ApiTransactionsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Transaction>> {
         if (requestParameters['createTransactionInput'] == null) {
             throw new runtime.RequiredError(
                 'createTransactionInput',
@@ -74,13 +82,13 @@ export class TransactionsApi extends runtime.BaseAPI {
             body: CreateTransactionInputToJSON(requestParameters['createTransactionInput']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CreateTransactionResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => TransactionFromJSON(jsonValue));
     }
 
     /**
      * Create a new transaction
      */
-    async apiTransactionsPost(requestParameters: ApiTransactionsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateTransactionResponse> {
+    async apiTransactionsPost(requestParameters: ApiTransactionsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Transaction> {
         const response = await this.apiTransactionsPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -126,4 +134,71 @@ export class TransactionsApi extends runtime.BaseAPI {
         return await response.value();
     }
 
+    /**
+     * Retrieve the transactions for a user in a given month
+     */
+    async apiTransactionsYearMonthGetRaw(requestParameters: ApiTransactionsYearMonthGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GetTransactionMonthResponseInner>>> {
+        if (requestParameters['year'] == null) {
+            throw new runtime.RequiredError(
+                'year',
+                'Required parameter "year" was null or undefined when calling apiTransactionsYearMonthGet().'
+            );
+        }
+
+        if (requestParameters['month'] == null) {
+            throw new runtime.RequiredError(
+                'month',
+                'Required parameter "month" was null or undefined when calling apiTransactionsYearMonthGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/api/transactions/{year}/{month}`.replace(`{${"year"}}`, encodeURIComponent(String(requestParameters['year']))).replace(`{${"month"}}`, encodeURIComponent(String(requestParameters['month']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GetTransactionMonthResponseInnerFromJSON));
+    }
+
+    /**
+     * Retrieve the transactions for a user in a given month
+     */
+    async apiTransactionsYearMonthGet(requestParameters: ApiTransactionsYearMonthGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetTransactionMonthResponseInner>> {
+        const response = await this.apiTransactionsYearMonthGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
 }
+
+/**
+ * @export
+ */
+export const ApiTransactionsYearMonthGetMonthEnum = {
+    January: 'january',
+    February: 'february',
+    March: 'march',
+    April: 'april',
+    May: 'may',
+    June: 'june',
+    July: 'july',
+    August: 'august',
+    September: 'september',
+    October: 'october',
+    November: 'november',
+    December: 'december'
+} as const;
+export type ApiTransactionsYearMonthGetMonthEnum = typeof ApiTransactionsYearMonthGetMonthEnum[keyof typeof ApiTransactionsYearMonthGetMonthEnum];

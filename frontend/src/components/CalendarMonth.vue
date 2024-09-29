@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, defineEmits } from "vue";
 
 interface Props {
     monthName: string;
