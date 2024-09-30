@@ -24,6 +24,9 @@ function createUser(data) {
         catch (err) {
             throw err;
         }
+        finally {
+            connect_1.prisma.$disconnect();
+        }
     });
 }
 function getUser(authSlug) {
@@ -33,6 +36,9 @@ function getUser(authSlug) {
         }
         catch (err) {
             throw err;
+        }
+        finally {
+            connect_1.prisma.$disconnect();
         }
     });
 }
@@ -53,6 +59,9 @@ function getYearTransactions(year, userId) {
         catch (err) {
             throw err;
         }
+        finally {
+            connect_1.prisma.$disconnect();
+        }
     });
 }
 function getMonthTransactions(year, month, userId) {
@@ -72,6 +81,9 @@ function getMonthTransactions(year, month, userId) {
         catch (err) {
             throw err;
         }
+        finally {
+            connect_1.prisma.$disconnect();
+        }
     });
 }
 function createNewTransaction(data) {
@@ -82,6 +94,9 @@ function createNewTransaction(data) {
         }
         catch (err) {
             throw err;
+        }
+        finally {
+            connect_1.prisma.$disconnect();
         }
     });
 }

@@ -11,14 +11,18 @@ const middleware_1 = require("./errors/middleware");
 const controllers_1 = require("./controllers/controllers");
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_1 = require("../swagger");
+const path_1 = __importDefault(require("path"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
+const publicDir = path_1.default.resolve(__dirname, "..", "public");
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
+app.use(express_1.default.static(publicDir));
 const swaggerUiOptions = {
     customCss: ".swagger-ui .topbar { display: none }",
-    customJsStr: 'document.title = "Income Calculator API"',
+    customJsStr: 'document.title = "Income Calculator API"; const icons = document.querySelectorAll("link[rel=icon]"); icons.forEach((icon) => {icon.type = "image/x-icon"; icon.href="/favicon.ico"})',
+    customFavIcon: "/favicon.ico",
 };
 app.use("/api/documentation", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.openapiSpecification, swaggerUiOptions));
 app.get("/api/schema", (request, response) => {
