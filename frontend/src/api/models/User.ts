@@ -37,6 +37,12 @@ export interface User {
      * @memberof User
      */
     email: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    image: string;
 }
 
 /**
@@ -46,6 +52,7 @@ export function instanceOfUser(value: object): value is User {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('email' in value) || value['email'] === undefined) return false;
+    if (!('image' in value) || value['image'] === undefined) return false;
     return true;
 }
 
@@ -62,6 +69,7 @@ export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User
         'id': json['id'],
         'createdAt': (new Date(json['createdAt'])),
         'email': json['email'],
+        'image': json['image'],
     };
 }
 
@@ -74,6 +82,7 @@ export function UserToJSON(value?: User | null): any {
         'id': value['id'],
         'createdAt': ((value['createdAt']).toISOString()),
         'email': value['email'],
+        'image': value['image'],
     };
 }
 
