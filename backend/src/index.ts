@@ -7,18 +7,24 @@ import { handleCustomErrors } from "./errors/middleware";
 import { getMonthData, getUserData, getYearData, postNewTransaction } from "./controllers/controllers";
 import swaggerUi from "swagger-ui-express";
 import { openapiSpecification } from "../swagger";
+import path from "path";
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
+const publicDir = path.resolve(__dirname, "..", "public");
+
 app.use(express.json());
 app.use(e());
+app.use(express.static(publicDir));
 
 const swaggerUiOptions = {
     customCss: ".swagger-ui .topbar { display: none }",
-    customJsStr: 'document.title = "Income Calculator API"',
+    customJsStr:
+        'document.title = "Income Calculator API"; const icons = document.querySelectorAll("link[rel=icon]"); icons.forEach((icon) => {icon.type = "image/x-icon"; icon.href="/favicon.ico"})',
+    customFavIcon: "/favicon.ico",
 };
 
 app.use("/api/documentation", swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerUiOptions));
