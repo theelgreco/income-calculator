@@ -23,7 +23,7 @@ app.use(express.static(publicDir));
 const swaggerUiOptions = {
     customCss: ".swagger-ui .topbar { display: none }",
     customJsStr:
-        'document.title = "Income Calculator API"; const icons = document.querySelectorAll("link[rel=icon]"); icons.forEach((icon) => {icon.type = "image/x-icon"; icon.href="/favicon.ico"})',
+        'document.title = "Income Calculator API"; const icons = document.querySelectorAll("link[rel=icon]"); icons.forEach((icon) => {icon.type = "image/x-icon"; icon.href="/favicon.ico; delete icon.sizes"})',
     customFavIcon: "/favicon.ico",
 };
 
