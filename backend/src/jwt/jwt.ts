@@ -26,10 +26,12 @@ export function authenticateJWT(request: Request & { user?: User | null }, respo
                     if (!request.user) {
                         const userData: {
                             user_id: string;
+                            username: string;
                             email: string;
                             image: string;
                         } = {
                             user_id: JWT.user_id,
+                            username: JWT.username,
                             email: JWT.email,
                             image: getDefaultUserImage(),
                         };
