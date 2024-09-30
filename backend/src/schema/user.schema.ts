@@ -14,7 +14,6 @@
  *                  format: date-time
  *              username:
  *                  type: string
- *                  format: email
  *              email:
  *                  type: string
  *                  format: email
