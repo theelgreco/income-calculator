@@ -7,14 +7,16 @@ import { ref } from "vue";
 
 const authServer = new AuthenticationServer();
 
+const username = ref<string | null>(null);
+
 const email = ref<string | null>(null);
 
 const password = ref<string | null>(null);
 
 async function signUp() {
-    if (email.value && password.value) {
+    if (username.value && email.value && password.value) {
         try {
-            await authServer.signUp({ email: email.value, password: password.value });
+            await authServer.signUp({ email: email.value, password: password.value, username: username.value });
             await login();
         } catch (err: any) {
             console.error(err);
@@ -23,9 +25,9 @@ async function signUp() {
 }
 
 async function login() {
-    if (email.value && password.value) {
+    if (username.value && email.value && password.value) {
         try {
-            const { jwt } = await authServer.login({ email: email.value, password: password.value });
+            const { jwt } = await authServer.login({ email: email.value, password: password.value, username: username.value });
             localStorage.setItem("jwt", jwt);
             router.replace({ name: "year", params: { year: new Date().getFullYear() } });
         } catch (err: any) {
@@ -41,6 +43,10 @@ async function login() {
             <h1 class="text-3xl">Login</h1>
             <form @submit.prevent="login" class="flex flex-col gap-12">
                 <div class="flex flex-col gap-5">
+                    <div class="flex flex-col">
+                        <label for="username">Username</label>
+                        <InputText v-model="username" id="username" />
+                    </div>
                     <div class="flex flex-col">
                         <label for="email">Email</label>
                         <InputText v-model="email" id="email" />

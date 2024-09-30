@@ -5,6 +5,8 @@ import { onMounted, ref } from "vue";
 import Popover from "primevue/popover";
 import Button from "primevue/button";
 import { useRouter } from "vue-router";
+import SvgIcon from "@jamescoyle/vue-icon";
+import { mdiCog } from "@mdi/js";
 
 const router = useRouter();
 
@@ -40,7 +42,15 @@ onMounted(() => {
     >
         <img :src="user.image" />
         <Popover ref="popover">
-            <div class="flex flex-col gap-5">
+            <div class="relative flex flex-col gap-5">
+                <SvgIcon
+                    type="mdi"
+                    :path="mdiCog"
+                    class="absolute right-0 top-0 cursor-pointer text-grays-light-400 hover:text-grays-light-600 transition-all"
+                />
+                <div class="w-[70px] h-[70px] mx-auto">
+                    <img :src="user.image" class="outline outline-2 outline-purple-700 rounded-full" />
+                </div>
                 <p>{{ user?.email }}</p>
                 <Button label="Sign out" @click="logout"></Button>
             </div>
