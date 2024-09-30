@@ -1,5 +1,5 @@
 import express from "express";
-import type { Express, NextFunction, Request, Response } from "express";
+import type { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import e from "cors";
 import { authenticateJWT } from "./jwt/jwt";

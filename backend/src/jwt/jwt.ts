@@ -3,6 +3,7 @@ import { UnauthorisedError } from "../errors/errors";
 import { getUser, createUser } from "../models/models";
 import type { Request, Response, NextFunction } from "express";
 import { User } from "@prisma/client";
+import { getDefaultUserImage } from "../firebase/storage";
 
 export function authenticateJWT(request: Request & { user?: User | null }, response: Response, next: NextFunction): void {
     const authHeader = request.headers.authorization;
@@ -26,9 +27,11 @@ export function authenticateJWT(request: Request & { user?: User | null }, respo
                         const userData: {
                             user_id: string;
                             email: string;
+                            image: string;
                         } = {
                             user_id: JWT.user_id,
                             email: JWT.email,
+                            image: getDefaultUserImage(),
                         };
 
                         request.user = await createUser(userData);

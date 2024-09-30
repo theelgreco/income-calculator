@@ -18,4 +18,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app: FirebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+if (process.env.NODE_ENV === "production") {
+    getAnalytics(app);
+}

@@ -4,7 +4,7 @@
  *  schemas:
  *      User:
  *          type: object
- *          required: [id, createdAt, email]
+ *          required: [id, createdAt, email, image]
  *          properties:
  *              id:
  *                  type: string
@@ -15,4 +15,7 @@
  *              email:
  *                  type: string
  *                  format: email
+ *              image:
+ *                  type: string
+ *                  format: uri
  */

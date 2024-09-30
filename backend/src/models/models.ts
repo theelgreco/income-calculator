@@ -3,9 +3,9 @@ import { prisma } from "../../prisma/connect";
 import { groupTransactionsByDaysInMonth, groupTransactionsByMonth } from "../helpers/helpers";
 import { MonthSerializer } from "../types/types";
 
-export async function createUser(data: { user_id: string; email: string }): Promise<User> {
+export async function createUser(data: { user_id: string; email: string; image: string }): Promise<User> {
     try {
-        return await prisma.user.create({ data: { id: data.user_id, email: data.email } });
+        return await prisma.user.create({ data: { id: data.user_id, email: data.email, image: data.image } });
     } catch (err) {
         throw err;
     } finally {

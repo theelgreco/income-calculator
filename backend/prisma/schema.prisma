@@ -11,6 +11,8 @@ model User {
   id           String        @id
   createdAt    DateTime      @default(now())
   email        String        @unique
+  username     String?       @unique
+  image        String?
   transactions Transaction[]
 }
 
