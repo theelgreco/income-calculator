@@ -21,7 +21,7 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.static(publicDir));
 const swaggerUiOptions = {
     customCss: ".swagger-ui .topbar { display: none }",
-    customJsStr: 'document.title = "Income Calculator API"; const icons = document.querySelectorAll("link[rel=icon]"); icons.forEach((icon) => {icon.type = "image/x-icon"; icon.href="/favicon.ico"})',
+    customJsStr: 'document.title = "Income Calculator API"; const icons = document.querySelectorAll("link[rel=icon]"); icons.forEach((icon) => {document.head.removeChild(icon)}); const link = document.createElement("link"); link.rel = "icon"; link.type = "image/x-icon"; link.href="/favicon.ico"; document.head.appendChild(link);',
     customFavIcon: "/favicon.ico",
 };
 app.use("/api/documentation", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.openapiSpecification, swaggerUiOptions));
@@ -30,6 +30,7 @@ app.get("/api/schema", (request, response) => {
     response.setHeader("Content-Type", "application/json");
     response.send(swagger_1.openapiSpecification);
 });
+// Authenticate JWT for all requests below this point
 app.use(jwt_1.authenticateJWT);
 /**
  * @openapi
