@@ -6,6 +6,7 @@
         "build": "rm -rf dist; npx tsc; cp -R public dist/public",
         "start": "npx prisma migrate deploy; node dist/src/index.js",
         "dev": "nodemon src/index.ts",
+        "firebase": "npx firebase emulators:start --import=./emulator-data --export-on-exit",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -15,6 +16,7 @@
     "devDependencies": {
         "@types/express": "^4.17.21",
         "@types/node": "^22.7.4",
+        "firebase-tools": "^13.5.0",
         "prisma": "^5.19.1",
         "ts-node": "^10.9.2",
         "typescript": "^5.6.2"
