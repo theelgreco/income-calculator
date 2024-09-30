@@ -35,6 +35,7 @@ app.get("/api/schema", (request: Request, response: Response) => {
     response.send(openapiSpecification);
 });
 
+// Authenticate JWT for all requests below this point
 app.use(authenticateJWT);
 
 /**
