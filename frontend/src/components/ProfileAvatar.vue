@@ -51,7 +51,10 @@ onMounted(() => {
                 <div class="w-[70px] h-[70px] mx-auto">
                     <img :src="user.image" class="outline outline-2 outline-purple-700 rounded-full" />
                 </div>
-                <p>{{ user?.email }}</p>
+                <div class="flex flex-col text-center">
+                    <p class="font-medium">{{ user.username }}</p>
+                    <p class="font-extralight">{{ user.email }}</p>
+                </div>
                 <Button label="Sign out" @click="logout"></Button>
             </div>
         </Popover>
