@@ -31,7 +31,7 @@ export function authenticateJWT(request: Request & { user?: User | null }, respo
                             image: string;
                         } = {
                             user_id: JWT.user_id,
-                            username: JWT.username,
+                            username: JWT.name,
                             email: JWT.email,
                             image: getDefaultUserImage(),
                         };
