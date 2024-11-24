@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
 // Import the functions you need from the SDKs you need
 const app_1 = require("firebase/app");
-const analytics_1 = require("firebase/analytics");
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
@@ -19,6 +18,3 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 exports.app = (0, app_1.initializeApp)(firebaseConfig);
-if (process.env.NODE_ENV === "production") {
-    (0, analytics_1.getAnalytics)(exports.app);
-}
