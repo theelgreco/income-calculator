@@ -165,6 +165,6 @@ app.get("/api/transactions/:year/:month", controllers_1.getMonthData);
 app.post("/api/transactions", controllers_1.postNewTransaction);
 // error-handling middleware
 app.use(middleware_1.handleCustomErrors);
-app.listen(3000, "0.0.0.0", () => {
+app.listen(port, "0.0.0.0", () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
 });
