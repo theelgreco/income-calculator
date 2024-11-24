@@ -9,7 +9,7 @@ interface LoginData extends SignUpData {}
 export class AuthenticationServer {
     // prettier-ignore
     // @ts-ignore
-    basePath : string = process.env.NODE_ENV === "production" ? "http://87.106.68.60:3000" : "http://localhost:9090"
+    basePath : string = process.env.NODE_ENV === "production" ? "https://auth.cinewhere.co.uk" : "http://localhost:9090"
     authorisationHeader = null;
 
     async signUp(data: SignUpData): Promise<any> {

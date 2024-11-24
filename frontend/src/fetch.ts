@@ -7,7 +7,7 @@ const defaultApiConfigurationParameters: ConfigurationParameters = {
         });
     },
     // @ts-ignore
-    basePath: process.env.NODE_ENV === "production" ? "http://87.106.68.60:4000" : "http://localhost:8080",
+    basePath: process.env.NODE_ENV === "production" ? "https://income.cinewhere.co.uk" : "http://localhost:8080",
 };
 
 export const defaultApiConfiguration = new Configuration(defaultApiConfigurationParameters);
