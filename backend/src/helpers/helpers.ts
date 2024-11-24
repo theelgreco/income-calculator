@@ -42,7 +42,7 @@ export const getTransactionDatesInYear = (transaction: Transaction, months: Mont
     };
 
     const firstDayOfYear: Date = new Date(year, 0);
-    const lastDayOfYear = new Date(year, 11);
+    const lastDayOfYear = new Date(year, 11, 31);
 
     const start = startDate ?? firstDayOfYear;
 
@@ -205,3 +205,17 @@ export const groupTransactionsByDaysInMonth = (transactions: Transaction[], year
 
     return daysInMonth;
 };
+
+export async function performanceTimerAsync(cb: Function, logString: string, ...args: any[]) {
+    const start = performance.now();
+    const result = await cb(...args);
+    console.log(logString, `${performance.now() - start}ms`);
+    return result;
+}
+
+export async function performanceTimer(cb: Function, logString: string, ...args: any[]) {
+    const start = performance.now();
+    const result = cb(...args);
+    console.log(logString, `${performance.now() - start}ms`);
+    return result;
+}

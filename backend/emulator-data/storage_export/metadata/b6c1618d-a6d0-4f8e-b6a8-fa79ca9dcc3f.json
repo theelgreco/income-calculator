@@ -1,0 +1,19 @@
+{
+  "name": "users/images/default.png",
+  "bucket": "income-tracker-88b7c.appspot.com",
+  "metageneration": 1,
+  "generation": 1727719030274,
+  "contentType": "image/png",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "aa1014b8-5ea6-469f-8614-8e12588bf3fa"
+  ],
+  "etag": "zLJCXhp11g1qLNep5jm5UcvQcdg",
+  "customMetadata": {},
+  "timeCreated": "2024-09-30T17:57:10.274Z",
+  "updated": "2024-09-30T17:57:10.274Z",
+  "size": 15042,
+  "md5Hash": "Ev9eTtrabPDMoGd8qEInMg==",
+  "crc32c": "3508139951"
+}

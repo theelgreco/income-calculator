@@ -1,6 +1,6 @@
 import { Transaction, User } from "@prisma/client";
 import { prisma } from "../../prisma/connect";
-import { groupTransactionsByDaysInMonth, groupTransactionsByMonth } from "../helpers/helpers";
+import { groupTransactionsByDaysInMonth, groupTransactionsByMonth, performanceTimer, performanceTimerAsync } from "../helpers/helpers";
 import { MonthSerializer } from "../types/types";
 
 export async function createUser(data: { user_id: string; username: string; email: string; image: string }): Promise<User> {
@@ -25,17 +25,28 @@ export async function getUser(authSlug: string): Promise<User | null> {
 
 export async function getYearTransactions(year: number, userId: string): Promise<MonthSerializer[]> {
     try {
-        const transactions = await prisma.transaction.findMany({
-            where: {
-                userId,
-                AND: [
-                    { OR: [{ startDate: { lte: new Date(`${year}-12-31`) } }, { startDate: null }] },
-                    { OR: [{ finishDate: { gte: new Date(`${year}-1-01`) } }, { finishDate: null }] },
-                ],
-            },
-        });
+        const s = performance.now();
 
-        return groupTransactionsByMonth(transactions, year);
+        const transactionsCB = async () => {
+            return await prisma.transaction.findMany({
+                where: {
+                    userId,
+                    AND: [
+                        { OR: [{ startDate: { lte: new Date(`${year}-12-31`) } }, { startDate: null }] },
+                        { OR: [{ finishDate: { gte: new Date(`${year}-1-01`) } }, { finishDate: null }] },
+                    ],
+                },
+            });
+        };
+
+        const transactions = await performanceTimerAsync(transactionsCB, "Query took:");
+
+        // const groupedTransactions = groupTransactionsByMonth(transactions, year);
+        const groupedTransactions = performanceTimer(groupTransactionsByMonth, "Grouping took:", transactions, year);
+
+        console.log("");
+
+        return groupedTransactions;
     } catch (err: any) {
         throw err;
     } finally {
