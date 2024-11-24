@@ -12,7 +12,7 @@ import path from "path";
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT || 3000;
+const port = Number(process.env.PORT) || 3000;
 
 const publicDir = path.resolve(__dirname, "..", "public");
 
@@ -177,6 +177,6 @@ app.post("/api/transactions", postNewTransaction);
 // error-handling middleware
 app.use(handleCustomErrors);
 
-app.listen(port, () => {
+app.listen(3000, "0.0.0.0", () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
 });
