@@ -1,7 +1,18 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.groupTransactionsByDaysInMonth = exports.groupTransactionsByMonth = exports.getTransactionDatesInMonth = exports.getTransactionDatesInYear = void 0;
 exports.getOrdinalSuffix = getOrdinalSuffix;
+exports.performanceTimerAsync = performanceTimerAsync;
+exports.performanceTimer = performanceTimer;
 const date_fns_1 = require("date-fns");
 // Function to add the ordinal suffix
 function getOrdinalSuffix(day) {
@@ -22,7 +33,7 @@ function getOrdinalSuffix(day) {
 const getTransactionDatesInYear = (transaction, months, year) => {
     const { isExpense, recurrenceType, recurrenceRate, startDate, finishDate, amountInPence } = transaction;
     const firstDayOfYear = new Date(year, 0);
-    const lastDayOfYear = new Date(year, 11);
+    const lastDayOfYear = new Date(year, 11, 31);
     const start = startDate !== null && startDate !== void 0 ? startDate : firstDayOfYear;
     // Set the current year and initialize the starting date
     // @ts-ignore
@@ -158,3 +169,19 @@ const groupTransactionsByDaysInMonth = (transactions, year, month) => {
     return daysInMonth;
 };
 exports.groupTransactionsByDaysInMonth = groupTransactionsByDaysInMonth;
+function performanceTimerAsync(cb, logString, ...args) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const start = performance.now();
+        const result = yield cb(...args);
+        console.log(logString, `${performance.now() - start}ms`);
+        return result;
+    });
+}
+function performanceTimer(cb, logString, ...args) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const start = performance.now();
+        const result = cb(...args);
+        console.log(logString, `${performance.now() - start}ms`);
+        return result;
+    });
+}

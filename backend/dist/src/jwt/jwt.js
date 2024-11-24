@@ -13,6 +13,7 @@ exports.authenticateJWT = authenticateJWT;
 const jsonwebtoken_1 = require("jsonwebtoken");
 const errors_1 = require("../errors/errors");
 const models_1 = require("../models/models");
+const storage_1 = require("../firebase/storage");
 function authenticateJWT(request, response, next) {
     const authHeader = request.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
@@ -30,7 +31,9 @@ function authenticateJWT(request, response, next) {
                     if (!request.user) {
                         const userData = {
                             user_id: JWT.user_id,
+                            username: JWT.name,
                             email: JWT.email,
+                            image: (0, storage_1.getDefaultUserImage)(),
                         };
                         request.user = yield (0, models_1.createUser)(userData);
                     }

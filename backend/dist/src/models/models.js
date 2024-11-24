@@ -19,7 +19,7 @@ const helpers_1 = require("../helpers/helpers");
 function createUser(data) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            return yield connect_1.prisma.user.create({ data: { id: data.user_id, email: data.email } });
+            return yield connect_1.prisma.user.create({ data: { id: data.user_id, email: data.email, image: data.image, username: data.username } });
         }
         catch (err) {
             throw err;
@@ -45,16 +45,23 @@ function getUser(authSlug) {
 function getYearTransactions(year, userId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const transactions = yield connect_1.prisma.transaction.findMany({
-                where: {
-                    userId,
-                    AND: [
-                        { OR: [{ startDate: { lte: new Date(`${year}-12-31`) } }, { startDate: null }] },
-                        { OR: [{ finishDate: { gte: new Date(`${year}-1-01`) } }, { finishDate: null }] },
-                    ],
-                },
+            const s = performance.now();
+            const transactionsCB = () => __awaiter(this, void 0, void 0, function* () {
+                return yield connect_1.prisma.transaction.findMany({
+                    where: {
+                        userId,
+                        AND: [
+                            { OR: [{ startDate: { lte: new Date(`${year}-12-31`) } }, { startDate: null }] },
+                            { OR: [{ finishDate: { gte: new Date(`${year}-1-01`) } }, { finishDate: null }] },
+                        ],
+                    },
+                });
             });
-            return (0, helpers_1.groupTransactionsByMonth)(transactions, year);
+            const transactions = yield (0, helpers_1.performanceTimerAsync)(transactionsCB, "Query took:");
+            // const groupedTransactions = groupTransactionsByMonth(transactions, year);
+            const groupedTransactions = (0, helpers_1.performanceTimer)(helpers_1.groupTransactionsByMonth, "Grouping took:", transactions, year);
+            console.log("");
+            return groupedTransactions;
         }
         catch (err) {
             throw err;
