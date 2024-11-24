@@ -177,6 +177,6 @@ app.post("/api/transactions", postNewTransaction);
 // error-handling middleware
 app.use(handleCustomErrors);
 
-app.listen(3000, "0.0.0.0", () => {
+app.listen(port, "0.0.0.0", () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
 });
