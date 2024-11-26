@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
+import Skeleton from "primevue/skeleton";
 
 interface Props {
     monthName: string;
-    income: number;
-    expenses: number;
-    remaining: number;
+    income: number | null;
+    expenses: number | null;
+    remaining: number | null;
     isCurrentMonth: boolean;
 }
 
@@ -21,16 +22,19 @@ const props = defineProps<Props>();
             <div class="flex flex-col justify-between">
                 <div class="flex justify-between">
                     <p class="font-extralight">Income</p>
-                    <p>£{{ income }}</p>
+                    <Skeleton v-if="income === null" width="3rem" class="bg-grays-light-200" />
+                    <p v-else>£{{ income }}</p>
                 </div>
                 <div class="flex justify-between">
                     <p class="font-extralight">Outgoings</p>
-                    <p>£{{ expenses }}</p>
+                    <Skeleton v-if="expenses === null" width="3rem" class="bg-grays-light-200" />
+                    <p v-else>£{{ expenses }}</p>
                 </div>
             </div>
             <div class="flex justify-between">
                 <p class="font-extralight">Spare</p>
-                <p class="text-4xl group-hover:font-bold transition-all">£{{ remaining }}</p>
+                <Skeleton v-if="remaining === null" width="6.5rem" height="2.5rem" class="bg-grays-light-200" />
+                <p v-else class="text-4xl group-hover:font-bold transition-all">£{{ remaining }}</p>
             </div>
         </div>
     </div>

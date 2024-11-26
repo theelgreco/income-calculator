@@ -2,7 +2,6 @@
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
 import { defineProps, defineEmits } from "vue";
-import { RouterLink } from "vue-router";
 
 interface Props {
     year: number;
@@ -24,9 +23,9 @@ const emit = defineEmits<Emits>();
         </div>
         <div class="flex flex-col gap-1 items-center">
             <h1 class="text-lg font-medium select-none">{{ year }}</h1>
-            <RouterLink v-if="year !== new Date().getFullYear()" :to="{ name: 'year', params: { year: new Date().getFullYear() } }">
+            <div v-if="year !== new Date().getFullYear()" class="cursor-pointer" @click="emit('update:year', new Date().getFullYear())">
                 Go to current year
-            </RouterLink>
+            </div>
         </div>
         <div class="p-1 cursor-pointer hover:bg-grays-light-100">
             <SvgIcon type="mdi" :path="mdiChevronRight" @click="emit('update:year', year + 1)" />
