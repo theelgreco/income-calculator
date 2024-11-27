@@ -39,27 +39,27 @@ watch(
         </RouterLink>
         <div class="flex gap-5 items-center">
             <RouterLink :to="{ name: 'transactions' }" class="h-full">
-                <Button label="My transactions" class="max-md:hidden h-full">
+                <Button label="Transactions" class="max-md:hidden h-full">
                     <template #icon>
                         <SvgIcon type="mdi" :path="mdiCardsOutline" :size="16" />
                     </template>
                 </Button>
             </RouterLink>
-            <Button label="Add transaction" class="max-md:hidden">
+            <!-- <Button label="Add transaction" class="max-md:hidden">
                 <template #icon>
                     <SvgIcon type="mdi" :path="mdiPlus" :size="16" />
                 </template>
-            </Button>
-            <!-- <Button label="Add expense" @click="openModal('expense')" class="max-sm:hidden">
-                <template #icon>
-                    <SvgIcon type="mdi" :path="mdiPlus" />
-                </template>
-            </Button>
-            <Button label="Add income" @click="openModal('income')" class="max-sm:hidden">
-                <template #icon>
-                    <SvgIcon type="mdi" :path="mdiPlus" />
-                </template>
             </Button> -->
+            <Button label="Add expense" @click="openModal('expense')" class="max-md:hidden">
+                <template #icon>
+                    <SvgIcon type="mdi" :path="mdiPlusOutline" :size="16" />
+                </template>
+            </Button>
+            <Button label="Add income" @click="openModal('income')" class="max-md:hidden">
+                <template #icon>
+                    <SvgIcon type="mdi" :path="mdiPlusOutline" :size="16" />
+                </template>
+            </Button>
             <ProfileAvatar />
             <SvgIcon type="mdi" :path="mdiMenu" class="cursor-pointer hover:bg-grays-light-100 md:hidden" @click="drawerVisible = true" />
         </div>
@@ -95,13 +95,27 @@ watch(
                     <SvgIcon type="mdi" :path="mdiCardsOutline" :size="20" class="text-grays-light-500" />
                     <p>Transactions</p>
                 </RouterLink>
-                <RouterLink
+                <!-- <RouterLink
                     :to="{ name: 'transactions' }"
                     class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded transition-all select-none"
                 >
                     <SvgIcon type="mdi" :path="mdiPlusOutline" :size="20" class="text-grays-light-500" />
                     <p>Add transaction</p>
-                </RouterLink>
+                </RouterLink> -->
+                <div
+                    class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded transition-all select-none"
+                    @click="openModal('income')"
+                >
+                    <SvgIcon type="mdi" :path="mdiPlusOutline" :size="20" class="text-grays-light-500" />
+                    <p>Add income</p>
+                </div>
+                <div
+                    class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded transition-all select-none"
+                    @click="openModal('expense')"
+                >
+                    <SvgIcon type="mdi" :path="mdiPlusOutline" :size="20" class="text-grays-light-500" />
+                    <p>Add expense</p>
+                </div>
                 <RouterLink
                     :to="{ name: 'year', params: { year: new Date().getFullYear() } }"
                     class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded transition-all select-none"
@@ -116,5 +130,5 @@ watch(
             </div>
         </template>
     </Drawer>
-    <!-- <CreateTransactionDialog v-model:expenseType="expenseType" v-model:modalOpen="modalOpen" /> -->
+    <CreateTransactionDialog v-model:expenseType="expenseType" v-model:modalOpen="modalOpen" />
 </template>
