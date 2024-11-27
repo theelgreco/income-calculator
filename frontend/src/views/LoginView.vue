@@ -39,7 +39,7 @@ async function login() {
 
 <template>
     <div class="flex flex-col items-center justify-center h-full w-full">
-        <div class="flex flex-col gap-20 border-1 border-grays-light-200 p-6 rounded min-w-[500px] max-w-full max-h-full shadow-lg">
+        <div class="flex flex-col gap-20 border-1 border-grays-light-200 p-6 rounded w-[500px] max-w-full max-h-full shadow-lg">
             <h1 class="text-3xl">Login</h1>
             <form @submit.prevent="login" class="flex flex-col gap-12">
                 <div class="flex flex-col gap-5">
@@ -56,9 +56,9 @@ async function login() {
                         <InputText v-model="password" id="password" type="password" />
                     </div>
                 </div>
-                <div class="flex mt-auto gap-5">
-                    <Button severity="secondary" label="Sign up" class="flex-grow" @click="signUp"></Button>
-                    <Button label="Login" class="flex-grow" @click="login" type="submit"></Button>
+                <div class="flex flex-col mt-auto gap-5">
+                    <Button label="Login" @click="login" type="submit"></Button>
+                    <Button severity="secondary" label="Sign up" @click="signUp"></Button>
                 </div>
             </form>
         </div>
