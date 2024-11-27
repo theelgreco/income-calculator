@@ -1,5 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { createNewTransaction, getMonthTransactions, getUser, getYearTransactions } from "../models/models";
+import {
+    createNewTransaction,
+    deleteSingleTransaction,
+    getAllTransactions,
+    getMonthTransactions,
+    getUser,
+    getYearTransactions,
+} from "../models/models";
 import { Transaction, User } from "@prisma/client";
 import { GetTransactionMonthParams, GetTransactionYearParams } from "../schema/transaction.schema";
 import { validMonthStrings } from "../constants";
@@ -114,6 +121,29 @@ export async function postNewTransaction(request: Request & { user?: any }, resp
     try {
         const transaction = await createNewTransaction(data);
         response.status(201).send(transaction);
+    } catch (err: any) {
+        next(err);
+    }
+}
+
+export async function getTransactionList(request: Request & { user?: any }, response: Response, next: NextFunction) {
+    try {
+        const transactions = await getAllTransactions(request.user.id);
+        response.status(200).send(transactions);
+    } catch (err: any) {
+        next(err);
+    }
+}
+
+export async function deleteTransaction(request: Request & { user?: any; params: { id: string } }, response: Response, next: NextFunction) {
+    try {
+        if (!request.params.id) {
+            throw new Error("No ID provided");
+        }
+
+        await deleteSingleTransaction(request.params.id, request.user.id);
+
+        response.status(204).end();
     } catch (err: any) {
         next(err);
     }

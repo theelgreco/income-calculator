@@ -84,3 +84,33 @@ export async function createNewTransaction(data: Omit<Transaction, "id" | "creat
         prisma.$disconnect();
     }
 }
+
+export async function getAllTransactions(userId: string): Promise<Transaction[]> {
+    try {
+        return await prisma.transaction.findMany({
+            where: {
+                userId,
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+        });
+    } catch (err: any) {
+        throw err;
+    } finally {
+        prisma.$disconnect();
+    }
+}
+
+export async function deleteSingleTransaction(id: string, userId: string) {
+    try {
+        await prisma.transaction.delete({
+            where: {
+                userId,
+                id,
+            },
+        });
+    } catch (err: any) {
+        console.error(err);
+    }
+}

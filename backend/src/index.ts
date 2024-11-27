@@ -4,7 +4,14 @@ import dotenv from "dotenv";
 import e from "cors";
 import { authenticateJWT } from "./jwt/jwt";
 import { handleCustomErrors } from "./errors/middleware";
-import { getMonthData, getUserData, getYearData, postNewTransaction } from "./controllers/controllers";
+import {
+    getMonthData,
+    getUserData,
+    getYearData,
+    postNewTransaction,
+    getTransactionList,
+    deleteTransaction,
+} from "./controllers/controllers";
 import swaggerUi from "swagger-ui-express";
 import { openapiSpecification } from "../swagger";
 import path from "path";
@@ -173,6 +180,50 @@ app.get("/api/transactions/:year/:month", getMonthData);
  *                  description: Bad request
  */
 app.post("/api/transactions", postNewTransaction);
+
+/**
+ * @openapi
+ * /api/transactions:
+ *  get:
+ *      tags:
+ *          -   Transactions
+ *      summary: Retrieve all user transactions
+ *      responses:
+ *          200:
+ *              description: Success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/Transaction'
+ *          400:
+ *              description: Bad request
+ */
+app.get("/api/transactions", getTransactionList);
+
+/**
+ * @openapi
+ * /api/transactions/{id}:
+ *  delete:
+ *      tags:
+ *          - Transactions
+ *      summary: Delete a transaction
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              schema:
+ *                  type: string
+ *                  format: uuid
+ *              required: true
+ *              desciption: The ID of the transaction
+ *      responses:
+ *          204:
+ *              description: Success
+ *              400:
+ *                  description: Bad request
+ */
+app.delete("/api/transactions/:id", deleteTransaction);
 
 // error-handling middleware
 app.use(handleCustomErrors);
