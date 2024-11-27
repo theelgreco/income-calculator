@@ -19,7 +19,7 @@ export default {
             "transform",
             "scale-100",
 
-            "min-w-[500px] max-w-full max-h-full",
+            "w-[500px] max-w-full max-h-full",
 
             // Maximized State
             {

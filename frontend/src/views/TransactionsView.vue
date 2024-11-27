@@ -37,7 +37,7 @@ async function deleteTransaction(id: string) {
     }
 }
 
-const confirm1 = (transaction: Transaction) => {
+const confirmDelete = (transaction: Transaction) => {
     confirm.require({
         message: `Are you sure you want to delete ${transaction.name}?`,
         header: "Delete transaction",
@@ -93,7 +93,7 @@ onMounted(() => {
                             :path="mdiTrashCanOutline"
                             class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
                             :size="18"
-                            @click="confirm1(transaction)"
+                            @click="confirmDelete(transaction)"
                         />
                     </div>
                 </div>
