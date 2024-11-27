@@ -1,5 +1,5 @@
-declare module '@jamescoyle/vue-icon' {
-    import { defineComponent } from 'vue'
+declare module "@jamescoyle/vue-icon" {
+    import { defineComponent } from "vue";
 
     export interface IconProps {
         type?: string;
@@ -7,7 +7,7 @@ declare module '@jamescoyle/vue-icon' {
         size?: string | number;
         viewbox?: string;
         flip?: string;
-        rotate?: number; 
+        rotate?: number;
     }
 
     const SvgIcon: defineComponent<IconProps>;

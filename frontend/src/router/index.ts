@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import { AuthenticationApi } from "@/api";
 import { defaultApiConfiguration } from "@/fetch";
 
@@ -36,6 +36,12 @@ const router = createRouter({
                     component: () => import("@/views/MonthView.vue"),
                 },
             ],
+        },
+        {
+            path: "/transactions",
+            name: "transactions",
+            meta: { title: "Transactions", requiresAuth: true, showNav: true },
+            component: () => import("@/views/TransactionsView.vue"),
         },
     ],
 });

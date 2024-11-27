@@ -19,13 +19,16 @@ function openModal(value: "expense" | "income") {
 
 <template>
     <div class="flex h-[70px] justify-between items-center px-5 sm:px-10 py-5 gap-5 shadow-md bg-white z-50">
-        <RouterLink :to="{ name: 'year' }">
+        <RouterLink :to="{ name: 'year', params: { year: new Date().getFullYear() } }">
             <div class="flex items-center gap-3 select-none cursor-pointer">
                 <SvgIcon type="mdi" :path="mdiFinance" />
                 <h2 class="font-medium">Income Tracker</h2>
             </div>
         </RouterLink>
         <div class="flex gap-5 items-center">
+            <RouterLink :to="{ name: 'transactions' }" class="h-full">
+                <Button label="Transactions" class="max-sm:hidden h-full"></Button>
+            </RouterLink>
             <Button label="Add expense" @click="openModal('expense')" class="max-sm:hidden">
                 <template #icon>
                     <SvgIcon type="mdi" :path="mdiPlus" />

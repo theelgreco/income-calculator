@@ -31,6 +31,10 @@ import {
     TransactionToJSON,
 } from '../models/index';
 
+export interface ApiTransactionsIdDeleteRequest {
+    id: string;
+}
+
 export interface ApiTransactionsPostRequest {
     createTransactionInput: CreateTransactionInput;
 }
@@ -48,6 +52,80 @@ export interface ApiTransactionsYearMonthGetRequest {
  * 
  */
 export class TransactionsApi extends runtime.BaseAPI {
+
+    /**
+     * Retrieve all user transactions
+     */
+    async apiTransactionsGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Transaction>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/api/transactions`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TransactionFromJSON));
+    }
+
+    /**
+     * Retrieve all user transactions
+     */
+    async apiTransactionsGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Transaction>> {
+        const response = await this.apiTransactionsGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Delete a transaction
+     */
+    async apiTransactionsIdDeleteRaw(requestParameters: ApiTransactionsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling apiTransactionsIdDelete().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/api/transactions/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a transaction
+     */
+    async apiTransactionsIdDelete(requestParameters: ApiTransactionsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiTransactionsIdDeleteRaw(requestParameters, initOverrides);
+    }
 
     /**
      * Create a new transaction
