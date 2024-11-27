@@ -4,7 +4,13 @@ import { defaultApiConfiguration } from "@/fetch";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { onMounted, ref } from "vue";
 import Divider from "primevue/divider";
-import { mdiPencilOutline, mdiTrashCanOutline } from "@mdi/js";
+import { mdiCardsOutline, mdiPencilOutline, mdiTrashCanOutline } from "@mdi/js";
+import { useToast } from "primevue/usetoast";
+import { useConfirm } from "primevue/useconfirm";
+
+const toast = useToast();
+
+const confirm = useConfirm();
 
 const transactionsApi = new TransactionsApi(defaultApiConfiguration);
 
@@ -31,6 +37,27 @@ async function deleteTransaction(id: string) {
     }
 }
 
+const confirm1 = (transaction: Transaction) => {
+    confirm.require({
+        message: `Are you sure you want to delete ${transaction.name}?`,
+        header: "Delete transaction",
+        rejectProps: {
+            label: "Cancel",
+            severity: "secondary",
+            outlined: true,
+            class: "mr-auto",
+        },
+        acceptProps: {
+            label: "Delete",
+            severity: "danger",
+        },
+        accept: async () => {
+            deleteTransaction(transaction.id);
+            toast.add({ severity: "info", summary: "Deleted", detail: `You have deleted ${transaction.name}`, life: 3000 });
+        },
+    });
+};
+
 onMounted(() => {
     getTransactions();
 });
@@ -41,28 +68,41 @@ onMounted(() => {
         <div
             v-for="transaction in transactions"
             :key="transaction.id"
-            class="flex items-center justify-between p-3 border-1 gap-1 bg-gradient-to-tl to-green-50 from-white border-green-600 rounded"
+            class="flex items-center justify-between p-3 border-1 gap-1 bg-gradient-to-tl rounded"
+            :class="{
+                'to-green-50 from-white border-green-600 text-green-700': !transaction.isExpense,
+                'to-red-50 from-white border-red-600 text-red-700': transaction.isExpense,
+            }"
         >
             <p class="text-xl font-medium">{{ transaction.name }}</p>
             <div class="flex items-center gap-3">
-                <p class="text-xl text-green-700 mr-1">£{{ transaction.amountInPence }}</p>
+                <p class="text-xl mr-1">£{{ transaction.amountInPence }}</p>
                 <Divider layout="vertical" class="!mx-0" />
                 <div class="flex gap-2">
-                    <SvgIcon
-                        type="mdi"
-                        :path="mdiPencilOutline"
-                        class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
-                        :size="18"
-                    />
-                    <SvgIcon
-                        type="mdi"
-                        :path="mdiTrashCanOutline"
-                        class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
-                        :size="18"
-                        @click="deleteTransaction(transaction.id)"
-                    />
+                    <div v-tooltip.bottom="`Edit ${transaction.name}`">
+                        <SvgIcon
+                            type="mdi"
+                            :path="mdiPencilOutline"
+                            class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
+                            :size="18"
+                        />
+                    </div>
+                    <div v-tooltip.bottom="`Delete ${transaction.name}`">
+                        <SvgIcon
+                            type="mdi"
+                            :path="mdiTrashCanOutline"
+                            class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
+                            :size="18"
+                            @click="confirm1(transaction)"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div v-else class="w-full h-full flex flex-col items-center justify-center mb-20">
+        <SvgIcon type="mdi" :path="mdiCardsOutline" :size="192" class="text-grays-light-300" />
+        <p class="font-medium">No transactions to show</p>
+        <p class="font-light">Add a new transaction to get started</p>
     </div>
 </template>
