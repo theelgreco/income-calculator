@@ -100,7 +100,7 @@ onMounted(() => {
             </div>
         </div>
     </div>
-    <div v-else class="w-full h-full flex flex-col items-center justify-center mb-20">
+    <div v-if="transactions && !transactions.length" class="w-full h-full flex flex-col items-center justify-center mb-20">
         <SvgIcon type="mdi" :path="mdiCardsOutline" :size="192" class="text-grays-light-300" />
         <p class="font-medium">No transactions to show</p>
         <p class="font-light">Add a new transaction to get started</p>
