@@ -43,6 +43,12 @@ const router = createRouter({
             meta: { title: "Transactions", requiresAuth: true, showNav: true },
             component: () => import("@/views/TransactionsView.vue"),
         },
+        {
+            path: "/transactions/create",
+            name: "createTransaction",
+            meta: { title: "Create a transaction", requiresAuth: true, showNav: false },
+            component: () => import("@/views/CreateTransactionsView.vue"),
+        },
     ],
 });
 
