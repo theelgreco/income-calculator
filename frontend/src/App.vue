@@ -3,6 +3,7 @@ import Nav from "./components/Nav.vue";
 import { RouterView, useRoute } from "vue-router";
 import Toast from "primevue/toast";
 import ConfirmDialog from "primevue/confirmdialog";
+import { computed } from "vue";
 
 const route = useRoute();
 </script>
@@ -11,7 +12,7 @@ const route = useRoute();
     <main class="w-full h-full flex flex-col gap-5 overscroll-none">
         <Nav v-if="route.meta.showNav" />
         <RouterView />
-        <Toast />
-        <ConfirmDialog />
     </main>
+    <Toast />
+    <ConfirmDialog />
 </template>
