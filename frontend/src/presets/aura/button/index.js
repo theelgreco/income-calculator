@@ -10,7 +10,7 @@ export default {
             // Sizes & Spacing
             "leading-[normal]",
             {
-                "px-3 py-2": props.size === null,
+                "px-8 md:px-10 py-2": props.size === null,
                 "text-sm py-1.5 px-3": props.size === "small",
                 "text-xl py-3 px-4": props.size === "large",
             },
@@ -49,9 +49,7 @@ export default {
 
             // Primary Button
             {
-                "text-white": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
-                "bg-grays-light-800": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
-                "border border-primary": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
+                "text-white bg-grays-light-800": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
             },
             // Primary Text Button
             { "text-primary": props.text && props.severity === null && !props.plain },
@@ -69,7 +67,7 @@ export default {
             { "text-surface-500 dark:text-surface-300": props.text && props.severity === "secondary" && !props.plain },
             // Secondary Outlined Button
             {
-                "text-surface-500 dark:text-surface-300 border border-surface-500 hover:bg-white-300/10":
+                "hover:bg-grays-light-100 border border-grays-light-300 hover:border-grays-light-500":
                     props.outlined && props.severity === "secondary" && !props.plain,
             },
 

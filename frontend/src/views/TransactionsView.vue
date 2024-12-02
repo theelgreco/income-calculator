@@ -64,45 +64,47 @@ onMounted(() => {
 </script>
 
 <template>
-    <div v-if="transactions && transactions.length" class="flex flex-col gap-5 w-[600px] max-w-full mx-auto px-6">
-        <div
-            v-for="transaction in transactions"
-            :key="transaction.id"
-            class="flex items-center justify-between p-3 border-1 gap-1 bg-gradient-to-tl rounded"
-            :class="{
-                'to-green-50 from-white border-green-600 text-green-700': !transaction.isExpense,
-                'to-red-50 from-white border-red-600 text-red-700': transaction.isExpense,
-            }"
-        >
-            <p class="text-xl font-medium">{{ transaction.name }}</p>
-            <div class="flex items-center gap-3">
-                <p class="text-xl mr-1">£{{ transaction.amountInPence }}</p>
-                <Divider layout="vertical" class="!mx-0" />
-                <div class="flex gap-2">
-                    <div v-tooltip.bottom="`Edit ${transaction.name}`">
-                        <SvgIcon
-                            type="mdi"
-                            :path="mdiPencilOutline"
-                            class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
-                            :size="18"
-                        />
-                    </div>
-                    <div v-tooltip.bottom="`Delete ${transaction.name}`">
-                        <SvgIcon
-                            type="mdi"
-                            :path="mdiTrashCanOutline"
-                            class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
-                            :size="18"
-                            @click="confirmDelete(transaction)"
-                        />
+    <div>
+        <div v-if="transactions && transactions.length" class="flex flex-col gap-5 w-[600px] max-w-full mx-auto px-6">
+            <div
+                v-for="transaction in transactions"
+                :key="transaction.id"
+                class="flex items-center justify-between p-3 border-1 gap-1 bg-gradient-to-tl rounded"
+                :class="{
+                    'to-green-50 from-white border-green-600 text-green-700': !transaction.isExpense,
+                    'to-red-50 from-white border-red-600 text-red-700': transaction.isExpense,
+                }"
+            >
+                <p class="text-xl font-medium">{{ transaction.name }}</p>
+                <div class="flex items-center gap-3">
+                    <p class="text-xl mr-1">£{{ transaction.amountInPence }}</p>
+                    <Divider layout="vertical" class="!mx-0" />
+                    <div class="flex gap-2">
+                        <div v-tooltip.bottom="`Edit ${transaction.name}`">
+                            <SvgIcon
+                                type="mdi"
+                                :path="mdiPencilOutline"
+                                class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
+                                :size="18"
+                            />
+                        </div>
+                        <div v-tooltip.bottom="`Delete ${transaction.name}`">
+                            <SvgIcon
+                                type="mdi"
+                                :path="mdiTrashCanOutline"
+                                class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
+                                :size="18"
+                                @click="confirmDelete(transaction)"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div v-if="transactions && !transactions.length" class="w-full h-full flex flex-col items-center justify-center mb-20">
-        <SvgIcon type="mdi" :path="mdiCardsOutline" :size="192" class="text-grays-light-300" />
-        <p class="font-medium">No transactions to show</p>
-        <p class="font-light">Add a new transaction to get started</p>
+        <div v-if="transactions && !transactions.length" class="w-full h-full flex flex-col items-center justify-center mb-20">
+            <SvgIcon type="mdi" :path="mdiCardsOutline" :size="192" class="text-grays-light-300" />
+            <p class="font-medium">No transactions to show</p>
+            <p class="font-light">Add a new transaction to get started</p>
+        </div>
     </div>
 </template>

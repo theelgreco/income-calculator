@@ -5,3 +5,8 @@
 label {
     user-select: none;
 }
+
+button[data-pc-name="pcnextbutton"],
+button[data-pc-name="pcprevbutton"] {
+    padding: 0 !important;
+}

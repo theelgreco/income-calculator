@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { AuthenticationApi } from "@/api";
 import { defaultApiConfiguration } from "@/fetch";
+import { usePreviousRoute } from "@/composables/previousRoute";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,14 +14,15 @@ const router = createRouter({
         },
         {
             path: "/",
+            name: "home",
             redirect: () => {
-                return `calendar/${new Date().getFullYear().toString()}`;
+                return `/calendar/${new Date().getFullYear().toString()}`;
             },
         },
         {
             path: "/calendar",
             redirect: () => {
-                return `calendar/${new Date().getFullYear().toString()}`;
+                return `/calendar/${new Date().getFullYear().toString()}`;
             },
             children: [
                 {
@@ -43,10 +45,22 @@ const router = createRouter({
             meta: { title: "Transactions", requiresAuth: true, showNav: true },
             component: () => import("@/views/TransactionsView.vue"),
         },
+        {
+            path: "/transactions/create",
+            name: "createTransaction",
+            meta: { title: "Create a transaction", requiresAuth: true, showNav: false, slide: true, slideFrom: "right" },
+            component: () => import("@/views/CreateTransactionsView.vue"),
+        },
     ],
 });
 
+const previousRoute = usePreviousRoute();
+
 router.beforeEach(async (to, from, next) => {
+    if (from.path !== "/") {
+        previousRoute.value = from;
+    }
+
     if (to.meta.requiresAuth) {
         const authenticationApi = new AuthenticationApi(defaultApiConfiguration);
 
