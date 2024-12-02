@@ -4,6 +4,7 @@ import SvgIcon from "@jamescoyle/vue-icon";
 interface Props {
     icon: string;
     selectedValue: any;
+    deselectValue?: any;
     modelValue: any;
     label: string;
 }
@@ -14,7 +15,9 @@ interface Emits {
 
 const emit = defineEmits<Emits>();
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+    deselectValue: null,
+});
 </script>
 
 <template>
@@ -24,7 +27,7 @@ const props = defineProps<Props>();
             'bg-primary-100 border-primary-600': modelValue === selectedValue,
             'hover:bg-grays-light-100': modelValue !== selectedValue,
         }"
-        @click="emit('update:modelValue', modelValue === selectedValue ? null : selectedValue)"
+        @click="emit('update:modelValue', modelValue === selectedValue ? deselectValue : selectedValue)"
     >
         <SvgIcon
             type="mdi"

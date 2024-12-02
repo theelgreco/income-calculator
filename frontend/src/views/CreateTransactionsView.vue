@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Button from "primevue/button";
 import { usePreviousRoute } from "@/composables/previousRoute";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, ref } from "vue";
 import SvgIcon from "@jamescoyle/vue-icon";
 import {
     mdiArrowLeft,
@@ -12,6 +12,7 @@ import {
     mdiCalendarWeekOutline,
     mdiCashMinus,
     mdiCashPlus,
+    mdiCheck,
     mdiCheckboxBlankCircleOutline,
 } from "@mdi/js";
 import { RouterLink } from "vue-router";
@@ -20,15 +21,22 @@ import InputNumber from "primevue/inputnumber";
 import DatePicker from "primevue/datepicker";
 import SelectableCard from "@/components/SelectableCard.vue";
 import Select from "primevue/select";
+import ProgressSpinner from "primevue/progressspinner";
 import { useScroll, useResizeObserver, useWindowSize } from "@vueuse/core";
+import { TransactionsApi, type CreateTransactionInput } from "@/api";
+import { defaultApiConfiguration } from "@/fetch";
 
 type FirstLastDayOfMonth = "first_business" | "last_business" | "last" | "specific";
+
+const transactionApi = new TransactionsApi(defaultApiConfiguration);
 
 const { width: windowWidth } = useWindowSize();
 
 const previousRoute = usePreviousRoute();
 
 const boxes = ref();
+
+const { arrivedState: boxesArrivedState } = useScroll(boxes);
 
 const boxesHasOverflow = ref(false);
 
@@ -86,23 +94,25 @@ const isExpense = ref<boolean | null>(null);
 
 const transactionName = ref("");
 
-const recurrenceType = ref<"day" | "week" | "month" | null>(null);
+const recurrenceType = ref<"day" | "week" | "month">();
 
 const isRecurring = ref<boolean | null>(null);
 
 const amountInPence = ref<number | null>(null);
 
-const recurrenceRate = ref<number | null>(null);
+const recurrenceRate = ref<number>();
 
-const specificDayOfWeek = ref<number | null>(null);
+const specificDayOfWeek = ref<number>();
 
-const firstLastDayOfMonth = ref<FirstLastDayOfMonth | null>(null);
+const specificDayOfMonth = ref<number>();
 
-const specificDayOfMonth = ref<number | null>(null);
+const firstLastDayOfMonth = ref<FirstLastDayOfMonth>();
 
-const startDate = ref<Date | null>(null);
+const startDate = ref<Date>();
 
-const finishDate = ref<Date | null>(null);
+const finishDate = ref<Date>();
+
+const loading = ref(false);
 
 const disabled = computed(() => {
     if (step.value === 1) {
@@ -117,15 +127,15 @@ const disabled = computed(() => {
         if (isRecurring.value === false) {
             return !startDate.value;
         } else if (isRecurring.value === true) {
-            if (recurrenceType.value === null || !recurrenceRate.value) {
+            if (recurrenceType.value === undefined || !recurrenceRate.value) {
                 return true;
             } else if (recurrenceType.value === "week") {
-                return specificDayOfWeek.value === null;
+                return specificDayOfWeek.value === undefined;
             } else if (recurrenceType.value === "month") {
-                if (firstLastDayOfMonth.value === null) {
+                if (firstLastDayOfMonth.value === undefined) {
                     return true;
                 } else {
-                    return firstLastDayOfMonth.value === "specific" && specificDayOfMonth.value === null;
+                    return firstLastDayOfMonth.value === "specific" && specificDayOfMonth.value === undefined;
                 }
             }
         }
@@ -140,7 +150,58 @@ const exitLink = computed(() => {
     return { name: "home", params: {} };
 });
 
-const { arrivedState: boxesArrivedState } = useScroll(boxes);
+const transactionsForm = computed(() => {
+    if (isExpense.value !== null && amountInPence.value !== null && isRecurring.value !== null) {
+        const params: CreateTransactionInput = {
+            name: transactionName.value,
+            isExpense: isExpense.value,
+            amountInPence: amountInPence.value,
+            isRecurring: isRecurring.value,
+            startDate: startDate.value,
+            finishDate: isRecurring.value ? finishDate.value : undefined,
+            recurrenceType: isRecurring.value ? recurrenceType.value : undefined,
+            recurrenceRate: isRecurring.value ? recurrenceRate.value : undefined,
+            specificDayOfWeek: recurrenceType.value === "week" ? specificDayOfWeek.value : undefined,
+            specificDayOfMonth: recurrenceType.value === "month" ? specificDayOfMonth.value : undefined,
+            firstLastDayOfMonth: recurrenceType.value === "month" ? firstLastDayOfMonth.value : undefined,
+        };
+
+        if (!isRecurring.value) {
+            params.finishDate = params.startDate;
+        }
+
+        return params;
+    }
+});
+
+function resetValues() {
+    isExpense.value = null;
+    transactionName.value = "";
+    recurrenceType.value = undefined;
+    isRecurring.value = null;
+    amountInPence.value = null;
+    recurrenceRate.value = undefined;
+    specificDayOfWeek.value = undefined;
+    specificDayOfMonth.value = undefined;
+    firstLastDayOfMonth.value = undefined;
+    startDate.value = undefined;
+    finishDate.value = undefined;
+    step.value = 1;
+}
+
+async function createTransaction() {
+    if (transactionsForm.value) {
+        try {
+            loading.value = true;
+            await transactionApi.apiTransactionsPost({ createTransactionInput: transactionsForm.value });
+            step.value++;
+        } catch (err: any) {
+            console.error(err);
+        } finally {
+            loading.value = false;
+        }
+    }
+}
 
 useResizeObserver(boxes, (entries) => {
     const entry = entries[0];
@@ -199,6 +260,12 @@ useResizeObserver(boxes, (entries) => {
                     <h1 class="text-2xl font-bold">Transaction summary</h1>
                     <h2 class="font-extralight">Here are the details of the new transaction. Click 'submit' if it all looks good</h2>
                 </template>
+
+                <!-- STEP 7 -->
+                <template v-if="step === 7">
+                    <h1 class="text-2xl font-bold">Success</h1>
+                    <h2 class="font-extralight">Your transaction was created successfully</h2>
+                </template>
             </div>
 
             <!-- Step Content -->
@@ -213,6 +280,7 @@ useResizeObserver(boxes, (entries) => {
                 <template v-if="step === 2">
                     <InputText
                         v-model="transactionName"
+                        @keyup.enter="if (transactionName) step++;"
                         autofocus="true"
                         class="w-[300px] max-w-full"
                         :placeholder="!isExpense ? `e.g. Salary` : `e.g. Rent or Phone bill`"
@@ -230,9 +298,10 @@ useResizeObserver(boxes, (entries) => {
                     <InputNumber
                         :modelValue="amountInPence"
                         placeholder="e.g. 10.00"
-                        @vue:mounted="(e) => e.el.children[0].focus()"
                         mode="currency"
                         currency="GBP"
+                        @vue:mounted="(e) => e.el.children[0].focus()"
+                        @keyup.enter="if (amountInPence) step++;"
                         @input="(e) => (amountInPence = e.value)"
                     />
                 </template>
@@ -278,6 +347,7 @@ useResizeObserver(boxes, (entries) => {
                                         v-model="recurrenceType"
                                         label="Daily"
                                         selectedValue="day"
+                                        :deselectValue="undefined"
                                         :icon="mdiCalendarTodayOutline"
                                         class="max-sm:px-12 max-sm:py-6"
                                     />
@@ -285,6 +355,7 @@ useResizeObserver(boxes, (entries) => {
                                         v-model="recurrenceType"
                                         label="Weekly"
                                         selectedValue="week"
+                                        :deselectValue="undefined"
                                         :icon="mdiCalendarWeekOutline"
                                         class="max-sm:px-12 max-sm:py-6"
                                     />
@@ -292,6 +363,7 @@ useResizeObserver(boxes, (entries) => {
                                         v-model="recurrenceType"
                                         label="Monthly"
                                         selectedValue="month"
+                                        :deselectValue="undefined"
                                         :icon="mdiCalendarMonthOutline"
                                         class="max-sm:px-12 max-sm:py-6"
                                     />
@@ -335,7 +407,7 @@ useResizeObserver(boxes, (entries) => {
                                             inputId="specificDayOfWeek"
                                             class="w-full"
                                         />
-                                        <small v-if="recurrenceRate && specificDayOfWeek !== null">
+                                        <small v-if="recurrenceRate && specificDayOfWeek !== undefined">
                                             Every {{ recurrenceRate > 1 ? `${recurrenceRate} ${recurrenceType}s` : `${recurrenceType}` }} on
                                             <span class="capitalize">{{ daysOfWeek[specificDayOfWeek].label }}</span>
                                         </small>
@@ -354,7 +426,11 @@ useResizeObserver(boxes, (entries) => {
                                                 class="w-full"
                                             />
                                             <small
-                                                v-if="recurrenceRate && firstLastDayOfMonth !== null && firstLastDayOfMonth !== 'specific'"
+                                                v-if="
+                                                    recurrenceRate &&
+                                                    firstLastDayOfMonth !== undefined &&
+                                                    firstLastDayOfMonth !== 'specific'
+                                                "
                                             >
                                                 Every
                                                 {{ recurrenceRate > 1 ? `${recurrenceRate} ${recurrenceType}s` : `${recurrenceType}` }} on
@@ -377,7 +453,9 @@ useResizeObserver(boxes, (entries) => {
                                                 class="w-full"
                                             />
                                             <small
-                                                v-if="recurrenceRate && specificDayOfMonth !== null && firstLastDayOfMonth === 'specific'"
+                                                v-if="
+                                                    recurrenceRate && specificDayOfMonth !== undefined && firstLastDayOfMonth === 'specific'
+                                                "
                                             >
                                                 Every
                                                 {{ recurrenceRate > 1 ? `${recurrenceRate} ${recurrenceType}s` : `${recurrenceType}` }} on
@@ -414,9 +492,9 @@ useResizeObserver(boxes, (entries) => {
                                         />
                                     </div>
                                     <div class="flex flex-col gap-1 mx-auto w-full">
-                                        <label class="w-fit font-extralight text-sm text-grays-light-500" for="finishDate"
-                                            >Finish date</label
-                                        >
+                                        <label class="w-fit font-extralight text-sm text-grays-light-500" for="finishDate">
+                                            Finish date
+                                        </label>
                                         <DatePicker
                                             v-model="finishDate"
                                             :minDate="startDate"
@@ -471,19 +549,19 @@ useResizeObserver(boxes, (entries) => {
                                 <p v-else class="font-medium">None</p>
                             </div>
                             <hr />
-                            <small v-if="recurrenceRate && specificDayOfWeek !== null">
+                            <small v-if="recurrenceRate && specificDayOfWeek !== undefined">
                                 Transaction occurs every
                                 {{ recurrenceRate > 1 ? `${recurrenceRate} ${recurrenceType}s` : `${recurrenceType}` }} on
                                 <span class="capitalize">{{ daysOfWeek[specificDayOfWeek].label }}</span>
                             </small>
-                            <small v-if="recurrenceRate && firstLastDayOfMonth !== null && firstLastDayOfMonth !== 'specific'">
+                            <small v-if="recurrenceRate && firstLastDayOfMonth !== undefined && firstLastDayOfMonth !== 'specific'">
                                 Transaction occurs every
                                 {{ recurrenceRate > 1 ? `${recurrenceRate} ${recurrenceType}s` : `${recurrenceType}` }} on the
                                 <span class="lowercase">
                                     {{ firstLastDayOfMonthChoices.find((el) => el.value === firstLastDayOfMonth)?.label }}
                                 </span>
                             </small>
-                            <small v-if="recurrenceRate && specificDayOfMonth !== null && firstLastDayOfMonth === 'specific'">
+                            <small v-if="recurrenceRate && specificDayOfMonth !== undefined && firstLastDayOfMonth === 'specific'">
                                 Transaction occurs every
                                 {{ recurrenceRate > 1 ? `${recurrenceRate} ${recurrenceType}s` : `${recurrenceType}` }} on the
                                 <span class="lowercase">
@@ -493,11 +571,24 @@ useResizeObserver(boxes, (entries) => {
                         </template>
                     </div>
                 </template>
+
+                <!-- STEP 7 -->
+                <template v-if="step === 7">
+                    <div class="flex flex-col gap-16">
+                        <SvgIcon type="mdi" :path="mdiCheck" :size="60" class="text-state-success-600 mx-auto" />
+                        <div class="flex flex-col gap-4">
+                            <RouterLink :to="{ name: 'home', params: {} }" class="w-full">
+                                <Button label="View your calendar" severity="secondary" outlined class="w-full" />
+                            </RouterLink>
+                            <Button label="Create another transaction" @click="resetValues" />
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
 
         <!-- Buttons -->
-        <div class="flex mt-auto border-t-1 p-3">
+        <div class="flex mt-auto border-t-1 p-3" v-if="step < 7">
             <RouterLink :to="exitLink" class="h-full">
                 <Button class="h-full" label="Exit" severity="secondary" outlined />
             </RouterLink>
@@ -514,8 +605,12 @@ useResizeObserver(boxes, (entries) => {
                         <SvgIcon v-else type="mdi" :path="mdiArrowRight" />
                     </template>
                 </Button>
-                <Button v-else label="Submit"></Button>
+                <Button v-else label="Submit" @click="createTransaction"></Button>
             </div>
+        </div>
+
+        <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen grid place-items-center bg-white/50 backdrop-blur-[2px]">
+            <ProgressSpinner />
         </div>
     </div>
 </template>
