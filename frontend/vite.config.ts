@@ -12,8 +12,21 @@ export default defineConfig({
         vueDevTools(),
         VitePWA({
             registerType: "autoUpdate",
-            devOptions: {
-                enabled: true,
+            manifest: {
+                icons: [
+                    {
+                        src: "/192w/icon.png",
+                        sizes: "192x192",
+                        type: "image/png",
+                        purpose: "any maskable",
+                    },
+                    {
+                        src: "/512w/icon.png",
+                        sizes: "512x512",
+                        type: "image/png",
+                        purpose: "any maskable",
+                    },
+                ],
             },
         }),
     ],
