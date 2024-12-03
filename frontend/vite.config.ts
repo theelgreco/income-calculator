@@ -20,18 +20,19 @@ export default defineConfig({
                 background_color: "#ffffff",
                 start_url: "/",
                 display: "standalone",
+                orientation: "portrait",
                 icons: [
                     {
                         src: "/192w/icon.png",
                         sizes: "192x192",
                         type: "image/png",
-                        purpose: "any maskable",
+                        purpose: "any",
                     },
                     {
                         src: "/512w/icon.png",
                         sizes: "512x512",
                         type: "image/png",
-                        purpose: "any maskable",
+                        purpose: "any",
                     },
                 ],
             },
