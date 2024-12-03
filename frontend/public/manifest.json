@@ -1,0 +1,24 @@
+{
+    "manifest_version": "0.0.1",
+    "version": "0.0.1",
+    "name": "Income Tracker",
+    "short_name": "Income Tracker",
+    "theme_color": "#290441",
+    "background_color": "#290441",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/192w/icon.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/512w/icon.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}
