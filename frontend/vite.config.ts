@@ -13,6 +13,13 @@ export default defineConfig({
         VitePWA({
             registerType: "autoUpdate",
             manifest: {
+                name: "Income Tracker",
+                short_name: "IncomeTracker",
+                description: "A handy tool for tracking your income and expenses",
+                theme_color: "#ffffff",
+                background_color: "#ffffff",
+                start_url: "/",
+                display: "standalone",
                 icons: [
                     {
                         src: "/192w/icon.png",
@@ -27,6 +34,11 @@ export default defineConfig({
                         purpose: "any maskable",
                     },
                 ],
+            },
+            workbox: {
+                // Configure Workbox options
+                skipWaiting: true,
+                clientsClaim: true,
             },
         }),
     ],
