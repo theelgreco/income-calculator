@@ -4,12 +4,15 @@ interface SignUpData {
     password: string;
 }
 
-interface LoginData extends SignUpData {}
+interface LoginData {
+    email_or_username: string;
+    password: string;
+}
 
 export class AuthenticationServer {
     // prettier-ignore
     // @ts-ignore
-    basePath : string = process.env.NODE_ENV === "production" ? "https://auth.cinewhere.co.uk" : "http://localhost:9090"
+    basePath: string = process.env.NODE_ENV === "production" ? "https://auth.cinewhere.co.uk" : "http://localhost:9090"
     authorisationHeader = null;
 
     async signUp(data: SignUpData): Promise<any> {
@@ -19,7 +22,7 @@ export class AuthenticationServer {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ ...data, service: "income_calculator" }),
+                body: JSON.stringify({...data, service: "income_calculator"}),
             });
             return await response.json();
         } catch (err: any) {
@@ -34,7 +37,7 @@ export class AuthenticationServer {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ ...data, service: "income_calculator" }),
+                body: JSON.stringify({...data, service: "income_calculator"}),
             });
 
             if (response.status < 200 || response.status > 299) {
