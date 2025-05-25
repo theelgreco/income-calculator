@@ -16,125 +16,105 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface Transaction
+ * @interface UpdateTransactionInput
  */
-export interface Transaction {
+export interface UpdateTransactionInput {
     /**
      * 
      * @type {string}
-     * @memberof Transaction
-     */
-    id: string;
-    /**
-     * 
-     * @type {Date}
-     * @memberof Transaction
-     */
-    createdAt: Date;
-    /**
-     * 
-     * @type {string}
-     * @memberof Transaction
-     */
-    userId: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Transaction
+     * @memberof UpdateTransactionInput
      */
     name: string;
     /**
      * 
      * @type {boolean}
-     * @memberof Transaction
+     * @memberof UpdateTransactionInput
      */
     isExpense: boolean;
     /**
      * 
      * @type {number}
-     * @memberof Transaction
+     * @memberof UpdateTransactionInput
      */
     amountInPence: number;
     /**
      * 
      * @type {boolean}
-     * @memberof Transaction
+     * @memberof UpdateTransactionInput
      */
     isRecurring: boolean;
     /**
      * 
      * @type {Date}
-     * @memberof Transaction
+     * @memberof UpdateTransactionInput
      */
     startDate: Date | null;
     /**
      * 
      * @type {Date}
-     * @memberof Transaction
+     * @memberof UpdateTransactionInput
      */
     finishDate: Date | null;
     /**
      * 
      * @type {string}
-     * @memberof Transaction
+     * @memberof UpdateTransactionInput
      */
-    recurrenceType: TransactionRecurrenceTypeEnum | null;
+    recurrenceType: UpdateTransactionInputRecurrenceTypeEnum | null;
     /**
      * 
      * @type {number}
-     * @memberof Transaction
+     * @memberof UpdateTransactionInput
      */
     recurrenceRate: number | null;
     /**
      * 
      * @type {number}
-     * @memberof Transaction
+     * @memberof UpdateTransactionInput
      */
     specificDayOfWeek: number | null;
     /**
      * 
      * @type {number}
-     * @memberof Transaction
+     * @memberof UpdateTransactionInput
      */
     specificDayOfMonth: number | null;
     /**
      * 
      * @type {string}
-     * @memberof Transaction
+     * @memberof UpdateTransactionInput
      */
-    firstLastDayOfMonth: TransactionFirstLastDayOfMonthEnum | null;
+    firstLastDayOfMonth: UpdateTransactionInputFirstLastDayOfMonthEnum | null;
 }
 
 
 /**
  * @export
  */
-export const TransactionRecurrenceTypeEnum = {
+export const UpdateTransactionInputRecurrenceTypeEnum = {
     Day: 'day',
     Week: 'week',
-    Month: 'month'
+    Month: 'month',
+    Year: 'year'
 } as const;
-export type TransactionRecurrenceTypeEnum = typeof TransactionRecurrenceTypeEnum[keyof typeof TransactionRecurrenceTypeEnum];
+export type UpdateTransactionInputRecurrenceTypeEnum = typeof UpdateTransactionInputRecurrenceTypeEnum[keyof typeof UpdateTransactionInputRecurrenceTypeEnum];
 
 /**
  * @export
  */
-export const TransactionFirstLastDayOfMonthEnum = {
+export const UpdateTransactionInputFirstLastDayOfMonthEnum = {
     FirstBusiness: 'first_business',
     LastBusiness: 'last_business',
     Last: 'last',
     Specific: 'specific'
 } as const;
-export type TransactionFirstLastDayOfMonthEnum = typeof TransactionFirstLastDayOfMonthEnum[keyof typeof TransactionFirstLastDayOfMonthEnum];
+export type UpdateTransactionInputFirstLastDayOfMonthEnum = typeof UpdateTransactionInputFirstLastDayOfMonthEnum[keyof typeof UpdateTransactionInputFirstLastDayOfMonthEnum];
 
 
 /**
- * Check if a given object implements the Transaction interface.
+ * Check if a given object implements the UpdateTransactionInput interface.
  */
-export function instanceOfTransaction(value: object): value is Transaction {
-    if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
-    if (!('userId' in value) || value['userId'] === undefined) return false;
+export function instanceOfUpdateTransactionInput(value: object): value is UpdateTransactionInput {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('isExpense' in value) || value['isExpense'] === undefined) return false;
     if (!('amountInPence' in value) || value['amountInPence'] === undefined) return false;
@@ -149,19 +129,16 @@ export function instanceOfTransaction(value: object): value is Transaction {
     return true;
 }
 
-export function TransactionFromJSON(json: any): Transaction {
-    return TransactionFromJSONTyped(json, false);
+export function UpdateTransactionInputFromJSON(json: any): UpdateTransactionInput {
+    return UpdateTransactionInputFromJSONTyped(json, false);
 }
 
-export function TransactionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Transaction {
+export function UpdateTransactionInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): UpdateTransactionInput {
     if (json == null) {
         return json;
     }
     return {
         
-        'id': json['id'],
-        'createdAt': (new Date(json['createdAt'])),
-        'userId': json['userId'],
         'name': json['name'],
         'isExpense': json['isExpense'],
         'amountInPence': json['amountInPence'],
@@ -176,15 +153,12 @@ export function TransactionFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function TransactionToJSON(value?: Transaction | null): any {
+export function UpdateTransactionInputToJSON(value?: UpdateTransactionInput | null): any {
     if (value == null) {
         return value;
     }
     return {
         
-        'id': value['id'],
-        'createdAt': ((value['createdAt']).toISOString()),
-        'userId': value['userId'],
         'name': value['name'],
         'isExpense': value['isExpense'],
         'amountInPence': value['amountInPence'],

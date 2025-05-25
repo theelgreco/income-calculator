@@ -51,6 +51,12 @@ const router = createRouter({
             meta: { title: "Create a transaction", requiresAuth: true, showNav: false, slide: true, slideFrom: "right" },
             component: () => import("@/views/CreateTransactionsView.vue"),
         },
+        {
+            path: "/transactions/:transaction/edit",
+            name: "editTransaction",
+            meta: { title: "Edit a transaction", requiresAuth: true, showNav: false, slide: true, slideFrom: "right" },
+            component: () => import("@/views/EditTransactionView.vue"),
+        },
     ],
 });
 

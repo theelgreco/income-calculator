@@ -95,7 +95,6 @@ const transactionForm = ref<CreateTransactionInput>({
     isRecurring: false,
     recurrenceType: undefined,
     recurrenceRate: undefined,
-    recurrenceRateType: undefined,
     specificDayOfWeek: undefined,
     specificDayOfMonth: undefined,
     firstLastDayOfMonth: undefined,
@@ -116,7 +115,6 @@ function resetTransactionForm() {
         isRecurring: false,
         recurrenceType: undefined,
         recurrenceRate: undefined,
-        recurrenceRateType: undefined,
         specificDayOfWeek: undefined,
         specificDayOfMonth: undefined,
         firstLastDayOfMonth: undefined,
@@ -137,7 +135,6 @@ watch(
     () => transactionForm.value.recurrenceType,
     () => {
         transactionForm.value.recurrenceRate = undefined;
-        transactionForm.value.recurrenceRateType = undefined;
         transactionForm.value.specificDayOfWeek = undefined;
         transactionForm.value.specificDayOfMonth = undefined;
         transactionForm.value.firstLastDayOfMonth = undefined;

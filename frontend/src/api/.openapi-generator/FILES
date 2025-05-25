@@ -10,6 +10,7 @@ models/CreateTransactionInput.ts
 models/GetTransactionMonthResponseInner.ts
 models/GetTransactionYearResponseInner.ts
 models/Transaction.ts
+models/UpdateTransactionInput.ts
 models/User.ts
 models/index.ts
 runtime.ts
