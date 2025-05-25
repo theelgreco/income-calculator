@@ -44,8 +44,6 @@ export async function getYearTransactions(year: number, userId: string): Promise
         // const groupedTransactions = groupTransactionsByMonth(transactions, year);
         const groupedTransactions = performanceTimer(groupTransactionsByMonth, "Grouping took:", transactions, year);
 
-        console.log("");
-
         return groupedTransactions;
     } catch (err: any) {
         throw err;
