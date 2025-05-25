@@ -5,7 +5,6 @@ import {
     getAllTransactions,
     getMonthTransactions,
     getSingleTransaction,
-    getUser,
     getYearTransactions,
     updateSingleTransaction,
 } from "../models/models";
@@ -30,27 +29,29 @@ export async function getYearData(
     response: Response,
     next: NextFunction
 ) {
-    try {
-        if (!request.user) {
-            throw new Error("No user provided");
-        }
+    const slugRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-        if (!request.params.year) {
-            throw new Error("No year provided");
-        } else {
-            if (request.params.year.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
-                next();
+    if (request.params?.year && slugRegex.test(request.params.year)) {
+        next();
+    } else {
+        try {
+            if (!request.user) {
+                throw new Error("No user provided");
+            }
+
+            if (!request.params.year) {
+                throw new Error("No year provided");
             } else if (request.params.year.length !== 4 || !parseInt(request.params.year)) {
                 throw new Error("Invalid year provided");
             }
-        }
 
-        const id = request.user.id;
-        const year = Number(request.params.year);
-        const transactions = await getYearTransactions(year, id);
-        response.status(200).send(transactions);
-    } catch (err: any) {
-        next(err);
+            const id = request.user.id;
+            const year = Number(request.params.year);
+            const transactions = await getYearTransactions(year, id);
+            response.status(200).send(transactions);
+        } catch (err: any) {
+            next(err);
+        }
     }
 }
 
@@ -147,7 +148,11 @@ export async function getTransaction(request: Request & { user?: any }, response
 
         const transaction = await getSingleTransaction(request.params.id, request.user.id);
 
-        response.status(200).send(transaction);
+        if (transaction) {
+            response.status(200).send(transaction);
+        } else {
+            response.status(404).send({ message: "Could not find that transaction" });
+        }
     } catch (err: any) {
         next(err);
     }

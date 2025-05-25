@@ -20,7 +20,7 @@
  *              isExpense:
  *                  type: boolean
  *              amountInPence:
- *                  type: number
+ *                  type: string
  *              isRecurring:
  *                  type: boolean
  *              startDate:

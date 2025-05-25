@@ -23,7 +23,7 @@ model Transaction {
   user                       User     @relation(fields: [userId], references: [id])
   name                       String 
   isExpense                  Boolean  @default(false)
-  amountInPence              Int
+  amountInPence              Decimal @db.Decimal(20,2)
   startDate                  DateTime?
   finishDate                 DateTime?
   isRecurring                Boolean @default(false)

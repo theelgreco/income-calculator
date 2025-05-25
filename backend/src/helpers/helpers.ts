@@ -14,6 +14,7 @@ import {
     subBusinessDays,
 } from "date-fns";
 import { MonthDate, MonthSerializer } from "../types/types";
+import { Decimal } from "@prisma/client/runtime/library";
 
 // Function to add the ordinal suffix
 export function getOrdinalSuffix(day: number): "th" | "st" | "nd" | "rd" {
@@ -38,7 +39,7 @@ export const getTransactionDatesInYear = (transaction: Transaction, months: Mont
         recurrenceRate: number;
         startDate?: Date;
         finishDate?: Date;
-        amountInPence: number;
+        amountInPence: Decimal;
         isRecurring: boolean;
     };
 
@@ -84,14 +85,14 @@ export const getTransactionDatesInYear = (transaction: Transaction, months: Mont
 
         while (currentDate <= endDate) {
             const monthIndex = currentDate.getMonth();
-            isExpense ? (months[monthIndex].expenses += amountInPence) : (months[monthIndex].income += amountInPence);
+            isExpense ? (months[monthIndex].expenses += amountInPence.toNumber()) : (months[monthIndex].income += amountInPence.toNumber());
             currentDate = fnMap[recurrenceType].add(currentDate, recurrenceRate);
         }
     } else {
         const monthIndex = transaction.startDate?.getMonth();
 
         if (monthIndex !== undefined) {
-            isExpense ? (months[monthIndex].expenses += amountInPence) : (months[monthIndex].income += amountInPence);
+            isExpense ? (months[monthIndex].expenses += amountInPence.toNumber()) : (months[monthIndex].income += amountInPence.toNumber());
         }
     }
 };
@@ -231,17 +232,3 @@ export const groupTransactionsByDaysInMonth = (transactions: Transaction[], year
 
     return daysInMonth;
 };
-
-export async function performanceTimerAsync(cb: Function, logString: string, ...args: any[]) {
-    const start = performance.now();
-    const result = await cb(...args);
-    console.log(logString, `${performance.now() - start}ms`);
-    return result;
-}
-
-export async function performanceTimer(cb: Function, logString: string, ...args: any[]) {
-    const start = performance.now();
-    const result = cb(...args);
-    console.log(logString, `${performance.now() - start}ms`);
-    return result;
-}
