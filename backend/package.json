@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "dist/index.js",
     "scripts": {
-        "build": "rm -rf dist; npx tsc; cp -R public dist/public",
+        "build": "rm -rf dist; npx prisma generate; npx tsc; cp -R public dist/public",
         "start": "npx prisma migrate deploy; node dist/src/index.js",
         "dev": "nodemon src/index.ts",
         "firebase": "npx firebase emulators:start --import=./emulator-data --export-on-exit",
