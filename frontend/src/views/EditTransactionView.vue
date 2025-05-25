@@ -204,7 +204,7 @@ async function getTransaction() {
 
         isExpense.value = transaction.isExpense;
         transactionName.value = transaction.name;
-        amountInPence.value = transaction.amountInPence;
+        amountInPence.value = parseFloat(transaction.amountInPence);
         isRecurring.value = transaction.isRecurring;
         recurrenceType.value = transaction.recurrenceType ?? undefined;
         recurrenceRate.value = transaction.recurrenceRate ?? undefined;
@@ -538,7 +538,7 @@ onMounted(() => {
                         </div>
                         <div class="flex w-full justify-between">
                             <p class="font-extralight">Amount</p>
-                            <p class="font-medium">£{{ amountInPence }}</p>
+                            <p class="font-medium">£{{ amountInPence?.toFixed(2) }}</p>
                         </div>
                         <div class="flex w-full justify-between">
                             <p class="font-extralight">Recurrence type</p>

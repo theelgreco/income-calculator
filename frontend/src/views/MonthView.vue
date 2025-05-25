@@ -59,7 +59,9 @@ onMounted(() => {
                     class="flex justify-between px-6 py-2 hover:bg-grays-light-100 rounded-lg"
                 >
                     <p>{{ transaction.name }}</p>
-                    <p class="font-medium" :class="{ 'text-state-danger-500': transaction.isExpense }">£{{ transaction.amountInPence }}</p>
+                    <p class="font-medium" :class="{ 'text-state-danger-500': transaction.isExpense }">
+                        £{{ parseFloat(transaction.amountInPence).toFixed(2) }}
+                    </p>
                 </div>
             </div>
         </div>

@@ -77,7 +77,7 @@ onMounted(() => {
             >
                 <p class="text-xl font-medium">{{ transaction.name }}</p>
                 <div class="flex items-center gap-3">
-                    <p class="text-xl mr-1">£{{ transaction.amountInPence }}</p>
+                    <p class="text-xl mr-1">£{{ parseFloat(transaction.amountInPence).toFixed(2) }}</p>
                     <Divider layout="vertical" class="!mx-0" />
                     <div class="flex gap-2">
                         <RouterLink :to="{ name: 'editTransaction', params: { transaction: transaction.id } }">

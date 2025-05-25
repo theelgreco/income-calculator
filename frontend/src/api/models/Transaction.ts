@@ -51,10 +51,10 @@ export interface Transaction {
     isExpense: boolean;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof Transaction
      */
-    amountInPence: number;
+    amountInPence: string;
     /**
      * 
      * @type {boolean}

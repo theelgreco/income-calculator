@@ -23,18 +23,18 @@ const props = defineProps<Props>();
                 <div class="flex justify-between">
                     <p class="font-extralight">Income</p>
                     <Skeleton v-if="income === null" width="3rem" class="bg-grays-light-200" />
-                    <p v-else>£{{ income }}</p>
+                    <p v-else>£{{ income.toFixed(2) }}</p>
                 </div>
                 <div class="flex justify-between">
                     <p class="font-extralight">Outgoings</p>
                     <Skeleton v-if="expenses === null" width="3rem" class="bg-grays-light-200" />
-                    <p v-else>£{{ expenses }}</p>
+                    <p v-else>£{{ expenses.toFixed(2) }}</p>
                 </div>
             </div>
             <div class="flex justify-between">
                 <p class="font-extralight">Spare</p>
                 <Skeleton v-if="remaining === null" width="6.5rem" height="2.5rem" class="bg-grays-light-200" />
-                <p v-else class="text-4xl group-hover:font-bold transition-all">£{{ remaining }}</p>
+                <p v-else class="text-4xl group-hover:font-bold transition-all">£{{ remaining.toFixed(2) }}</p>
             </div>
         </div>
     </div>
