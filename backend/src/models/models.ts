@@ -102,6 +102,26 @@ export async function getAllTransactions(userId: string): Promise<Transaction[]>
     }
 }
 
+export async function getSingleTransaction(id: string, userId: string) {
+    try {
+        return await prisma.transaction.findUnique({ where: { id, userId } });
+    } catch (err: any) {
+        throw err;
+    } finally {
+        prisma.$disconnect();
+    }
+}
+
+export async function updateSingleTransaction(data: Omit<Transaction, "createdAt" | "userId">, id: string, userId: string) {
+    try {
+        return await prisma.transaction.update({ where: { id, userId }, data });
+    } catch (err: any) {
+        throw err;
+    } finally {
+        prisma.$disconnect();
+    }
+}
+
 export async function deleteSingleTransaction(id: string, userId: string) {
     try {
         await prisma.transaction.delete({

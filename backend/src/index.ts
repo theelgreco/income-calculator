@@ -11,6 +11,8 @@ import {
     postNewTransaction,
     getTransactionList,
     deleteTransaction,
+    getTransaction,
+    updateTransaction,
 } from "./controllers/controllers";
 import swaggerUi from "swagger-ui-express";
 import { openapiSpecification } from "../swagger";
@@ -176,8 +178,8 @@ app.get("/api/transactions/:year/:month", getMonthData);
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/schemas/CreateTransactionResponse'
- *              400:
- *                  description: Bad request
+ *          400:
+ *              description: Bad request
  */
 app.post("/api/transactions", postNewTransaction);
 
@@ -205,6 +207,66 @@ app.get("/api/transactions", getTransactionList);
 /**
  * @openapi
  * /api/transactions/{id}:
+ *  get:
+ *      tags:
+ *          - Transactions
+ *      summary: Get a single transaction
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              schema:
+ *                  type: string
+ *                  format: uuid
+ *              required: true
+ *              desciption: The ID of the transaction
+ *      responses:
+ *          200:
+ *              description: Success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Transaction'
+ *          400:
+ *              description: Bad request
+ */
+app.get("/api/transactions/:id", getTransaction);
+
+/**
+ * @openapi
+ * /api/transactions/{id}:
+ *  put:
+ *      tags:
+ *          - Transactions
+ *      summary: Update a transaction
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              schema:
+ *                  type: string
+ *                  format: uuid
+ *              required: true
+ *              desciption: The ID of the transaction
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/UpdateTransactionInput'
+ *      responses:
+ *          200:
+ *              description: Success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Transaction'
+ *          400:
+ *              description: Bad request
+ */
+app.put("/api/transactions/:id", updateTransaction);
+
+/**
+ * @openapi
+ * /api/transactions/{id}:
  *  delete:
  *      tags:
  *          - Transactions
@@ -220,8 +282,8 @@ app.get("/api/transactions", getTransactionList);
  *      responses:
  *          204:
  *              description: Success
- *              400:
- *                  description: Bad request
+ *          400:
+ *              description: Bad request
  */
 app.delete("/api/transactions/:id", deleteTransaction);
 

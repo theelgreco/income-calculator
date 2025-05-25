@@ -19,6 +19,7 @@ import type {
   GetTransactionMonthResponseInner,
   GetTransactionYearResponseInner,
   Transaction,
+  UpdateTransactionInput,
 } from '../models/index';
 import {
     CreateTransactionInputFromJSON,
@@ -29,10 +30,21 @@ import {
     GetTransactionYearResponseInnerToJSON,
     TransactionFromJSON,
     TransactionToJSON,
+    UpdateTransactionInputFromJSON,
+    UpdateTransactionInputToJSON,
 } from '../models/index';
 
 export interface ApiTransactionsIdDeleteRequest {
     id: string;
+}
+
+export interface ApiTransactionsIdGetRequest {
+    id: string;
+}
+
+export interface ApiTransactionsIdPutRequest {
+    id: string;
+    updateTransactionInput: UpdateTransactionInput;
 }
 
 export interface ApiTransactionsPostRequest {
@@ -125,6 +137,98 @@ export class TransactionsApi extends runtime.BaseAPI {
      */
     async apiTransactionsIdDelete(requestParameters: ApiTransactionsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiTransactionsIdDeleteRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Get a single transaction
+     */
+    async apiTransactionsIdGetRaw(requestParameters: ApiTransactionsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Transaction>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling apiTransactionsIdGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/api/transactions/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TransactionFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a single transaction
+     */
+    async apiTransactionsIdGet(requestParameters: ApiTransactionsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Transaction> {
+        const response = await this.apiTransactionsIdGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update a transaction
+     */
+    async apiTransactionsIdPutRaw(requestParameters: ApiTransactionsIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Transaction>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling apiTransactionsIdPut().'
+            );
+        }
+
+        if (requestParameters['updateTransactionInput'] == null) {
+            throw new runtime.RequiredError(
+                'updateTransactionInput',
+                'Required parameter "updateTransactionInput" was null or undefined when calling apiTransactionsIdPut().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/api/transactions/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateTransactionInputToJSON(requestParameters['updateTransactionInput']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TransactionFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a transaction
+     */
+    async apiTransactionsIdPut(requestParameters: ApiTransactionsIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Transaction> {
+        const response = await this.apiTransactionsIdPutRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**

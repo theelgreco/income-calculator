@@ -80,14 +80,16 @@ onMounted(() => {
                     <p class="text-xl mr-1">£{{ transaction.amountInPence }}</p>
                     <Divider layout="vertical" class="!mx-0" />
                     <div class="flex gap-2">
-                        <div v-tooltip.bottom="`Edit ${transaction.name}`">
-                            <SvgIcon
-                                type="mdi"
-                                :path="mdiPencilOutline"
-                                class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
-                                :size="18"
-                            />
-                        </div>
+                        <RouterLink :to="{ name: 'editTransaction', params: { transaction: transaction.id } }">
+                            <div v-tooltip.bottom="`Edit ${transaction.name}`">
+                                <SvgIcon
+                                    type="mdi"
+                                    :path="mdiPencilOutline"
+                                    class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
+                                    :size="18"
+                                />
+                            </div>
+                        </RouterLink>
                         <div v-tooltip.bottom="`Delete ${transaction.name}`">
                             <SvgIcon
                                 type="mdi"

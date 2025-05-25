@@ -4,7 +4,7 @@
  *  schemas:
  *      Transaction:
  *          type: object
- *          required: [id, createdAt, userId, name, isExpense, amountInPence, startDate, finishDate, isRecurring, recurrenceType, recurrenceRate, recurrenceRateType, specificDayOfWeek, specificDayOfMonth, firstLastDayOfMonth]
+ *          required: [id, createdAt, userId, name, isExpense, amountInPence, startDate, finishDate, isRecurring, recurrenceType, recurrenceRate, specificDayOfWeek, specificDayOfMonth, firstLastDayOfMonth]
  *          properties:
  *              id:
  *                  type: string
@@ -24,29 +24,26 @@
  *              isRecurring:
  *                  type: boolean
  *              startDate:
- *                  type: string
+ *                  type: [string, "null"]
  *                  format: date-time
  *              finishDate:
- *                  type: string
+ *                  type: [string, "null"]
  *                  format: date-time
  *              recurrenceType:
- *                  type: string
- *                  enum: [day, week, month, year]
+ *                  type: [string, "null"]
+ *                  enum: [day, week, month]
  *              recurrenceRate:
- *                  type: number
- *              recurrenceRateType:
- *                  type: string
- *                  enum: [specific_day_of_week, specific_day_of_month, first_last_day_of_month]
+ *                  type: [number, "null"]
  *              specificDayOfWeek:
- *                  type: int
+ *                  type: [int, "null"]
  *                  minimum: 0
  *                  maximum: 6
  *              specificDayOfMonth:
- *                  type: int
+ *                  type: [int, "null"]
  *                  minimum: 1
  *                  maximum: 28
  *              firstLastDayOfMonth:
- *                  type: string
+ *                  type: [string, "null"]
  *                  enum: [first_business, last_business, last, specific]
  *      CreateTransactionInput:
  *          type: object
@@ -75,9 +72,6 @@
  *              recurrenceRate:
  *                  type: number
  *                  default: 1
- *              recurrenceRateType:
- *                  type: string
- *                  enum: [specific_day_of_week, specific_day_of_month, first_last_day_of_month]
  *              specificDayOfWeek:
  *                  type: int
  *                  minimum: 0
@@ -91,6 +85,44 @@
  *                  enum: [first_business, last_business, last, specific]
  *      CreateTransactionResponse:
  *          $ref: '#/components/schemas/Transaction'
+ *      UpdateTransactionInput:
+ *          type: object
+ *          required: [name, isExpense, amountInPence, isRecurring, startDate, finishDate, recurrenceType, recurrenceRate, specificDayOfWeek, specificDayOfMonth, firstLastDayOfMonth]
+ *          properties:
+ *              name:
+ *                  type: string
+ *              isExpense:
+ *                  type: boolean
+ *                  default: false
+ *              amountInPence:
+ *                  type: number
+ *                  default: 0.01
+ *              isRecurring:
+ *                  type: boolean
+ *                  default: false
+ *              startDate:
+ *                  type: [string, "null"]
+ *                  format: date-time
+ *              finishDate:
+ *                  type: [string, "null"]
+ *                  format: date-time
+ *              recurrenceType:
+ *                  type: [string, "null"]
+ *                  enum: [day, week, month, year]
+ *              recurrenceRate:
+ *                  type: [number, "null"]
+ *                  default: 1
+ *              specificDayOfWeek:
+ *                  type: [int, "null"]
+ *                  minimum: 0
+ *                  maximum: 6
+ *              specificDayOfMonth:
+ *                  type: [int, "null"]
+ *                  minimum: 1
+ *                  maximum: 28
+ *              firstLastDayOfMonth:
+ *                  type: [string, "null"]
+ *                  enum: [first_business, last_business, last, specific]
  *      GetTransactionYearResponse:
  *          type: array
  *          minItems: 12

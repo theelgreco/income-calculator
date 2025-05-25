@@ -4,8 +4,10 @@ import {
     deleteSingleTransaction,
     getAllTransactions,
     getMonthTransactions,
+    getSingleTransaction,
     getUser,
     getYearTransactions,
+    updateSingleTransaction,
 } from "../models/models";
 import { Transaction, User } from "@prisma/client";
 import { GetTransactionMonthParams, GetTransactionYearParams } from "../schema/transaction.schema";
@@ -35,8 +37,12 @@ export async function getYearData(
 
         if (!request.params.year) {
             throw new Error("No year provided");
-        } else if (request.params.year.length !== 4 || !parseInt(request.params.year)) {
-            throw new Error("Invalid year provided");
+        } else {
+            if (request.params.year.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+                next();
+            } else if (request.params.year.length !== 4 || !parseInt(request.params.year)) {
+                throw new Error("Invalid year provided");
+            }
         }
 
         const id = request.user.id;
@@ -92,7 +98,6 @@ export async function postNewTransaction(request: Request & { user?: any }, resp
         isRecurring,
         recurrenceType,
         recurrenceRate,
-        recurrenceRateType,
         specificDayOfWeek,
         specificDayOfMonth,
         firstLastDayOfMonth,
@@ -112,7 +117,6 @@ export async function postNewTransaction(request: Request & { user?: any }, resp
         isRecurring,
         recurrenceType,
         recurrenceRate,
-        recurrenceRateType,
         specificDayOfWeek,
         specificDayOfMonth,
         firstLastDayOfMonth,
@@ -130,6 +134,38 @@ export async function getTransactionList(request: Request & { user?: any }, resp
     try {
         const transactions = await getAllTransactions(request.user.id);
         response.status(200).send(transactions);
+    } catch (err: any) {
+        next(err);
+    }
+}
+
+export async function getTransaction(request: Request & { user?: any }, response: Response, next: NextFunction) {
+    try {
+        if (!request.params.id) {
+            throw new Error("No ID provided");
+        }
+
+        const transaction = await getSingleTransaction(request.params.id, request.user.id);
+
+        response.status(200).send(transaction);
+    } catch (err: any) {
+        next(err);
+    }
+}
+
+export async function updateTransaction(request: Request & { user?: any }, response: Response, next: NextFunction) {
+    try {
+        if (!request.params.id) {
+            throw new Error("No ID provided");
+        }
+
+        if (request.body.startDate) request.body.startDate = new Date(request.body.startDate);
+
+        if (request.body.finishDate) request.body.finishDate = new Date(request.body.finishDate);
+
+        const transaction = await updateSingleTransaction(request.body, request.params.id, request.user.id);
+
+        return response.status(200).send(transaction);
     } catch (err: any) {
         next(err);
     }

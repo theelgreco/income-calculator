@@ -69,12 +69,6 @@ export interface CreateTransactionInput {
     recurrenceRate?: number;
     /**
      * 
-     * @type {string}
-     * @memberof CreateTransactionInput
-     */
-    recurrenceRateType?: CreateTransactionInputRecurrenceRateTypeEnum;
-    /**
-     * 
      * @type {number}
      * @memberof CreateTransactionInput
      */
@@ -104,16 +98,6 @@ export const CreateTransactionInputRecurrenceTypeEnum = {
     Year: 'year'
 } as const;
 export type CreateTransactionInputRecurrenceTypeEnum = typeof CreateTransactionInputRecurrenceTypeEnum[keyof typeof CreateTransactionInputRecurrenceTypeEnum];
-
-/**
- * @export
- */
-export const CreateTransactionInputRecurrenceRateTypeEnum = {
-    SpecificDayOfWeek: 'specific_day_of_week',
-    SpecificDayOfMonth: 'specific_day_of_month',
-    FirstLastDayOfMonth: 'first_last_day_of_month'
-} as const;
-export type CreateTransactionInputRecurrenceRateTypeEnum = typeof CreateTransactionInputRecurrenceRateTypeEnum[keyof typeof CreateTransactionInputRecurrenceRateTypeEnum];
 
 /**
  * @export
@@ -156,7 +140,6 @@ export function CreateTransactionInputFromJSONTyped(json: any, ignoreDiscriminat
         'finishDate': json['finishDate'] == null ? undefined : (new Date(json['finishDate'])),
         'recurrenceType': json['recurrenceType'] == null ? undefined : json['recurrenceType'],
         'recurrenceRate': json['recurrenceRate'] == null ? undefined : json['recurrenceRate'],
-        'recurrenceRateType': json['recurrenceRateType'] == null ? undefined : json['recurrenceRateType'],
         'specificDayOfWeek': json['specificDayOfWeek'] == null ? undefined : json['specificDayOfWeek'],
         'specificDayOfMonth': json['specificDayOfMonth'] == null ? undefined : json['specificDayOfMonth'],
         'firstLastDayOfMonth': json['firstLastDayOfMonth'] == null ? undefined : json['firstLastDayOfMonth'],
@@ -177,7 +160,6 @@ export function CreateTransactionInputToJSON(value?: CreateTransactionInput | nu
         'finishDate': value['finishDate'] == null ? undefined : ((value['finishDate']).toISOString()),
         'recurrenceType': value['recurrenceType'],
         'recurrenceRate': value['recurrenceRate'],
-        'recurrenceRateType': value['recurrenceRateType'],
         'specificDayOfWeek': value['specificDayOfWeek'],
         'specificDayOfMonth': value['specificDayOfMonth'],
         'firstLastDayOfMonth': value['firstLastDayOfMonth'],
