@@ -6,7 +6,7 @@
         "build": "rm -rf dist; npx prisma generate; npx tsc; cp -R public dist/public",
         "start": "npx prisma migrate deploy; node dist/src/index.js",
         "dev": "nodemon src/index.ts",
-        "firebase": "npx firebase emulators:start --import=./emulator-data --export-on-exit",
+        "firebase": "cd .firebase && npx firebase emulators:start --import=./data --export-on-exit",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
