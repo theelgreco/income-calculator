@@ -76,7 +76,7 @@ watch(windowWidth, () => {
                     <SvgIcon type="mdi" :path="mdiFinance" :size="34" />
                     <h2 class="font-black">Income Tracker</h2>
                 </RouterLink>
-                <Button type="button" severity="text" @click="closeCallback" rounded class="mr-[-0.5rem]">
+                <Button type="button" severity="text" @click="closeCallback" rounded class="-mr-2">
                     <template #icon>
                         <SvgIcon type="mdi" :path="mdiClose" />
                     </template>
@@ -85,28 +85,28 @@ watch(windowWidth, () => {
             <div class="flex flex-col py-3">
                 <RouterLink
                     :to="{ name: 'year', params: { year: new Date().getFullYear() } }"
-                    class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded transition-all select-none"
+                    class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded-sm transition-all select-none"
                 >
                     <SvgIcon type="mdi" :path="mdiHomeOutline" :size="20" class="text-grays-light-500" />
                     <p>Dashboard</p>
                 </RouterLink>
                 <RouterLink
                     :to="{ name: 'transactions' }"
-                    class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded transition-all select-none"
+                    class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded-sm transition-all select-none"
                 >
                     <SvgIcon type="mdi" :path="mdiCardsOutline" :size="20" class="text-grays-light-500" />
                     <p>Transactions</p>
                 </RouterLink>
                 <RouterLink
                     :to="{ name: 'createTransaction' }"
-                    class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded transition-all select-none"
+                    class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded-sm transition-all select-none"
                 >
                     <SvgIcon type="mdi" :path="mdiPlusOutline" :size="20" class="text-grays-light-500" />
                     <p>Add transaction</p>
                 </RouterLink>
                 <RouterLink
                     :to="{ name: 'year', params: { year: new Date().getFullYear() } }"
-                    class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded transition-all select-none"
+                    class="flex items-center gap-2 hover:bg-grays-light-100 p-3 rounded-sm transition-all select-none"
                 >
                     <SvgIcon type="mdi" :path="mdiCogOutline" :size="20" class="text-grays-light-500" />
                     <p>Settings</p>

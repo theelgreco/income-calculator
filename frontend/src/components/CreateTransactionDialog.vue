@@ -162,14 +162,14 @@ watch(
             <!-- One Off -->
             <div v-if="transactionForm.isExpense !== null" class="flex w-full gap-3">
                 <Button
-                    class="flex-grow w-[50%] hover:opacity-100"
+                    class="grow w-[50%] hover:opacity-100"
                     :class="{ 'bg-black text-white': transactionForm.isRecurring === false, 'opacity-50': transactionForm.isRecurring }"
                     severity="secondary"
                     label="One off"
                     @click="transactionForm.isRecurring = false"
                 ></Button>
                 <Button
-                    class="flex-grow w-[50%] hover:opacity-100"
+                    class="grow w-[50%] hover:opacity-100"
                     :class="{ 'bg-black text-white': transactionForm.isRecurring, 'opacity-50': transactionForm.isRecurring === false }"
                     severity="secondary"
                     label="Recurring"
@@ -189,9 +189,9 @@ watch(
                 <div class="flex flex-col gap-3 rounded-lg">
                     <div class="flex justify-between gap-3">
                         <Button
-                            class="flex-grow hover:opacity-100"
+                            class="grow hover:opacity-100"
                             :class="{
-                                '!bg-black !text-white': transactionForm.recurrenceType === 'day',
+                                'bg-black! text-white!': transactionForm.recurrenceType === 'day',
                                 'opacity-50': transactionForm.recurrenceType !== 'day' && transactionForm.recurrenceType,
                             }"
                             severity="secondary"
@@ -199,9 +199,9 @@ watch(
                             @click="transactionForm.recurrenceType = 'day'"
                         />
                         <Button
-                            class="flex-grow hover:opacity-100"
+                            class="grow hover:opacity-100"
                             :class="{
-                                '!bg-black !text-white': transactionForm.recurrenceType === 'week',
+                                'bg-black! text-white!': transactionForm.recurrenceType === 'week',
                                 'opacity-50': transactionForm.recurrenceType !== 'week' && transactionForm.recurrenceType,
                             }"
                             severity="secondary"
@@ -209,9 +209,9 @@ watch(
                             @click="transactionForm.recurrenceType = 'week'"
                         />
                         <Button
-                            class="flex-grow hover:opacity-100"
+                            class="grow hover:opacity-100"
                             :class="{
-                                '!bg-black !text-white': transactionForm.recurrenceType === 'month',
+                                'bg-black! text-white!': transactionForm.recurrenceType === 'month',
                                 'opacity-50': transactionForm.recurrenceType !== 'month' && transactionForm.recurrenceType,
                             }"
                             severity="secondary"
@@ -219,7 +219,7 @@ watch(
                             @click="transactionForm.recurrenceType = 'month'"
                         />
                     </div>
-                    <div v-if="transactionForm.recurrenceType === 'day'" class="flex flex-col flex-grow gap-3">
+                    <div v-if="transactionForm.recurrenceType === 'day'" class="flex flex-col grow gap-3">
                         <InputNumber v-model="transactionForm.recurrenceRate" placeholder="Every how many days?" :min="1" />
                         <p v-if="transactionForm.recurrenceRate !== undefined">
                             Payment occurs every <b>{{ transactionForm.recurrenceRate }}</b> days

@@ -3,8 +3,8 @@ export default {
         class: [
             'static flex gap-2',
             {
-                '[&_[data-pc-name=pcbutton]]:rotate-45': state.d_visible,
-                '[&_[data-pc-name=pcbutton]]:rotate-0': !state.d_visible
+                '**:data-[pc-name=pcbutton]:rotate-45': state.d_visible,
+                '**:data-[pc-name=pcbutton]:rotate-0': !state.d_visible
             }
         ]
     }),

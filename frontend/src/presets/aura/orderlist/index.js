@@ -6,7 +6,7 @@ export default {
             "flex xl:flex-col justify-center gap-2",
 
             // Spacing
-            "p-[1.125rem]",
+            "p-4.5",
         ],
     },
     container: {
@@ -19,7 +19,7 @@ export default {
             // Color
             "bg-white dark:bg-white-900",
             "border border-surface-200 dark:border-surface-700",
-            "outline-none",
+            "outline-hidden",
         ],
     },
 };

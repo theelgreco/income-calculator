@@ -23,7 +23,7 @@ export default {
             // States
             {
                 "hover:border-surface-400 dark:hover:border-surface-600": !context.disabled && !props.invalid,
-                "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400 focus:z-10":
+                "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400 focus:z-10":
                     !context.disabled,
                 "bg-white-200 dark:bg-white-700 select-none pointer-events-none cursor-default": context.disabled,
             },

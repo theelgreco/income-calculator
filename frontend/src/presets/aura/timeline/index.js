@@ -14,7 +14,7 @@ export default {
             {
                 "flex-row-reverse":
                     props.align === "right" || (props.layout === "vertical" && props.align === "alternate" && context.index % 2 === 1),
-                "flex-col [&:not(:last-child)]:flex-1": props.layout === "horizontal",
+                "flex-col not-last:flex-1": props.layout === "horizontal",
                 "flex-col-reverse ":
                     props.align === "bottom" || (props.layout === "horizontal" && props.align === "alternate" && context.index % 2 === 1),
             },
@@ -52,15 +52,15 @@ export default {
             "inline-flex items-center justify-center",
 
             // Size
-            "w-[1.125rem] h-[1.125rem]",
+            "w-4.5 h-4.5",
 
             // Appearance
             "rounded-full border-2 border-surface-200 bg-white dark:border-surface-700 dark:bg-white-950",
 
             // Before
-            "before:rounded-full before:w-[0.375rem] before:h-[0.375rem] before:bg-primary",
+            "before:rounded-full before:w-1.5 before:h-1.5 before:bg-primary",
             // After
-            "after:absolute after:rounded-full after:w-full after:h-full after:shadow-sm",
+            "after:absolute after:rounded-full after:w-full after:h-full after:shadow-xs",
         ],
     },
     eventConnector: ({ props }) => ({

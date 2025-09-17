@@ -45,12 +45,12 @@ export default {
             "bg-white dark:bg-white-900 sm:bg-transparent dark:sm:bg-transparent",
 
             // Misc
-            "outline-none",
+            "outline-hidden",
         ],
     }),
     item: ({ props }) => ({
         class: [
-            "sm:relative static my-[2px] [&:first-child]:mt-0",
+            "sm:relative static my-[2px] first:mt-0",
             {
                 "sm:w-auto w-full": props.horizontal,
                 "w-full": !props.horizontal,
@@ -143,7 +143,7 @@ export default {
         class: "w-full sm:w-1/2",
     },
     submenu: {
-        class: ["m-0 list-none", "p-1 px-2 w-full sm:min-w-[14rem]"],
+        class: ["m-0 list-none", "p-1 px-2 w-full sm:min-w-56"],
     },
     submenuLabel: {
         class: [
@@ -179,7 +179,7 @@ export default {
             // States
             "hover:text-surface-600 dark:hover:text-white/60",
             "hover:bg-white-100 dark:hover:bg-[rgba(255,255,255,0.03)]",
-            "focus:outline-none focus:outline-offset-0",
+            "focus:outline-hidden focus:outline-offset-0",
             "focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
 
             // Transitions

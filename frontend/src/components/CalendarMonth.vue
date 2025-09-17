@@ -15,7 +15,7 @@ const props = defineProps<Props>();
 
 <template>
     <div
-        class="flex flex-col items-center gap-5 border-1/2 rounded-lg p-5 shadow cursor-pointer hover:border-black hover:shadow-md active:shadow-inner transition-all group"
+        class="flex flex-col items-center gap-5 border-1/2 rounded-lg p-5 shadow-sm cursor-pointer hover:border-black hover:shadow-md active:shadow-inner transition-all group"
     >
         <div class="flex items-center justify-center w-full font-medium">{{ monthName }}</div>
         <div class="flex flex-col w-full gap-5">

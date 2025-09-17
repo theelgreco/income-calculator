@@ -94,7 +94,7 @@ export default {
             "hover:bg-white/10 hover:text-white",
 
             // Focus Effects
-            "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
         ],
     },
     thumbnailsViewport: {
@@ -125,7 +125,7 @@ export default {
             "opacity-50",
 
             // States
-            '[&[data-p-active="true"]]:opacity-100',
+            'data-[p-active="true"]:opacity-100',
             "hover:opacity-100",
 
             // Transitions
@@ -150,7 +150,7 @@ export default {
             "hover:bg-white/10 hover:text-white",
 
             // Focus Effects
-            "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
         ],
     },
     indicatorList: ({ parent }) => ({
@@ -197,7 +197,7 @@ export default {
             "rounded-full transition duration-200",
 
             // Focus Effects
-            "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
 
             // Conditional Appearance: Not Highlighted
             { "bg-white-200 hover:bg-white-300 dark:bg-white-700 dark:hover:bg-white-600": !context.highlighted },
@@ -212,7 +212,7 @@ export default {
     closeButton: {
         class: [
             // Positioning
-            "!absolute top-0 right-0",
+            "absolute! top-0 right-0",
 
             // Display & Flexbox
             "flex justify-center items-center overflow-hidden",
@@ -227,7 +227,7 @@ export default {
             "hover:text-white hover:bg-white/10",
 
             // Focus Effects
-            "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
         ],
     },
     closeIcon: {
@@ -248,17 +248,17 @@ export default {
             "mx-2",
 
             // Positioning
-            "top-1/2 mt-[-0.5rem] left-0",
+            "top-1/2 -mt-2 left-0",
             {
-                "!absolute": !parent.state.containerVisible && parent.props.showItemNavigators,
-                "!fixed": parent.state.containerVisible,
+                "absolute!": !parent.state.containerVisible && parent.props.showItemNavigators,
+                "fixed!": parent.state.containerVisible,
             },
 
             // Hover Effect
             "hover:bg-white/10 hover:text-white",
 
             // Focus Effects
-            "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
         ],
     }),
     nextButton: ({ parent }) => ({
@@ -276,17 +276,17 @@ export default {
             "mx-2",
 
             // Positioning
-            "top-1/2 mt-[-0.5rem] right-0",
+            "top-1/2 -mt-2 right-0",
             {
-                "!absolute": !parent.state.containerVisible && parent.props.showItemNavigators,
-                "!fixed": parent.state.containerVisible,
+                "absolute!": !parent.state.containerVisible && parent.props.showItemNavigators,
+                "fixed!": parent.state.containerVisible,
             },
 
             // Hover Effect
             "hover:bg-white/10 hover:text-white",
 
             // Focus Effects
-            "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
         ],
     }),
     caption: {

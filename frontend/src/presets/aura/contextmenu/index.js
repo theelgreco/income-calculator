@@ -2,7 +2,7 @@ export default {
     root: {
         class: [
             // Sizing and Shape
-            "min-w-[12.5rem]",
+            "min-w-50",
             "rounded-md",
             "shadow-md",
 
@@ -22,11 +22,11 @@ export default {
             "list-none",
             "m-0",
             "p-0",
-            "outline-none",
+            "outline-hidden",
         ],
     },
     item: {
-        class: "relative my-[2px] [&:first-child]:mt-0",
+        class: "relative my-[2px] first:mt-0",
     },
     itemContent: ({ context }) => ({
         class: [

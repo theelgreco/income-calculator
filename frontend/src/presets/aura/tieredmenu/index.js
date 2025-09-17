@@ -5,7 +5,7 @@ export default {
             "rounded-md",
 
             // Size
-            "min-w-[12rem]",
+            "min-w-48",
             "p-1",
 
             // Colors
@@ -19,11 +19,11 @@ export default {
             "list-none",
             "flex flex-col",
             "m-0 p-0",
-            "outline-none",
+            "outline-hidden",
         ],
     },
     item: {
-        class: "relative my-[2px] [&:first-child]:mt-0",
+        class: "relative my-[2px] first:mt-0",
     },
     itemContent: ({ context }) => ({
         class: [
@@ -99,7 +99,7 @@ export default {
             "m-0",
             "p-1",
             "list-none",
-            "min-w-[12.5rem]",
+            "min-w-50",
 
             // Shape
             "shadow-none sm:shadow-md",

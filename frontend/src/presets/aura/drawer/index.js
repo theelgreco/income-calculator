@@ -6,7 +6,7 @@ export default {
 
             // Position
             "relative",
-            { "!transition-none !transform-none !w-screen !h-screen !max-h-full !top-0 !left-0": props.position == "full" },
+            { "transition-none! transform-none! w-screen! h-screen! max-h-full! top-0! left-0!": props.position == "full" },
 
             // Size
             {
@@ -38,7 +38,7 @@ export default {
             "shrink-0",
 
             // Spacing
-            "p-[1.125rem]",
+            "p-4.5",
 
             // Colors
             "bg-white dark:bg-white-900",
@@ -77,7 +77,7 @@ export default {
             // States
             "hover:text-surface-700 dark:hover:text-white/80",
             "hover:bg-white-100 dark:hover:bg-[rgba(255,255,255,0.03)]",
-            "focus:outline-none focus:outline-offset-0 focus:ring-1",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1",
             "focus:ring-primary-500 dark:focus:ring-primary-400",
 
             // Misc
@@ -97,7 +97,7 @@ export default {
     content: {
         class: [
             // Spacing and Size
-            "p-[1.125rem]",
+            "p-4.5",
             "pt-0",
             "h-full",
             "w-full",

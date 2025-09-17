@@ -8,7 +8,7 @@ export default {
             { "rounded-md": parent.instance.$name !== "InputGroup" },
             { "first:rounded-l-md rounded-none last:rounded-r-md": parent.instance.$name == "InputGroup" },
             { "border-0 border-y border-l last:border-r": parent.instance.$name == "InputGroup" },
-            { "first:ml-0 ml-[-1px]": parent.instance.$name == "InputGroup" && !props.showButtons },
+            { "first:ml-0 -ml-px": parent.instance.$name == "InputGroup" && !props.showButtons },
 
             // Color and Background
             { "bg-white": !props.disabled },
@@ -29,7 +29,7 @@ export default {
 
             // States
             { "hover:border-surface-400 dark:hover:border-surface-600": !props.invalid },
-            { "outline-none outline-offset-0 ring-1 ring-primary-500 dark:ring-primary-400 z-10": state.focused },
+            { "outline-hidden outline-offset-0 ring-1 ring-primary-500 dark:ring-primary-400 z-10": state.focused },
 
             // Misc
             "cursor-pointer",
@@ -68,7 +68,7 @@ export default {
             "duration-200",
 
             // States
-            "focus:outline-none focus:shadow-none",
+            "focus:outline-hidden focus:shadow-none",
 
             // Filled State *for FloatLabel
             { filled: parent.instance?.$name == "FloatLabel" && props.modelValue !== null },
@@ -76,7 +76,7 @@ export default {
             // Misc
             "relative",
             "cursor-pointer",
-            "overflow-hidden overflow-ellipsis",
+            "overflow-hidden text-ellipsis",
             "whitespace-nowrap",
             "appearance-none",
         ],
@@ -135,7 +135,7 @@ export default {
             "first:mt-0 mt-[2px]",
 
             // Shape
-            "border-0 rounded",
+            "border-0 rounded-sm",
 
             // Colors
             {
@@ -225,7 +225,7 @@ export default {
     },
     transition: {
         enterFromClass: "opacity-0 scale-y-[0.8]",
-        enterActiveClass: "transition-[transform,opacity] duration-[120ms] ease-[cubic-bezier(0,0,0.2,1)]",
+        enterActiveClass: "transition-[transform,opacity] duration-120 ease-out",
         leaveActiveClass: "transition-opacity duration-100 ease-linear",
         leaveToClass: "opacity-0",
     },

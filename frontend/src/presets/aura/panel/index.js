@@ -23,7 +23,7 @@ export default {
             "border-0",
 
             // Conditional Spacing
-            { "p-[1.125rem]": !props.toggleable, "py-3 px-[1.125rem]": props.toggleable },
+            { "p-4.5": !props.toggleable, "py-3 px-4.5": props.toggleable },
         ],
     }),
     title: {
@@ -49,7 +49,7 @@ export default {
             // States
             "hover:text-surface-800 dark:hover:text-surface-0",
             "hover:bg-white-50 dark:hover:bg-[rgba(255,255,255,0.03)]",
-            "focus:outline-none focus:outline-offset-0 focus-visible:ring-1 focus-visible:ring-primary-400 dark:focus-visible:ring-primary-300",
+            "focus:outline-hidden focus:outline-offset-0 focus-visible:ring-1 focus-visible:ring-primary-400 dark:focus-visible:ring-primary-300",
 
             // Transitions
             "transition-all duration-200 ease-in-out",
@@ -65,7 +65,7 @@ export default {
     content: {
         class: [
             // Spacing
-            "p-[1.125rem] pt-0",
+            "p-4.5 pt-0",
 
             // Shape
             "border-0 border-t-0 last:rounded-br-md last:rounded-bl-md",
@@ -77,7 +77,7 @@ export default {
     footer: {
         class: [
             // Spacing
-            "p-[1.125rem] pt-0",
+            "p-4.5 pt-0",
 
             // Shape
             "border-0 border-t-0 rounded-br-lg rounded-bl-lg",
@@ -91,7 +91,7 @@ export default {
         enterActiveClass: "overflow-hidden transition-[max-height] duration-1000 ease-[cubic-bezier(0.42,0,0.58,1)]",
         enterToClass: "max-h-[1000px]",
         leaveFromClass: "max-h-[1000px]",
-        leaveActiveClass: "overflow-hidden transition-[max-height] duration-[450ms] ease-[cubic-bezier(0,1,0,1)]",
+        leaveActiveClass: "overflow-hidden transition-[max-height] duration-450 ease-[cubic-bezier(0,1,0,1)]",
         leaveToClass: "max-h-0",
     },
 };

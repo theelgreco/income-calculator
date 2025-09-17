@@ -21,7 +21,7 @@ export default {
                 "flex-row": props.orientation !== "vertical",
                 "flex-col": props.orientation == "vertical",
             },
-            "[&>[data-pc-extend=button]]:self-center",
+            "*:data-[pc-extend=button]:self-center",
         ],
     }),
     viewport: {
@@ -90,7 +90,7 @@ export default {
             "transition duration-200",
 
             // Focus Styles
-            "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
 
             // Color & Background
             {

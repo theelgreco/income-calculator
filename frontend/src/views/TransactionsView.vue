@@ -69,7 +69,7 @@ onMounted(() => {
             <div
                 v-for="transaction in transactions"
                 :key="transaction.id"
-                class="flex items-center justify-between p-3 border-1 gap-1 bg-gradient-to-tl rounded"
+                class="flex items-center justify-between p-3 border-1 gap-1 bg-linear-to-tl rounded-sm"
                 :class="{
                     'to-green-50 from-white border-green-600 text-green-700': !transaction.isExpense,
                     'to-red-50 from-white border-red-600 text-red-700': transaction.isExpense,
@@ -78,7 +78,7 @@ onMounted(() => {
                 <p class="text-xl font-medium">{{ transaction.name }}</p>
                 <div class="flex items-center gap-3">
                     <p class="text-xl mr-1">£{{ parseFloat(transaction.amountInPence).toFixed(2) }}</p>
-                    <Divider layout="vertical" class="!mx-0" />
+                    <Divider layout="vertical" class="mx-0!" />
                     <div class="flex gap-2">
                         <RouterLink :to="{ name: 'editTransaction', params: { transaction: transaction.id } }">
                             <div v-tooltip.bottom="`Edit ${transaction.name}`">

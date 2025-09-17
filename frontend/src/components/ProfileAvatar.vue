@@ -57,7 +57,7 @@ onMounted(() => {
                     class="absolute right-0 top-0 cursor-pointer text-grays-light-400 hover:text-grays-light-600 transition-all"
                 />
                 <div class="w-[70px] h-[70px] mx-auto">
-                    <img :src="user.image" class="outline outline-2 outline-purple-700 rounded-full" />
+                    <img :src="user.image" class="outline-solid outline-2 outline-purple-700 rounded-full" />
                 </div>
                 <div class="flex flex-col text-center">
                     <p class="font-medium">{{ user.username }}</p>
@@ -75,10 +75,10 @@ onMounted(() => {
             /> -->
         <RouterLink
             :to="{ name: 'transactions' }"
-            class="flex items-center gap-3 overflow-hidden select-none hover:bg-grays-light-100 p-3 rounded transition-all"
+            class="flex items-center gap-3 overflow-hidden select-none hover:bg-grays-light-100 p-3 rounded-sm transition-all"
         >
             <div class="min-w-[42px] min-h-[42px] w-[42px] h-[42px]">
-                <img :src="user.image" class="outline outline-2 outline-purple-700 rounded-full w-full h-full" />
+                <img :src="user.image" class="outline-solid outline-2 outline-purple-700 rounded-full w-full h-full" />
             </div>
             <div class="flex flex-col overflow-hidden">
                 <p class="font-medium text-nowrap overflow-hidden text-ellipsis">{{ user.username }}</p>

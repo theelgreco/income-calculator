@@ -5,10 +5,10 @@ export default {
             "font-bold",
 
             {
-                "text-xs leading-[1.5rem]": props.size === null,
-                "text-[0.625rem] leading-[1.25rem]": props.size === "small",
-                "text-lg leading-[2.25rem]": props.size === "large",
-                "text-2xl leading-[3rem]": props.size === "xlarge",
+                "text-xs leading-6": props.size === null,
+                "text-[0.625rem] leading-5": props.size === "small",
+                "text-lg leading-9": props.size === "large",
+                "text-2xl leading-12": props.size === "xlarge",
             },
 
             // Alignment
@@ -18,10 +18,10 @@ export default {
             "p-0 px-1",
             {
                 "w-2 h-2": props.value === null,
-                "min-w-[1.5rem] h-[1.5rem]": props.value !== null && props.size === null,
-                "min-w-[1.25rem] h-[1.25rem]": props.size === "small",
-                "min-w-[2.25rem] h-[2.25rem]": props.size === "large",
-                "min-w-[3rem] h-[3rem]": props.size === "xlarge",
+                "min-w-6 h-6": props.value !== null && props.size === null,
+                "min-w-5 h-5": props.size === "small",
+                "min-w-9 h-9": props.size === "large",
+                "min-w-12 h-12": props.size === "xlarge",
             },
 
             // Shape

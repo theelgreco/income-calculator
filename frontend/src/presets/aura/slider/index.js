@@ -60,7 +60,7 @@ export default {
             "bg-white-200 dark:bg-white-800",
 
             // States
-            "focus-visible:outline-none focus-visible:outline-offset-0 focus-visible:ring-1",
+            "focus-visible:outline-hidden focus-visible:outline-offset-0 focus-visible:ring-1",
             "ring-primary-500 dark:ring-primary-400",
 
             // Transitions
@@ -92,7 +92,7 @@ export default {
             "bg-white-200 dark:bg-white-800",
 
             // States
-            "focus-visible:outline-none focus-visible:outline-offset-0 focus-visible:ring-1",
+            "focus-visible:outline-hidden focus-visible:outline-offset-0 focus-visible:ring-1",
             "ring-primary-500 dark:ring-primary-400",
 
             // Transitions
@@ -124,7 +124,7 @@ export default {
             "bg-white-200 dark:bg-white-800",
 
             // States
-            "focus-visible:outline-none focus-visible:outline-offset-0 focus-visible:ring-1",
+            "focus-visible:outline-hidden focus-visible:outline-offset-0 focus-visible:ring-1",
             "ring-primary-500 dark:ring-primary-400",
 
             // Transitions

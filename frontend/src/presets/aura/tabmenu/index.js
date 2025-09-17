@@ -31,7 +31,7 @@ export default {
             "flex items-center",
 
             // Spacing
-            "py-4 px-[1.125rem]",
+            "py-4 px-4.5",
             "-mb-px",
 
             // Shape
@@ -50,7 +50,7 @@ export default {
             },
 
             // States
-            "focus:outline-none focus:outline-offset-0 focus-visible:ring-1 ring-inset focus-visible:ring-primary-400 dark:focus-visible:ring-primary-300",
+            "focus:outline-hidden focus:outline-offset-0 focus-visible:ring-1 ring-inset focus-visible:ring-primary-400 dark:focus-visible:ring-primary-300",
             {
                 "hover:text-surface-900 dark:hover:text-surface-0": state.d_activeIndex !== context.index,
             },

@@ -15,12 +15,12 @@ export default {
             '[&>*:last-child]:ease',
 
             // Focus Label Appearance
-            '[&>*:last-child]:has-[:focus]:-top-3',
-            '[&>*:last-child]:has-[:focus]:text-sm',
+            'has-focus:[&>*:last-child]:-top-3',
+            'has-focus:[&>*:last-child]:text-sm',
 
             // Filled Input Label Appearance
-            '[&>*:last-child]:has-[.filled]:-top-3',
-            '[&>*:last-child]:has-[.filled]:text-sm'
+            'has-[.filled]:[&>*:last-child]:-top-3',
+            'has-[.filled]:[&>*:last-child]:text-sm'
         ]
     }
 };

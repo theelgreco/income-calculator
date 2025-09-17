@@ -22,7 +22,7 @@ export default {
             "dark:text-white/80",
 
             // Spacing
-            "p-[1.125rem]",
+            "p-4.5",
             "gap-2",
 
             // Borders
@@ -49,7 +49,7 @@ export default {
             "dark:text-white/80",
 
             // Spacing
-            "p-[1.125rem]",
+            "p-4.5",
 
             // Borders
             "border border-t-0",
@@ -60,11 +60,11 @@ export default {
             "rounded-b-lg",
 
             //ProgressBar
-            "[&>[data-pc-name=pcprogressbar]]:absolute",
-            "[&>[data-pc-name=pcprogressbar]]:w-full",
-            "[&>[data-pc-name=pcprogressbar]]:top-0",
-            "[&>[data-pc-name=pcprogressbar]]:left-0",
-            "[&>[data-pc-name=pcprogressbar]]:h-1",
+            "*:data-[pc-name=pcprogressbar]:absolute",
+            "*:data-[pc-name=pcprogressbar]:w-full",
+            "*:data-[pc-name=pcprogressbar]:top-0",
+            "*:data-[pc-name=pcprogressbar]:left-0",
+            "*:data-[pc-name=pcprogressbar]:h-1",
         ],
     },
     file: {
@@ -86,7 +86,7 @@ export default {
             "gap-2",
 
             // Shape
-            "rounded",
+            "rounded-sm",
         ],
     },
     fileThumbnail: "shrink-0",

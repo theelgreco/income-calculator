@@ -54,7 +54,7 @@ export default {
 
             // States
             { "hover:border-surface-400 dark:hover:border-surface-700": !props.invalid },
-            { "outline-none outline-offset-0 z-10 ring-1 ring-primary-500 dark:ring-primary-400": state.focused },
+            { "outline-hidden outline-offset-0 z-10 ring-1 ring-primary-500 dark:ring-primary-400": state.focused },
 
             // Transition
             "transition duration-200 ease-in-out",
@@ -70,7 +70,7 @@ export default {
         class: "flex-auto inline-flex pt-1 pb-1",
     },
     input: {
-        class: "border-none outline-none bg-transparent m-0 p-0 shadow-none rounded-none w-full",
+        class: "border-none outline-hidden bg-transparent m-0 p-0 shadow-none rounded-none w-full",
     },
     dropdown: {
         class: [
@@ -92,13 +92,13 @@ export default {
             "border border-primary",
 
             // States
-            "focus:outline-none focus:outline-offset-0 focus:ring-1 ",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1 ",
             "hover:bg-primary-emphasis hover:border-primary-emphasis",
             "focus:ring-primary-500 dark:focus:ring-primary-400",
         ],
     },
     loader: {
-        class: ["text-surface-500 dark:text-surface-0/70", "absolute top-[50%] right-[0.5rem] -mt-2 animate-spin"],
+        class: ["text-surface-500 dark:text-surface-0/70", "absolute top-[50%] right-2 -mt-2 animate-spin"],
     },
     overlay: {
         class: [
@@ -130,7 +130,7 @@ export default {
             "first:mt-0 mt-[2px]",
 
             // Shape
-            "border-0 rounded",
+            "border-0 rounded-sm",
 
             // Colors
             {
@@ -184,7 +184,7 @@ export default {
     },
     transition: {
         enterFromClass: "opacity-0 scale-y-[0.8]",
-        enterActiveClass: "transition-[transform,opacity] duration-[120ms] ease-[cubic-bezier(0,0,0.2,1)]",
+        enterActiveClass: "transition-[transform,opacity] duration-120 ease-out",
         leaveActiveClass: "transition-opacity duration-100 ease-linear",
         leaveToClass: "opacity-0",
     },

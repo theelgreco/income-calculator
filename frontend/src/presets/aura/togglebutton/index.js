@@ -18,7 +18,7 @@ export default {
             // States
             {
                 "hover:text-surface-800 dark:hover:text-white/80": !props.disabled && !props.modelValue,
-                "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400":
+                "focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400":
                     !props.disabled,
             },
 

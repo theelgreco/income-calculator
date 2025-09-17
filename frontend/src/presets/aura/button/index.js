@@ -20,7 +20,7 @@ export default {
             },
             {
                 "w-10 px-0 gap-0": instance.hasIcon && !props.label && !props.badge,
-                "rounded-[50%] h-10 [&>[data-pc-section=label]]:w-0 [&>[data-pc-section=label]]:invisible":
+                "rounded-[50%] h-10 *:data-[pc-section=label]:w-0 *:data-[pc-section=label]:invisible":
                     instance.hasIcon && !props.label && !props.badge && props.rounded,
             },
 
@@ -154,7 +154,7 @@ export default {
             },
 
             // --- Severity Button States ---
-            "focus:outline-none focus:outline-offset-0 focus:ring-1",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1",
 
             // Link
             { "focus:ring-primary": props.link },
@@ -249,7 +249,7 @@ export default {
             "cursor-pointer overflow-hidden select-none",
 
             // Badge
-            "[&>[data-pc-name=badge]]:min-w-4 [&>[data-pc-name=badge]]:h-4 [&>[data-pc-name=badge]]:leading-4",
+            "*:data-[pc-name=badge]:min-w-4 *:data-[pc-name=badge]:h-4 *:data-[pc-name=badge]:leading-4",
         ],
     }),
     label: ({ props }) => ({
@@ -266,7 +266,7 @@ export default {
         class: [
             "text-base leading-4",
             "mx-0",
-            "!text-black",
+            "text-black!",
             {
                 "mr-2": props.iconPos == "left" && props.label != null,
                 "ml-2 order-1": props.iconPos == "right" && props.label != null,

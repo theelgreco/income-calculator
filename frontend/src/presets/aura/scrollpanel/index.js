@@ -5,7 +5,7 @@ export default {
             "h-full w-full",
 
             // Layering
-            "z-[1]",
+            "z-1",
 
             // Spacing
             "overflow-hidden",
@@ -38,7 +38,7 @@ export default {
             "h-[9px] bottom-0",
 
             // Appearance
-            "bg-white-50 dark:bg-white-700 rounded",
+            "bg-white-50 dark:bg-white-700 rounded-sm",
 
             // Interactivity
             "cursor-pointer",
@@ -47,7 +47,7 @@ export default {
             "invisible z-20",
 
             // Transition
-            "transition duration-[250ms] ease-linear",
+            "transition duration-250 ease-linear",
 
             // Misc
             "relative",
@@ -59,7 +59,7 @@ export default {
             "w-[9px] top-0",
 
             // Appearance
-            "bg-white-50 dark:bg-white-700 rounded",
+            "bg-white-50 dark:bg-white-700 rounded-sm",
 
             // Interactivity
             "cursor-pointer",
@@ -68,7 +68,7 @@ export default {
             "z-20",
 
             // Transition
-            "transition duration-[250ms] ease-linear",
+            "transition duration-250 ease-linear",
 
             // Misc
             "relative",

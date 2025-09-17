@@ -53,7 +53,7 @@ export default {
     messageIcon: ({ props }) => ({
         class: [
             // Sizing and Spacing
-            props.message.severity === "contrast" || props.message.severity === "secondary" ? "w-0" : "w-[1.125rem] h-[1.125rem] mr-2",
+            props.message.severity === "contrast" || props.message.severity === "secondary" ? "w-0" : "w-4.5 h-4.5 mr-2",
             "text-lg leading-[normal]",
         ],
     }),
@@ -98,7 +98,7 @@ export default {
 
             // States
             "hover:bg-white/30 dark:hover:bg-[rgba(255,255,255,0.03)]",
-            "focus:outline-none focus:outline-offset-0 focus:ring-1",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1",
             {
                 "focus:ring-blue-500 dark:focus:ring-blue-400": props.severity == "info",
                 "focus:ring-green-500 dark:focus:ring-green-400": props.severity == "success",
@@ -116,7 +116,7 @@ export default {
         enterFromClass: "opacity-0 translate-y-2/4",
         enterActiveClass: "transition-[transform,opacity] duration-300",
         leaveFromClass: "max-h-[1000px]",
-        leaveActiveClass: "!transition-[max-height_.45s_cubic-bezier(0,1,0,1),opacity_.3s,margin-bottom_.3s] overflow-hidden",
+        leaveActiveClass: "transition-[max-height_.45s_cubic-bezier(0,1,0,1),opacity_.3s,margin-bottom_.3s]! overflow-hidden",
         leaveToClass: "max-h-0 opacity-0 mb-0",
     },
 };

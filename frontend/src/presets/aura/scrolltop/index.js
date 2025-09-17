@@ -7,8 +7,8 @@ export default {
 
                 // Positioning
                 {
-                    "!sticky flex ml-auto": props.target === "parent",
-                    "!fixed": props.target === "window",
+                    "sticky! flex ml-auto": props.target === "parent",
+                    "fixed!": props.target === "window",
                 },
                 "bottom-[20px] right-[20px]",
                 "h-10 w-10 rounded-full shadow-md",

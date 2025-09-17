@@ -8,7 +8,7 @@ export default {
             "rounded-t-md",
 
             // Spacing
-            "py-4 px-[1.125rem]",
+            "py-4 px-4.5",
             "-mb-px",
 
             // Colors and Conditions
@@ -25,7 +25,7 @@ export default {
             },
 
             // States
-            "focus:outline-none focus:outline-offset-0 focus-visible:ring-1 ring-inset focus-visible:ring-primary-400 dark:focus-visible:ring-primary-300",
+            "focus:outline-hidden focus:outline-offset-0 focus-visible:ring-1 ring-inset focus-visible:ring-primary-400 dark:focus-visible:ring-primary-300",
 
             // Transitions
             "transition-all duration-200",

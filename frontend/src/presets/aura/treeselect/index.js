@@ -24,7 +24,7 @@ export default {
 
             // States
             { "hover:border-surface-400 dark:hover:border-surface-600": !props.invalid },
-            { "outline-none outline-offset-0 ring-1 ring-primary-500 dark:ring-primary-400 z-10": state.focused },
+            { "outline-hidden outline-offset-0 ring-1 ring-primary-500 dark:ring-primary-400 z-10": state.focused },
 
             // Misc
             "cursor-pointer",
@@ -49,7 +49,7 @@ export default {
             "transition duration-200",
 
             // Misc
-            "overflow-hidden whitespace-nowrap cursor-pointer overflow-ellipsis",
+            "overflow-hidden whitespace-nowrap cursor-pointer text-ellipsis",
         ],
     },
     dropdown: {
@@ -92,7 +92,7 @@ export default {
     },
     transition: {
         enterFromClass: "opacity-0 scale-y-[0.8]",
-        enterActiveClass: "transition-[transform,opacity] duration-[120ms] ease-[cubic-bezier(0,0,0.2,1)]",
+        enterActiveClass: "transition-[transform,opacity] duration-120 ease-out",
         leaveActiveClass: "transition-opacity duration-100 ease-linear",
         leaveToClass: "opacity-0",
     },

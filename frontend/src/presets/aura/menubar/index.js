@@ -48,11 +48,11 @@ export default {
             "bg-white dark:bg-white-900 sm:bg-transparent",
 
             // Misc
-            "outline-none",
+            "outline-hidden",
         ],
     }),
     item: {
-        class: "sm:relative sm:w-auto w-full static my-[2px] [&:first-child]:mt-0",
+        class: "sm:relative sm:w-auto w-full static my-[2px] first:mt-0",
     },
     itemContent: ({ context }) => ({
         class: [
@@ -120,7 +120,7 @@ export default {
             "flex flex-col",
             // Size
             "rounded-md",
-            "min-w-[12.5rem]",
+            "min-w-50",
 
             // Spacing
             "p-1",
@@ -161,7 +161,7 @@ export default {
             // States
             "hover:text-surface-600 dark:hover:text-white/60",
             "hover:bg-white-100 dark:hover:bg-[rgba(255,255,255,0.03)]",
-            "focus:outline-none focus:outline-offset-0",
+            "focus:outline-hidden focus:outline-offset-0",
             "focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400",
 
             // Transitions

@@ -514,7 +514,7 @@ useResizeObserver(boxes, (entries) => {
 
                 <!-- STEP 6 -->
                 <template v-if="step === 6">
-                    <div class="border-1 flex flex-col p-8 w-full max-w-[420px] rounded gap-6">
+                    <div class="border-1 flex flex-col p-8 w-full max-w-[420px] rounded-sm gap-6">
                         <div class="flex w-full justify-between">
                             <p class="font-extralight">Name</p>
                             <p class="font-medium">{{ transactionName }}</p>

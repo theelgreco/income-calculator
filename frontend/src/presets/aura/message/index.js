@@ -3,7 +3,7 @@ export default {
         class: [
             // Spacing and Shape
             "rounded-md",
-            "outline",
+            "outline-solid",
 
             // Colors
             {
@@ -44,7 +44,7 @@ export default {
     icon: {
         class: [
             // Sizing and Spacing
-            "shrink-0 w-[1.125rem] h-[1.125rem]",
+            "shrink-0 w-4.5 h-4.5",
         ],
     },
     text: {
@@ -76,7 +76,7 @@ export default {
 
             // States
             "hover:bg-white/30 dark:hover:bg-[rgba(255,255,255,0.03)]",
-            "focus:outline-none focus:outline-offset-0 focus:ring-1",
+            "focus:outline-hidden focus:outline-offset-0 focus:ring-1",
             {
                 "focus:ring-blue-500 dark:focus:ring-blue-400": props.severity == "info",
                 "focus:ring-green-500 dark:focus:ring-green-400": props.severity == "success",
@@ -95,6 +95,6 @@ export default {
         enterActiveClass: "transition-opacity duration-300",
         leaveFromClass: "max-h-40",
         leaveActiveClass: "overflow-hidden transition-all duration-300 ease-in",
-        leaveToClass: "max-h-0 opacity-0 !m-0",
+        leaveToClass: "max-h-0 opacity-0 m-0!",
     },
 };

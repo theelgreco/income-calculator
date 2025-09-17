@@ -26,7 +26,7 @@ export default {
             "border-0 rounded-full",
 
             // Size
-            "min-w-[2.5rem] h-10 m-[0.143rem]",
+            "min-w-10 h-10 m-[0.143rem]",
             "leading-none",
 
             // Color
@@ -35,7 +35,7 @@ export default {
             // State
             {
                 "hover:bg-white-50 dark:hover:bg-[rgba(255,255,255,0.03)]": !context.disabled,
-                "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400":
+                "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400":
                     !context.disabled,
             },
 
@@ -58,7 +58,7 @@ export default {
             "border-0 rounded-full",
 
             // Size
-            "min-w-[2.5rem] h-10 m-[0.143rem]",
+            "min-w-10 h-10 m-[0.143rem]",
             "leading-none",
 
             // Color
@@ -67,7 +67,7 @@ export default {
             // State
             {
                 "hover:bg-white-50 dark:hover:bg-[rgba(255,255,255,0.03)]": !context.disabled,
-                "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400":
+                "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400":
                     !context.disabled,
             },
 
@@ -90,7 +90,7 @@ export default {
             "border-0 rounded-full",
 
             // Size
-            "min-w-[2.5rem] h-10 m-[0.143rem]",
+            "min-w-10 h-10 m-[0.143rem]",
             "leading-none",
 
             // Color
@@ -99,7 +99,7 @@ export default {
             // State
             {
                 "hover:bg-white-50 dark:hover:bg-[rgba(255,255,255,0.03)]": !context.disabled,
-                "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400":
+                "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400":
                     !context.disabled,
             },
 
@@ -122,7 +122,7 @@ export default {
             "border-0 rounded-full",
 
             // Size
-            "min-w-[2.5rem] h-10 m-[0.143rem]",
+            "min-w-10 h-10 m-[0.143rem]",
             "leading-none",
 
             // Color
@@ -131,7 +131,7 @@ export default {
             // State
             {
                 "hover:bg-white-50 dark:hover:bg-[rgba(255,255,255,0.03)]": !context.disabled,
-                "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400":
+                "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400":
                     !context.disabled,
             },
 
@@ -154,7 +154,7 @@ export default {
             "border-0 rounded-full",
 
             // Size
-            "min-w-[2.5rem] h-10 m-[0.143rem]",
+            "min-w-10 h-10 m-[0.143rem]",
             "leading-none",
 
             // Color
@@ -163,7 +163,7 @@ export default {
             // State
             {
                 "hover:bg-white-50 dark:hover:bg-[rgba(255,255,255,0.03)]": !context.disabled,
-                "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400":
+                "focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400":
                     !context.disabled,
             },
 

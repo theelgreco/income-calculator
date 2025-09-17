@@ -18,7 +18,7 @@ export default {
     }),
     listContainer: "overflow-auto",
     list: {
-        class: "p-1 list-none m-0 outline-none",
+        class: "p-1 list-none m-0 outline-hidden",
     },
     option: ({ context }) => ({
         class: [
@@ -35,7 +35,7 @@ export default {
             "first:mt-0 mt-[2px]",
 
             // Shape
-            "border-0 rounded",
+            "border-0 rounded-sm",
 
             // Colors
             {
@@ -104,7 +104,7 @@ export default {
             "bg-white dark:bg-white-900",
             "border-surface-300 dark:border-surface-700",
 
-            "[&_[data-pc-name=pcfilter]]:w-full",
+            "**:data-[pc-name=pcfilter]:w-full",
         ],
     },
 };
