@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DatePicker from "primevue/datepicker";
-import Button from "primevue/button";
+import Button from "./ui/button/Button.vue";
 import Dialog from "primevue/dialog";
 import InputNumber from "primevue/inputnumber";
 import InputText from "primevue/inputtext";
@@ -164,17 +164,19 @@ watch(
                 <Button
                     class="grow w-[50%] hover:opacity-100"
                     :class="{ 'bg-black text-white': transactionForm.isRecurring === false, 'opacity-50': transactionForm.isRecurring }"
-                    severity="secondary"
-                    label="One off"
+                    variant="secondary"
                     @click="transactionForm.isRecurring = false"
-                ></Button>
+                >
+                    One off
+                </Button>
                 <Button
                     class="grow w-[50%] hover:opacity-100"
                     :class="{ 'bg-black text-white': transactionForm.isRecurring, 'opacity-50': transactionForm.isRecurring === false }"
-                    severity="secondary"
-                    label="Recurring"
+                    variant="secondary"
                     @click="transactionForm.isRecurring = true"
-                ></Button>
+                >
+                    Recurring
+                </Button>
             </div>
             <!-- Recurring -->
             <template v-if="transactionForm.isRecurring">
@@ -194,30 +196,33 @@ watch(
                                 'bg-black! text-white!': transactionForm.recurrenceType === 'day',
                                 'opacity-50': transactionForm.recurrenceType !== 'day' && transactionForm.recurrenceType,
                             }"
-                            severity="secondary"
-                            label="Day"
+                            variant="secondary"
                             @click="transactionForm.recurrenceType = 'day'"
-                        />
+                        >
+                            Day
+                        </Button>
                         <Button
                             class="grow hover:opacity-100"
                             :class="{
                                 'bg-black! text-white!': transactionForm.recurrenceType === 'week',
                                 'opacity-50': transactionForm.recurrenceType !== 'week' && transactionForm.recurrenceType,
                             }"
-                            severity="secondary"
-                            label="Week"
+                            variant="secondary"
                             @click="transactionForm.recurrenceType = 'week'"
-                        />
+                        >
+                            Week
+                        </Button>
                         <Button
                             class="grow hover:opacity-100"
                             :class="{
                                 'bg-black! text-white!': transactionForm.recurrenceType === 'month',
                                 'opacity-50': transactionForm.recurrenceType !== 'month' && transactionForm.recurrenceType,
                             }"
-                            severity="secondary"
-                            label="Month"
+                            variant="secondary"
                             @click="transactionForm.recurrenceType = 'month'"
-                        />
+                        >
+                            Month
+                        </Button>
                     </div>
                     <div v-if="transactionForm.recurrenceType === 'day'" class="flex flex-col grow gap-3">
                         <InputNumber v-model="transactionForm.recurrenceRate" placeholder="Every how many days?" :min="1" />
@@ -274,8 +279,8 @@ watch(
                     <DatePicker v-model="transactionForm.finishDate" placeholder="Finish Date (optional)" showIcon iconDisplay="input" />
                 </div>
                 <div class="flex justify-between w-full">
-                    <Button severity="secondary" label="Cancel" @click="closeModal" />
-                    <Button label="Create" @click="createTransaction" />
+                    <Button variant="secondary" @click="closeModal">Cancel</Button>
+                    <Button @click="createTransaction">Create</Button>
                 </div>
             </template>
         </div>

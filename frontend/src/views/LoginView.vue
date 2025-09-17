@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { AuthenticationServer } from "@/api/auth";
 import router from "@/router";
-import Button from "primevue/button";
+import Button from "@/components/ui/button/Button.vue";
 import InputText from "primevue/inputtext";
 import { ref, watch } from "vue";
 
@@ -86,7 +86,7 @@ watch(activeTab, () => {
                 </div>
                 <div class="flex flex-col mt-auto gap-6">
                     <template v-if="activeTab === TabChoices.LOGIN">
-                        <Button label="Login" @click="login" type="submit" />
+                        <Button @click="login" type="submit">Login</Button>
                         <small
                             class="text-center text-primary-600 select-none hover:underline cursor-pointer"
                             @click="activeTab = TabChoices.SIGN_UP"
@@ -95,7 +95,7 @@ watch(activeTab, () => {
                         </small>
                     </template>
                     <template v-if="activeTab === TabChoices.SIGN_UP">
-                        <Button label="Sign up" @click="signUp" type="submit" />
+                        <Button @click="signUp" type="submit">Sign up</Button>
                         <small
                             class="text-center text-primary-600 select-none hover:underline cursor-pointer"
                             @click="activeTab = TabChoices.LOGIN"

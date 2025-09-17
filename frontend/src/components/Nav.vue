@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { mdiCardsOutline, mdiClose, mdiCogOutline, mdiFinance, mdiHome, mdiHomeOutline, mdiMenu, mdiPlus, mdiPlusOutline } from "@mdi/js";
 import { ref, watch } from "vue";
-import Button from "primevue/button";
+import Button from "./ui/button/Button.vue";
 import SvgIcon from "@jamescoyle/vue-icon";
 import CreateTransactionDialog from "./CreateTransactionDialog.vue";
 import ProfileAvatar from "./ProfileAvatar.vue";
@@ -42,20 +42,18 @@ watch(windowWidth, () => {
             </div>
         </RouterLink>
         <div class="flex gap-5 items-center">
-            <RouterLink :to="{ name: 'transactions' }" class="max-md:hidden">
-                <Button label="Transactions">
-                    <template #icon>
-                        <SvgIcon type="mdi" :path="mdiCardsOutline" :size="16" />
-                    </template>
-                </Button>
-            </RouterLink>
-            <RouterLink :to="{ name: 'createTransaction' }" class="max-md:hidden">
-                <Button label="Add transaction">
-                    <template #icon>
-                        <SvgIcon type="mdi" :path="mdiPlusOutline" :size="16" />
-                    </template>
-                </Button>
-            </RouterLink>
+            <Button as-child>
+                <RouterLink :to="{ name: 'transactions' }" class="max-md:hidden">
+                    <span>Transactions</span>
+                    <SvgIcon type="mdi" :path="mdiCardsOutline" :size="16" />
+                </RouterLink>
+            </Button>
+            <Button as-child>
+                <RouterLink :to="{ name: 'createTransaction' }" class="max-md:hidden">
+                    <span>Add transaction</span>
+                    <SvgIcon type="mdi" :path="mdiPlusOutline" :size="16" />
+                </RouterLink>
+            </Button>
             <ProfileAvatar />
             <SvgIcon type="mdi" :path="mdiMenu" class="cursor-pointer hover:bg-grays-light-100 md:hidden" @click="drawerVisible = true" />
         </div>
@@ -76,10 +74,8 @@ watch(windowWidth, () => {
                     <SvgIcon type="mdi" :path="mdiFinance" :size="34" />
                     <h2 class="font-black">Income Tracker</h2>
                 </RouterLink>
-                <Button type="button" severity="text" @click="closeCallback" rounded class="-mr-2">
-                    <template #icon>
-                        <SvgIcon type="mdi" :path="mdiClose" />
-                    </template>
+                <Button variant="ghost" @click="closeCallback" class="-mr-2">
+                    <SvgIcon type="mdi" :path="mdiClose" />
                 </Button>
             </div>
             <div class="flex flex-col py-3">

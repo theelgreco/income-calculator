@@ -3,7 +3,7 @@ import { UsersApi, type User } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
 import { onMounted, ref, defineProps, withDefaults } from "vue";
 import Popover from "primevue/popover";
-import Button from "primevue/button";
+import Button from "./ui/button/Button.vue";
 import { useRouter } from "vue-router";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiCog, mdiLogout } from "@mdi/js";
@@ -63,7 +63,7 @@ onMounted(() => {
                     <p class="font-medium">{{ user.username }}</p>
                     <p class="font-extralight">{{ user.email }}</p>
                 </div>
-                <Button label="Sign out" @click="logout"></Button>
+                <Button @click="logout">Sign out</Button>
             </div>
         </Popover>
     </div>
@@ -85,9 +85,8 @@ onMounted(() => {
                 <p class="font-extralight text-nowrap overflow-hidden text-ellipsis">{{ user.email }}</p>
             </div>
         </RouterLink>
-        <Button severity="plain" class="hover:bg-grays-light-100" @click="logout">
+        <Button variant="ghost" class="hover:bg-grays-light-100" @click="logout">
             <SvgIcon type="mdi" :path="mdiLogout" />
         </Button>
-        <!-- <Button label="Sign out" @click="logout"></Button> -->
     </div>
 </template>

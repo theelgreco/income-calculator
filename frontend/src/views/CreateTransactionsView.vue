@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Button from "primevue/button";
+import Button from "@/components/ui/button/Button.vue";
 import { usePreviousRoute } from "@/composables/previousRoute";
 import { computed, ref } from "vue";
 import SvgIcon from "@jamescoyle/vue-icon";
@@ -577,10 +577,10 @@ useResizeObserver(boxes, (entries) => {
                     <div class="flex flex-col gap-16">
                         <SvgIcon type="mdi" :path="mdiCheck" :size="60" class="text-state-success-600 mx-auto" />
                         <div class="flex flex-col gap-4">
-                            <RouterLink :to="{ name: 'home', params: {} }" class="w-full">
-                                <Button label="View your calendar" severity="secondary" outlined class="w-full" />
-                            </RouterLink>
-                            <Button label="Create another transaction" @click="resetValues" />
+                            <Button asChild variant="secondary" class="w-full">
+                                <RouterLink :to="{ name: 'home', params: {} }" class="w-full"> View your calendar </RouterLink>
+                            </Button>
+                            <Button @click="resetValues">Create another transaction</Button>
                         </div>
                     </div>
                 </template>
@@ -589,23 +589,19 @@ useResizeObserver(boxes, (entries) => {
 
         <!-- Buttons -->
         <div class="flex mt-auto border-t-1 p-3" v-if="step < 7">
-            <RouterLink :to="exitLink" class="h-full">
-                <Button class="h-full" label="Exit" severity="secondary" outlined />
-            </RouterLink>
+            <Button asChild class="h-full" variant="secondary">
+                <RouterLink :to="exitLink" class="h-full">Exit</RouterLink>
+            </Button>
             <div class="flex gap-3 ml-auto">
-                <Button v-if="step > 1" severity="secondary" outlined @click="step--">
-                    <template #default>
-                        <p v-if="windowWidth > 768">Previous</p>
-                        <SvgIcon v-else type="mdi" :path="mdiArrowLeft" />
-                    </template>
+                <Button v-if="step > 1" variant="secondary" @click="step--">
+                    <p v-if="windowWidth > 768">Previous</p>
+                    <SvgIcon v-else type="mdi" :path="mdiArrowLeft" />
                 </Button>
                 <Button v-if="step < 6" :disabled="disabled" @click="step++">
-                    <template #default>
-                        <p v-if="windowWidth > 768">Next</p>
-                        <SvgIcon v-else type="mdi" :path="mdiArrowRight" />
-                    </template>
+                    <p v-if="windowWidth > 768">Next</p>
+                    <SvgIcon v-else type="mdi" :path="mdiArrowRight" />
                 </Button>
-                <Button v-else label="Submit" @click="createTransaction"></Button>
+                <Button v-else @click="createTransaction">Submit</Button>
             </div>
         </div>
 

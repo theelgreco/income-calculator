@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Button from "primevue/button";
+import Button from "@/components/ui/button/Button.vue";
 import { usePreviousRoute } from "@/composables/previousRoute";
 import { computed, onMounted, ref } from "vue";
 import SvgIcon from "@jamescoyle/vue-icon";
@@ -589,23 +589,19 @@ onMounted(() => {
 
         <!-- Buttons -->
         <div class="flex mt-auto border-t-1 p-3" v-if="step < 7">
-            <RouterLink :to="exitLink" class="h-full">
-                <Button class="h-full" label="Exit" severity="secondary" outlined />
-            </RouterLink>
+            <Button asChild class="h-full" variant="secondary">
+                <RouterLink :to="exitLink" class="h-full">Exit</RouterLink>
+            </Button>
             <div class="flex gap-3 ml-auto">
-                <Button v-if="step > 1" severity="secondary" outlined @click="step--">
-                    <template #default>
-                        <p v-if="windowWidth > 768">Previous</p>
-                        <SvgIcon v-else type="mdi" :path="mdiArrowLeft" />
-                    </template>
+                <Button v-if="step > 1" variant="secondary" @click="step--">
+                    <p v-if="windowWidth > 768">Previous</p>
+                    <SvgIcon v-else type="mdi" :path="mdiArrowLeft" />
                 </Button>
                 <Button v-if="step < 6" :disabled="disabled" @click="step++">
-                    <template #default>
-                        <p v-if="windowWidth > 768">Next</p>
-                        <SvgIcon v-else type="mdi" :path="mdiArrowRight" />
-                    </template>
+                    <p v-if="windowWidth > 768">Next</p>
+                    <SvgIcon v-else type="mdi" :path="mdiArrowRight" />
                 </Button>
-                <Button v-else label="Submit" @click="updateTransaction"></Button>
+                <Button v-else @click="updateTransaction">Submit</Button>
             </div>
         </div>
 
