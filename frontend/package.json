@@ -9,7 +9,7 @@
         "preview": "vite preview",
         "build-only": "vite build",
         "type-check": "vue-tsc --build --force",
-        "codegen": "rm -rf ./src/api; openapi-generator-cli generate -i ../backend/schema.json -o ./src/api -g typescript-fetch --skip-validate-spec"
+        "codegen": "rm -rf ./src/api/generated; openapi-generator-cli generate -i ../backend/schema.json -o ./src/api/generated -g typescript-fetch --skip-validate-spec"
     },
     "dependencies": {
         "@jamescoyle/vue-icon": "^0.1.2",

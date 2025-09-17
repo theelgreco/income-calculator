@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UsersApi, type User } from "@/api";
+import { UsersApi, type User } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
 import { onMounted, ref, defineProps, withDefaults } from "vue";
 import Popover from "primevue/popover";

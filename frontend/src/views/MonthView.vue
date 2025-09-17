@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ApiTransactionsYearMonthGetMonthEnum, TransactionsApi, type GetTransactionMonthResponseInner } from "@/api";
+import { ApiTransactionsYearMonthGetMonthEnum, TransactionsApi, type GetTransactionMonthResponseInner } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
 import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";

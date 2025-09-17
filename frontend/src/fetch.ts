@@ -1,4 +1,4 @@
-import { type ConfigurationParameters, Configuration } from "@/api";
+import { type ConfigurationParameters, Configuration } from "@/api/generated";
 
 const defaultApiConfigurationParameters: ConfigurationParameters = {
     accessToken: async () => {

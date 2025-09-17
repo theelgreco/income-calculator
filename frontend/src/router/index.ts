@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { AuthenticationApi } from "@/api";
+import { AuthenticationApi } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
 import { usePreviousRoute } from "@/composables/previousRoute";
 

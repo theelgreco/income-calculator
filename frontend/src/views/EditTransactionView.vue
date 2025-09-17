@@ -23,7 +23,7 @@ import SelectableCard from "@/components/SelectableCard.vue";
 import Select from "primevue/select";
 import ProgressSpinner from "primevue/progressspinner";
 import { useScroll, useResizeObserver, useWindowSize } from "@vueuse/core";
-import { TransactionsApi, type CreateTransactionInput, type Transaction, type UpdateTransactionInput } from "@/api";
+import { TransactionsApi, type CreateTransactionInput, type Transaction, type UpdateTransactionInput } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
 
 type FirstLastDayOfMonth = "first_business" | "last_business" | "last" | "specific";

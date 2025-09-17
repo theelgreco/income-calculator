@@ -4,7 +4,7 @@ import CalendarYear from "./CalendarYear.vue";
 import CalendarMonth from "./CalendarMonth.vue";
 import { useRoute } from "vue-router";
 import router from "@/router";
-import { TransactionsApi, type GetTransactionYearResponseInner } from "@/api";
+import { TransactionsApi, type GetTransactionYearResponseInner } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
 import { RouterLink } from "vue-router";
 

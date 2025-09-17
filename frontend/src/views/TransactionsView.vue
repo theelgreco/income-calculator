@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Transaction, TransactionsApi } from "@/api";
+import { type Transaction, TransactionsApi } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { onMounted, ref } from "vue";

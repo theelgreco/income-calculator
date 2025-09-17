@@ -6,7 +6,7 @@ import InputNumber from "primevue/inputnumber";
 import InputText from "primevue/inputtext";
 import { ref, watch, defineProps, withDefaults, computed, defineEmits } from "vue";
 import Select from "primevue/select";
-import { TransactionsApi, type CreateTransactionInput } from "@/api";
+import { TransactionsApi, type CreateTransactionInput } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
 
 interface Props {
