@@ -3,7 +3,6 @@ import Nav from "./components/Nav.vue";
 import { RouterView, useRoute } from "vue-router";
 import { Toaster } from "./components/ui/sonner";
 import "vue-sonner/style.css";
-import ConfirmDialog from "primevue/confirmdialog";
 
 const route = useRoute();
 </script>
@@ -14,5 +13,4 @@ const route = useRoute();
         <Nav v-if="route.meta.showNav" />
         <RouterView />
     </main>
-    <ConfirmDialog />
 </template>
