@@ -6,6 +6,9 @@ import { onMounted, ref } from "vue";
 import { mdiCardsOutline, mdiPencilOutline, mdiTrashCanOutline } from "@mdi/js";
 import { toast } from "vue-sonner";
 import ConfirmTransactionDeleteDialog from "@/components/dialogs/ConfirmTransactionDeleteDialog.vue";
+import Tooltip from "@/components/ui/tooltip/Tooltip.vue";
+import TooltipTrigger from "@/components/ui/tooltip/TooltipTrigger.vue";
+import TooltipContent from "@/components/ui/tooltip/TooltipContent.vue";
 
 const transactionsApi = new TransactionsApi(defaultApiConfiguration);
 
@@ -64,28 +67,34 @@ onMounted(() => {
                 <div class="flex items-center gap-3">
                     <p class="text-xl mr-1">£{{ parseFloat(transaction.amountInPence).toFixed(2) }}</p>
                     <div class="flex gap-2">
-                        <RouterLink :to="{ name: 'editTransaction', params: { transaction: transaction.id } }">
-                            <div v-tooltip.bottom="`Edit ${transaction.name}`">
+                        <Tooltip>
+                            <TooltipContent> Edit {{ transaction.name }} </TooltipContent>
+                            <TooltipTrigger asChild>
+                                <RouterLink :to="{ name: 'editTransaction', params: { transaction: transaction.id } }">
+                                    <SvgIcon
+                                        type="mdi"
+                                        :path="mdiPencilOutline"
+                                        class="text-gray-400 hover:text-gray-600 cursor-pointer"
+                                        :size="18"
+                                    />
+                                </RouterLink>
+                            </TooltipTrigger>
+                        </Tooltip>
+                        <Tooltip>
+                            <TooltipContent> Delete {{ transaction.name }} </TooltipContent>
+                            <TooltipTrigger asChild>
                                 <SvgIcon
                                     type="mdi"
-                                    :path="mdiPencilOutline"
+                                    :path="mdiTrashCanOutline"
                                     class="text-gray-400 hover:text-gray-600 cursor-pointer"
                                     :size="18"
+                                    @click="
+                                        selectedTransactionId = transaction.id;
+                                        deleteConfirmDialog.open = true;
+                                    "
                                 />
-                            </div>
-                        </RouterLink>
-                        <div v-tooltip.bottom="`Delete ${transaction.name}`">
-                            <SvgIcon
-                                type="mdi"
-                                :path="mdiTrashCanOutline"
-                                class="text-gray-400 hover:text-gray-600 cursor-pointer"
-                                :size="18"
-                                @click="
-                                    selectedTransactionId = transaction.id;
-                                    deleteConfirmDialog.open = true;
-                                "
-                            />
-                        </div>
+                            </TooltipTrigger>
+                        </Tooltip>
                     </div>
                 </div>
             </div>
