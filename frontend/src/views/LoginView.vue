@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Button from "@/components/ui/button/Button.vue";
-import InputText from "primevue/inputtext";
+import Input from "@/components/ui/input/Input.vue";
 import { ref, watch } from "vue";
 import { useUserStore } from "@/stores/userStore";
 
@@ -11,13 +11,13 @@ enum TabChoices {
 
 const { signUp, login } = useUserStore();
 
-const email = ref<string | null>(null);
+const email = ref<string>();
 
-const username = ref<string | null>(null);
+const username = ref<string>();
 
-const email_or_username = ref<string | null>(null);
+const email_or_username = ref<string>();
 
-const password = ref<string | null>(null);
+const password = ref<string>();
 
 const activeTab = ref<TabChoices>(TabChoices.LOGIN);
 
@@ -34,10 +34,10 @@ function handleSignUp() {
 }
 
 function clearForm() {
-    email.value = null;
-    email_or_username.value = null;
-    username.value = null;
-    password.value = null;
+    email.value = undefined;
+    email_or_username.value = undefined;
+    username.value = undefined;
+    password.value = undefined;
 }
 
 watch(activeTab, () => {
@@ -54,22 +54,22 @@ watch(activeTab, () => {
                     <template v-if="activeTab === TabChoices.LOGIN">
                         <div class="flex flex-col">
                             <label for="email_or_username">Email or username</label>
-                            <InputText v-model="email_or_username" id="email_or_username" />
+                            <Input type="text" id="email_or_username" v-model="email_or_username" />
                         </div>
                     </template>
                     <template v-if="activeTab === TabChoices.SIGN_UP">
                         <div class="flex flex-col">
                             <label for="email">Email</label>
-                            <InputText v-model="email" id="email" />
+                            <Input v-model="email" id="email" type="email" />
                         </div>
                         <div class="flex flex-col">
                             <label for="username">Username</label>
-                            <InputText v-model="username" id="username" />
+                            <Input v-model="username" id="username" type="text" />
                         </div>
                     </template>
                     <div class="flex flex-col">
                         <label for="password">Password</label>
-                        <InputText v-model="password" id="password" type="password" />
+                        <Input v-model="password" id="password" type="password" />
                     </div>
                 </div>
                 <div class="flex flex-col mt-auto gap-6">
