@@ -20,6 +20,7 @@
         "clsx": "^2.1.1",
         "lodash": "^4.17.21",
         "lucide-vue-next": "^0.544.0",
+        "pinia": "^3.0.3",
         "primevue": "^4.0.7",
         "reka-ui": "^2.5.0",
         "tailwind-merge": "^3.3.1",
