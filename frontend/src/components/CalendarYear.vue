@@ -18,7 +18,7 @@ const emit = defineEmits<Emits>();
 
 <template>
     <div class="flex w-full justify-between items-center">
-        <div class="p-1 cursor-pointer hover:bg-grays-light-100">
+        <div class="p-1 cursor-pointer hover:bg-gray-100">
             <SvgIcon type="mdi" :path="mdiChevronLeft" @click="emit('update:year', year - 1)" class="cursor-pointer" />
         </div>
         <div class="flex flex-col gap-1 items-center">
@@ -27,7 +27,7 @@ const emit = defineEmits<Emits>();
                 Go to current year
             </div>
         </div>
-        <div class="p-1 cursor-pointer hover:bg-grays-light-100">
+        <div class="p-1 cursor-pointer hover:bg-gray-100">
             <SvgIcon type="mdi" :path="mdiChevronRight" @click="emit('update:year', year + 1)" />
         </div>
     </div>

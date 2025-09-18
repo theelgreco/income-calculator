@@ -329,7 +329,7 @@ useResizeObserver(boxes, (entries) => {
                     <!-- ONE-OFF -->
                     <template v-if="isRecurring === false">
                         <div class="flex flex-col gap-1">
-                            <label class="font-extralight text-sm text-grays-light-500" for="startDate">Transaction date</label>
+                            <label class="font-extralight text-sm text-gray-500" for="startDate">Transaction date</label>
                             <Popover>
                                 <PopoverTrigger as-child>
                                     <Button
@@ -403,7 +403,7 @@ useResizeObserver(boxes, (entries) => {
                                 <hr />
                                 <div class="flex flex-col gap-8 p-4 w-full">
                                     <div class="flex flex-col gap-1 mx-auto w-full">
-                                        <label class="w-fit font-extralight text-sm text-grays-light-500" for="frequencyRate">
+                                        <label class="w-fit font-extralight text-sm text-gray-500" for="frequencyRate">
                                             Enter a number
                                         </label>
                                         <Input
@@ -418,7 +418,7 @@ useResizeObserver(boxes, (entries) => {
                                         </small>
                                     </div>
                                     <div v-if="recurrenceType === 'week'" class="flex flex-col gap-1">
-                                        <label class="w-fit font-extralight text-sm text-grays-light-500" for="specificDayOfWeek">
+                                        <label class="w-fit font-extralight text-sm text-gray-500" for="specificDayOfWeek">
                                             Select a day of the week
                                         </label>
                                         <Select v-model="specificDayOfWeek">
@@ -438,7 +438,7 @@ useResizeObserver(boxes, (entries) => {
                                     </div>
                                     <template v-if="recurrenceType === 'month'">
                                         <div class="flex flex-col gap-1">
-                                            <label class="w-fit font-extralight text-sm text-grays-light-500" for="firstLastDayOfMonth">
+                                            <label class="w-fit font-extralight text-sm text-gray-500" for="firstLastDayOfMonth">
                                                 On which day?
                                             </label>
                                             <Select v-model="firstLastDayOfMonth">
@@ -471,7 +471,7 @@ useResizeObserver(boxes, (entries) => {
                                             </small>
                                         </div>
                                         <div v-if="firstLastDayOfMonth === 'specific'" class="flex flex-col gap-1">
-                                            <label class="w-fit font-extralight text-sm text-grays-light-500" for="specificDayOfMonth">
+                                            <label class="w-fit font-extralight text-sm text-gray-500" for="specificDayOfMonth">
                                                 Select a day
                                             </label>
                                             <Select v-model="specificDayOfMonth">
@@ -512,7 +512,7 @@ useResizeObserver(boxes, (entries) => {
                                 <hr />
                                 <div class="flex flex-col gap-5 p-4 w-full">
                                     <div class="flex flex-col gap-1 mx-auto w-full">
-                                        <label class="w-fit font-extralight text-sm text-grays-light-500" for="startDate">Start date</label>
+                                        <label class="w-fit font-extralight text-sm text-gray-500" for="startDate">Start date</label>
                                         <Popover>
                                             <PopoverTrigger as-child>
                                                 <Button
@@ -531,9 +531,7 @@ useResizeObserver(boxes, (entries) => {
                                         </Popover>
                                     </div>
                                     <div class="flex flex-col gap-1 mx-auto w-full">
-                                        <label class="w-fit font-extralight text-sm text-grays-light-500" for="finishDate">
-                                            Finish date
-                                        </label>
+                                        <label class="w-fit font-extralight text-sm text-gray-500" for="finishDate"> Finish date </label>
                                         <Popover>
                                             <PopoverTrigger as-child>
                                                 <Button

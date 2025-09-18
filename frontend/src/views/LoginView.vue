@@ -47,7 +47,7 @@ watch(activeTab, () => {
 
 <template>
     <div class="flex flex-col items-center justify-center h-full w-full">
-        <div class="flex flex-col gap-14 border-1 border-grays-light-200 p-6 rounded-sm w-[500px] max-w-full max-h-full shadow-lg">
+        <div class="flex flex-col gap-14 border-1 border-gray-200 p-6 rounded-sm w-[500px] max-w-full max-h-full shadow-lg">
             <h1 class="text-3xl">{{ activeTab === TabChoices.LOGIN ? "Login" : "Sign up" }}</h1>
             <form @submit.prevent="handleLogin" class="flex flex-col gap-12">
                 <div class="flex flex-col gap-5">

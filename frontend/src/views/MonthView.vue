@@ -56,7 +56,7 @@ onMounted(() => {
                 <div
                     v-for="transaction in date.transactions"
                     :key="transaction.id"
-                    class="flex justify-between px-6 py-2 hover:bg-grays-light-100 rounded-lg"
+                    class="flex justify-between px-6 py-2 hover:bg-gray-100 rounded-lg"
                 >
                     <p>{{ transaction.name }}</p>
                     <p class="font-medium" :class="{ 'text-state-danger-500': transaction.isExpense }">

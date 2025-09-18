@@ -49,7 +49,7 @@ export default {
 
             // Primary Button
             {
-                "text-white bg-grays-light-800": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
+                "text-white bg-gray-800": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
             },
             // Primary Text Button
             { "text-primary": props.text && props.severity === null && !props.plain },
@@ -67,7 +67,7 @@ export default {
             { "text-surface-500 dark:text-surface-300": props.text && props.severity === "secondary" && !props.plain },
             // Secondary Outlined Button
             {
-                "hover:bg-grays-light-100 border border-grays-light-300 hover:border-grays-light-500":
+                "hover:bg-gray-100 border border-gray-300 hover:border-gray-500":
                     props.outlined && props.severity === "secondary" && !props.plain,
             },
 

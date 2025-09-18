@@ -69,7 +69,7 @@ onMounted(() => {
                                 <SvgIcon
                                     type="mdi"
                                     :path="mdiPencilOutline"
-                                    class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
+                                    class="text-gray-400 hover:text-gray-600 cursor-pointer"
                                     :size="18"
                                 />
                             </div>
@@ -78,7 +78,7 @@ onMounted(() => {
                             <SvgIcon
                                 type="mdi"
                                 :path="mdiTrashCanOutline"
-                                class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
+                                class="text-gray-400 hover:text-gray-600 cursor-pointer"
                                 :size="18"
                                 @click="
                                     selectedTransactionId = transaction.id;
@@ -91,7 +91,7 @@ onMounted(() => {
             </div>
         </div>
         <div v-else class="w-full h-full flex flex-col items-center justify-center mb-20">
-            <SvgIcon type="mdi" :path="mdiCardsOutline" :size="192" class="text-grays-light-300" />
+            <SvgIcon type="mdi" :path="mdiCardsOutline" :size="192" class="text-gray-300" />
             <p class="font-medium">No transactions to show</p>
             <p class="font-light">Add a new transaction to get started</p>
         </div>
