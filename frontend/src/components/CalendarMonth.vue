@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
-import Skeleton from "primevue/skeleton";
+import Skeleton from "./ui/skeleton/Skeleton.vue";
 
 interface Props {
     monthName: string;
@@ -22,18 +22,18 @@ const props = defineProps<Props>();
             <div class="flex flex-col justify-between">
                 <div class="flex justify-between">
                     <p class="font-extralight">Income</p>
-                    <Skeleton v-if="income === null" width="3rem" class="bg-grays-light-200" />
+                    <Skeleton v-if="income === null" class="w-12" />
                     <p v-else>£{{ income.toFixed(2) }}</p>
                 </div>
                 <div class="flex justify-between">
                     <p class="font-extralight">Outgoings</p>
-                    <Skeleton v-if="expenses === null" width="3rem" class="bg-grays-light-200" />
+                    <Skeleton v-if="expenses === null" class="w-12" />
                     <p v-else>£{{ expenses.toFixed(2) }}</p>
                 </div>
             </div>
             <div class="flex justify-between">
                 <p class="font-extralight">Spare</p>
-                <Skeleton v-if="remaining === null" width="6.5rem" height="2.5rem" class="bg-grays-light-200" />
+                <Skeleton v-if="remaining === null" class="w-26 h-10" />
                 <p v-else class="text-4xl group-hover:font-bold transition-all">£{{ remaining.toFixed(2) }}</p>
             </div>
         </div>

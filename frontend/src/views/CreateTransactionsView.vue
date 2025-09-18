@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Button from "primevue/button";
 import { usePreviousRoute } from "@/composables/previousRoute";
 import { computed, ref } from "vue";
 import SvgIcon from "@jamescoyle/vue-icon";
@@ -16,17 +15,26 @@ import {
     mdiCheckboxBlankCircleOutline,
 } from "@mdi/js";
 import { RouterLink } from "vue-router";
-import InputText from "primevue/inputtext";
-import InputNumber from "primevue/inputnumber";
-import DatePicker from "primevue/datepicker";
 import SelectableCard from "@/components/SelectableCard.vue";
-import Select from "primevue/select";
-import ProgressSpinner from "primevue/progressspinner";
 import { useScroll, useResizeObserver, useWindowSize } from "@vueuse/core";
 import { TransactionsApi, type CreateTransactionInput } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
+import { motion } from "motion-v";
+import Button from "@/components/ui/button/Button.vue";
+import Input from "@/components/ui/input/Input.vue";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { DateFormatter, getLocalTimeZone } from "@internationalized/date";
+import { CalendarIcon, LoaderCircle } from "lucide-vue-next";
+import type { DateValue } from "@internationalized/date";
 
 type FirstLastDayOfMonth = "first_business" | "last_business" | "last" | "specific";
+
+const df = new DateFormatter("en-GB", {
+    dateStyle: "long",
+});
 
 const transactionApi = new TransactionsApi(defaultApiConfiguration);
 
@@ -98,7 +106,7 @@ const recurrenceType = ref<"day" | "week" | "month">();
 
 const isRecurring = ref<boolean | null>(null);
 
-const amountInPence = ref<number | null>(null);
+const amountInPence = ref<number>();
 
 const recurrenceRate = ref<number>();
 
@@ -108,9 +116,17 @@ const specificDayOfMonth = ref<number>();
 
 const firstLastDayOfMonth = ref<FirstLastDayOfMonth>();
 
-const startDate = ref<Date>();
+const startDate = ref<DateValue>();
 
-const finishDate = ref<Date>();
+const finishDate = ref<DateValue>();
+
+const formattedStartDate = computed(() => {
+    return startDate.value?.toDate(getLocalTimeZone());
+});
+
+const formattedFinishDate = computed(() => {
+    return finishDate.value?.toDate(getLocalTimeZone());
+});
 
 const loading = ref(false);
 
@@ -151,14 +167,14 @@ const exitLink = computed(() => {
 });
 
 const transactionsForm = computed(() => {
-    if (isExpense.value !== null && amountInPence.value !== null && isRecurring.value !== null) {
+    if (isExpense.value !== null && amountInPence.value !== undefined && isRecurring.value !== null) {
         const params: CreateTransactionInput = {
             name: transactionName.value,
             isExpense: isExpense.value,
             amountInPence: amountInPence.value,
             isRecurring: isRecurring.value,
-            startDate: startDate.value,
-            finishDate: isRecurring.value ? finishDate.value : undefined,
+            startDate: formattedStartDate.value,
+            finishDate: isRecurring.value ? formattedFinishDate.value : undefined,
             recurrenceType: isRecurring.value ? recurrenceType.value : undefined,
             recurrenceRate: isRecurring.value ? recurrenceRate.value : undefined,
             specificDayOfWeek: recurrenceType.value === "week" ? specificDayOfWeek.value : undefined,
@@ -179,7 +195,7 @@ function resetValues() {
     transactionName.value = "";
     recurrenceType.value = undefined;
     isRecurring.value = null;
-    amountInPence.value = null;
+    amountInPence.value = undefined;
     recurrenceRate.value = undefined;
     specificDayOfWeek.value = undefined;
     specificDayOfMonth.value = undefined;
@@ -278,7 +294,8 @@ useResizeObserver(boxes, (entries) => {
 
                 <!-- STEP 2 -->
                 <template v-if="step === 2">
-                    <InputText
+                    <Input
+                        type="text"
                         v-model="transactionName"
                         @keyup.enter="if (transactionName) step++;"
                         autofocus="true"
@@ -295,14 +312,15 @@ useResizeObserver(boxes, (entries) => {
 
                 <!-- STEP 4 -->
                 <template v-if="step === 4">
-                    <InputNumber
-                        :modelValue="amountInPence"
+                    <Input
+                        type="number"
+                        v-model="amountInPence"
                         placeholder="e.g. 10.00"
                         mode="currency"
                         currency="GBP"
-                        @vue:mounted="(e) => e.el.children[0].focus()"
+                        :min="0"
+                        autofocus
                         @keyup.enter="if (amountInPence) step++;"
-                        @input="(e) => (amountInPence = e.value)"
                     />
                 </template>
 
@@ -311,17 +329,21 @@ useResizeObserver(boxes, (entries) => {
                     <!-- ONE-OFF -->
                     <template v-if="isRecurring === false">
                         <div class="flex flex-col gap-1">
-                            <label class="font-extralight text-sm text-grays-light-500" for="startDate">Transaction date</label>
-                            <DatePicker
-                                v-model="startDate"
-                                placeholder="Select a date"
-                                showIcon
-                                inputId="startDate"
-                                iconDisplay="input"
-                                class="w-[300px] max-w-full"
-                                showButtonBar
-                                dateFormat="dd MM yy"
-                            />
+                            <label class="font-extralight text-sm text-gray-500" for="startDate">Transaction date</label>
+                            <Popover>
+                                <PopoverTrigger as-child>
+                                    <Button
+                                        variant="outline"
+                                        :class="cn('justify-start text-left font-normal', !startDate && 'text-muted-foreground')"
+                                    >
+                                        <CalendarIcon class="mr-2 h-4 w-4" />
+                                        {{ formattedStartDate ? df.format(formattedStartDate) : "Pick a date" }}
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent class="w-auto p-0">
+                                    <Calendar v-model="startDate" initial-focus />
+                                </PopoverContent>
+                            </Popover>
                         </div>
                     </template>
                     <!-- RECURRING -->
@@ -381,32 +403,34 @@ useResizeObserver(boxes, (entries) => {
                                 <hr />
                                 <div class="flex flex-col gap-8 p-4 w-full">
                                     <div class="flex flex-col gap-1 mx-auto w-full">
-                                        <label class="w-fit font-extralight text-sm text-grays-light-500" for="frequencyRate">
+                                        <label class="w-fit font-extralight text-sm text-gray-500" for="frequencyRate">
                                             Enter a number
                                         </label>
-                                        <InputNumber
-                                            :modelValue="recurrenceRate"
+                                        <Input
+                                            type="number"
+                                            v-model="recurrenceRate"
                                             inputId="frequencyRate"
                                             :min="1"
                                             placeholder="e.g. 7"
-                                            @input="(e) => (recurrenceRate = e.value ? e.value : 1)"
                                         />
                                         <small v-if="recurrenceRate">
                                             Every {{ recurrenceRate > 1 ? `${recurrenceRate} ${recurrenceType}s` : `${recurrenceType}` }}
                                         </small>
                                     </div>
                                     <div v-if="recurrenceType === 'week'" class="flex flex-col gap-1">
-                                        <label class="w-fit font-extralight text-sm text-grays-light-500" for="specificDayOfWeek">
+                                        <label class="w-fit font-extralight text-sm text-gray-500" for="specificDayOfWeek">
                                             Select a day of the week
                                         </label>
-                                        <Select
-                                            v-model="specificDayOfWeek"
-                                            :options="daysOfWeek"
-                                            optionLabel="label"
-                                            optionValue="value"
-                                            inputId="specificDayOfWeek"
-                                            class="w-full"
-                                        />
+                                        <Select v-model="specificDayOfWeek">
+                                            <SelectTrigger class="w-full">
+                                                <SelectValue placeholder="Pick a day" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem v-for="day in daysOfWeek" :key="day.value" :value="day.value">
+                                                    {{ day.label }}
+                                                </SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                         <small v-if="recurrenceRate && specificDayOfWeek !== undefined">
                                             Every {{ recurrenceRate > 1 ? `${recurrenceRate} ${recurrenceType}s` : `${recurrenceType}` }} on
                                             <span class="capitalize">{{ daysOfWeek[specificDayOfWeek].label }}</span>
@@ -414,17 +438,23 @@ useResizeObserver(boxes, (entries) => {
                                     </div>
                                     <template v-if="recurrenceType === 'month'">
                                         <div class="flex flex-col gap-1">
-                                            <label class="w-fit font-extralight text-sm text-grays-light-500" for="firstLastDayOfMonth">
+                                            <label class="w-fit font-extralight text-sm text-gray-500" for="firstLastDayOfMonth">
                                                 On which day?
                                             </label>
-                                            <Select
-                                                v-model="firstLastDayOfMonth"
-                                                :options="firstLastDayOfMonthChoices"
-                                                optionLabel="label"
-                                                optionValue="value"
-                                                inputId="firstLastDayOfMonth"
-                                                class="w-full"
-                                            />
+                                            <Select v-model="firstLastDayOfMonth">
+                                                <SelectTrigger class="w-full">
+                                                    <SelectValue placeholder="Pick an option" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem
+                                                        v-for="option in firstLastDayOfMonthChoices"
+                                                        :key="option.value"
+                                                        :value="option.value"
+                                                    >
+                                                        {{ option.label }}
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                             <small
                                                 v-if="
                                                     recurrenceRate &&
@@ -441,17 +471,19 @@ useResizeObserver(boxes, (entries) => {
                                             </small>
                                         </div>
                                         <div v-if="firstLastDayOfMonth === 'specific'" class="flex flex-col gap-1">
-                                            <label class="w-fit font-extralight text-sm text-grays-light-500" for="specificDayOfMonth">
+                                            <label class="w-fit font-extralight text-sm text-gray-500" for="specificDayOfMonth">
                                                 Select a day
                                             </label>
-                                            <Select
-                                                v-model="specificDayOfMonth"
-                                                :options="daysOfMonth"
-                                                optionLabel="label"
-                                                optionValue="value"
-                                                inputId="specificDayOfMonth"
-                                                class="w-full"
-                                            />
+                                            <Select v-model="specificDayOfMonth">
+                                                <SelectTrigger class="w-full">
+                                                    <SelectValue placeholder="Pick a day" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem v-for="option in daysOfMonth" :key="option.value" :value="option.value">
+                                                        {{ option.label }}
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                             <small
                                                 v-if="
                                                     recurrenceRate && specificDayOfMonth !== undefined && firstLastDayOfMonth === 'specific'
@@ -480,31 +512,42 @@ useResizeObserver(boxes, (entries) => {
                                 <hr />
                                 <div class="flex flex-col gap-5 p-4 w-full">
                                     <div class="flex flex-col gap-1 mx-auto w-full">
-                                        <label class="w-fit font-extralight text-sm text-grays-light-500" for="startDate">Start date</label>
-                                        <DatePicker
-                                            v-model="startDate"
-                                            placeholder="Select a start date (optional)"
-                                            showIcon
-                                            inputId="startDate"
-                                            iconDisplay="input"
-                                            showButtonBar
-                                            dateFormat="dd MM yy"
-                                        />
+                                        <label class="w-fit font-extralight text-sm text-gray-500" for="startDate">Start date</label>
+                                        <Popover>
+                                            <PopoverTrigger as-child>
+                                                <Button
+                                                    variant="outline"
+                                                    :class="
+                                                        cn('justify-start text-left font-normal', !startDate && 'text-muted-foreground')
+                                                    "
+                                                >
+                                                    <CalendarIcon class="mr-2 h-4 w-4" />
+                                                    {{ formattedStartDate ? df.format(formattedStartDate) : "Pick a date" }}
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent class="w-auto p-0">
+                                                <Calendar v-model="startDate" initial-focus />
+                                            </PopoverContent>
+                                        </Popover>
                                     </div>
                                     <div class="flex flex-col gap-1 mx-auto w-full">
-                                        <label class="w-fit font-extralight text-sm text-grays-light-500" for="finishDate">
-                                            Finish date
-                                        </label>
-                                        <DatePicker
-                                            v-model="finishDate"
-                                            :minDate="startDate"
-                                            placeholder="Select a finish date (optional)"
-                                            showIcon
-                                            inputId="finishDate"
-                                            iconDisplay="input"
-                                            showButtonBar
-                                            dateFormat="dd MM yy"
-                                        />
+                                        <label class="w-fit font-extralight text-sm text-gray-500" for="finishDate"> Finish date </label>
+                                        <Popover>
+                                            <PopoverTrigger as-child>
+                                                <Button
+                                                    variant="outline"
+                                                    :class="
+                                                        cn('justify-start text-left font-normal', !startDate && 'text-muted-foreground')
+                                                    "
+                                                >
+                                                    <CalendarIcon class="mr-2 h-4 w-4" />
+                                                    {{ formattedFinishDate ? df.format(formattedFinishDate) : "Pick a date" }}
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent class="w-auto p-0">
+                                                <Calendar v-model="finishDate" initial-focus :minValue="startDate" />
+                                            </PopoverContent>
+                                        </Popover>
                                     </div>
                                 </div>
                             </div>
@@ -534,18 +577,18 @@ useResizeObserver(boxes, (entries) => {
                         <template v-if="!isRecurring">
                             <div class="flex w-full justify-between">
                                 <p class="font-extralight">Date</p>
-                                <p class="font-medium">{{ startDate?.toDateString() }}</p>
+                                <p class="font-medium">{{ formattedStartDate ? df.format(formattedStartDate) : "" }}</p>
                             </div>
                         </template>
                         <template v-else>
                             <div class="flex w-full justify-between">
                                 <p class="font-extralight">Start date</p>
-                                <p v-if="startDate" class="font-medium">{{ startDate.toDateString() }}</p>
+                                <p v-if="formattedStartDate" class="font-medium">{{ df.format(formattedStartDate) }}</p>
                                 <p v-else class="font-medium">None</p>
                             </div>
                             <div class="flex w-full justify-between">
                                 <p class="font-extralight">Finish date</p>
-                                <p v-if="finishDate" class="font-medium">{{ finishDate.toDateString() }}</p>
+                                <p v-if="formattedFinishDate" class="font-medium">{{ df.format(formattedFinishDate) }}</p>
                                 <p v-else class="font-medium">None</p>
                             </div>
                             <hr />
@@ -577,10 +620,10 @@ useResizeObserver(boxes, (entries) => {
                     <div class="flex flex-col gap-16">
                         <SvgIcon type="mdi" :path="mdiCheck" :size="60" class="text-state-success-600 mx-auto" />
                         <div class="flex flex-col gap-4">
-                            <RouterLink :to="{ name: 'home', params: {} }" class="w-full">
-                                <Button label="View your calendar" severity="secondary" outlined class="w-full" />
-                            </RouterLink>
-                            <Button label="Create another transaction" @click="resetValues" />
+                            <Button asChild variant="secondary" class="w-full">
+                                <RouterLink :to="{ name: 'home', params: {} }" class="w-full"> View your calendar </RouterLink>
+                            </Button>
+                            <Button @click="resetValues">Create another transaction</Button>
                         </div>
                     </div>
                 </template>
@@ -589,28 +632,26 @@ useResizeObserver(boxes, (entries) => {
 
         <!-- Buttons -->
         <div class="flex mt-auto border-t-1 p-3" v-if="step < 7">
-            <RouterLink :to="exitLink" class="h-full">
-                <Button class="h-full" label="Exit" severity="secondary" outlined />
-            </RouterLink>
+            <Button asChild class="h-full" variant="secondary">
+                <RouterLink :to="exitLink" class="h-full">Exit</RouterLink>
+            </Button>
             <div class="flex gap-3 ml-auto">
-                <Button v-if="step > 1" severity="secondary" outlined @click="step--">
-                    <template #default>
-                        <p v-if="windowWidth > 768">Previous</p>
-                        <SvgIcon v-else type="mdi" :path="mdiArrowLeft" />
-                    </template>
+                <Button v-if="step > 1" variant="secondary" @click="step--">
+                    <p v-if="windowWidth > 768">Previous</p>
+                    <SvgIcon v-else type="mdi" :path="mdiArrowLeft" />
                 </Button>
                 <Button v-if="step < 6" :disabled="disabled" @click="step++">
-                    <template #default>
-                        <p v-if="windowWidth > 768">Next</p>
-                        <SvgIcon v-else type="mdi" :path="mdiArrowRight" />
-                    </template>
+                    <p v-if="windowWidth > 768">Next</p>
+                    <SvgIcon v-else type="mdi" :path="mdiArrowRight" />
                 </Button>
-                <Button v-else label="Submit" @click="createTransaction"></Button>
+                <Button v-else @click="createTransaction">Submit</Button>
             </div>
         </div>
 
         <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen grid place-items-center bg-white/50 backdrop-blur-[2px]">
-            <ProgressSpinner />
+            <motion.div :animate="{ rotate: 360, transition: { repeat: Infinity, duration: 1 } }">
+                <LoaderCircle :size="50" />
+            </motion.div>
         </div>
     </div>
 </template>

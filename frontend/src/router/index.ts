@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { AuthenticationApi } from "@/api/generated";
-import { defaultApiConfiguration } from "@/fetch";
 import { usePreviousRoute } from "@/composables/previousRoute";
+import { useUserStore } from "@/stores/userStore";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,14 +67,13 @@ router.beforeEach(async (to, from, next) => {
     }
 
     if (to.meta.requiresAuth) {
-        const authenticationApi = new AuthenticationApi(defaultApiConfiguration);
+        const { validateJWT } = useUserStore();
 
         try {
-            await authenticationApi.apiValidateJWTGet();
+            await validateJWT();
             next();
         } catch (err: any) {
             console.error(await err.response.json());
-            // localStorage.removeItem("jwt");
             next("/login");
         }
     } else {

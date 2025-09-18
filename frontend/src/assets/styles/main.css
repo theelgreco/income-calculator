@@ -1,0 +1,31 @@
+@import "./index.css";
+
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+}
+
+* {
+    @apply border-border outline-ring/50;
+}
+
+html {
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow-x: hidden;
+}
+
+body {
+    @apply bg-background text-foreground p-0!;
+}
+
+label {
+    user-select: none;
+}
+
+button {
+    cursor: pointer;
+}
