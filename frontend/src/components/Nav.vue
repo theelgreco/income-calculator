@@ -1,19 +1,14 @@
 <script setup lang="ts">
-import { mdiCardsOutline, mdiClose, mdiCogOutline, mdiFinance, mdiHome, mdiHomeOutline, mdiMenu, mdiPlus, mdiPlusOutline } from "@mdi/js";
+import { mdiCardsOutline, mdiClose, mdiCogOutline, mdiFinance, mdiHomeOutline, mdiMenu, mdiPlusOutline } from "@mdi/js";
 import { ref, watch } from "vue";
 import Button from "./ui/button/Button.vue";
 import SvgIcon from "@jamescoyle/vue-icon";
-import CreateTransactionDialog from "./CreateTransactionDialog.vue";
 import ProfileAvatar from "./ProfileAvatar.vue";
 import Drawer from "primevue/drawer";
 import { RouterLink, useRoute } from "vue-router";
 import { useWindowSize } from "@vueuse/core";
 
 const route = useRoute();
-
-const expenseType = ref<"expense" | "income">("expense");
-
-const modalOpen = ref(false);
 
 const drawerVisible = ref(false);
 
@@ -114,5 +109,4 @@ watch(windowWidth, () => {
             </div>
         </template>
     </Drawer>
-    <CreateTransactionDialog v-model:expenseType="expenseType" v-model:modalOpen="modalOpen" />
 </template>
