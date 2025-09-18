@@ -5,14 +5,16 @@ import SvgIcon from "@jamescoyle/vue-icon";
 import { onMounted, ref } from "vue";
 import Divider from "primevue/divider";
 import { mdiCardsOutline, mdiPencilOutline, mdiTrashCanOutline } from "@mdi/js";
-import { useConfirm } from "primevue/useconfirm";
 import { toast } from "vue-sonner";
-
-const confirm = useConfirm();
+import ConfirmTransactionDeleteDialog from "@/components/dialogs/ConfirmTransactionDeleteDialog.vue";
 
 const transactionsApi = new TransactionsApi(defaultApiConfiguration);
 
 const transactions = ref<Transaction[] | null>(null);
+
+const deleteConfirmDialog = ref();
+
+const selectedTransactionId = ref<string | null>();
 
 async function getTransactions() {
     try {
@@ -22,39 +24,24 @@ async function getTransactions() {
     }
 }
 
-async function deleteTransaction(id: string) {
-    try {
-        await transactionsApi.apiTransactionsIdDelete({ id });
+async function deleteTransaction() {
+    if (selectedTransactionId.value) {
+        try {
+            await transactionsApi.apiTransactionsIdDelete({ id: selectedTransactionId.value });
 
-        if (transactions.value) {
-            const indexToRemove = transactions.value.findIndex((el) => el.id === id);
-            transactions.value.splice(indexToRemove, 1);
+            if (transactions.value) {
+                const indexToRemove = transactions.value.findIndex((el) => el.id === selectedTransactionId.value);
+                transactions.value.splice(indexToRemove, 1);
+            }
+
+            selectedTransactionId.value = null;
+
+            toast("Transaction deleted successfully");
+        } catch (err: any) {
+            console.error(err);
         }
-    } catch (err: any) {
-        console.error(err);
     }
 }
-
-const confirmDelete = (transaction: Transaction) => {
-    confirm.require({
-        message: `Are you sure you want to delete ${transaction.name}?`,
-        header: "Delete transaction",
-        rejectProps: {
-            label: "Cancel",
-            severity: "secondary",
-            outlined: true,
-            class: "mr-auto",
-        },
-        acceptProps: {
-            label: "Delete",
-            severity: "danger",
-        },
-        accept: async () => {
-            deleteTransaction(transaction.id);
-            toast(`You have deleted ${transaction.name}`);
-        },
-    });
-};
 
 onMounted(() => {
     getTransactions();
@@ -63,6 +50,7 @@ onMounted(() => {
 
 <template>
     <div>
+        <ConfirmTransactionDeleteDialog ref="deleteConfirmDialog" @confirm="() => deleteTransaction()" />
         <div v-if="transactions && transactions.length" class="flex flex-col gap-5 w-[600px] max-w-full mx-auto px-6">
             <div
                 v-for="transaction in transactions"
@@ -94,14 +82,17 @@ onMounted(() => {
                                 :path="mdiTrashCanOutline"
                                 class="text-grays-light-400 hover:text-grays-light-600 cursor-pointer"
                                 :size="18"
-                                @click="confirmDelete(transaction)"
+                                @click="
+                                    selectedTransactionId = transaction.id;
+                                    deleteConfirmDialog.open = true;
+                                "
                             />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-if="transactions && !transactions.length" class="w-full h-full flex flex-col items-center justify-center mb-20">
+        <div v-else class="w-full h-full flex flex-col items-center justify-center mb-20">
             <SvgIcon type="mdi" :path="mdiCardsOutline" :size="192" class="text-grays-light-300" />
             <p class="font-medium">No transactions to show</p>
             <p class="font-light">Add a new transaction to get started</p>
