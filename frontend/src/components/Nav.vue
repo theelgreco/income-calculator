@@ -34,7 +34,7 @@ watch(windowWidth, () => {
 </script>
 
 <template>
-    <div class="flex h-[70px] justify-between items-center px-5 sm:px-10 py-5 gap-5 shadow-md bg-white z-50">
+    <nav class="flex h-[70px] justify-between items-center px-5 sm:px-10 py-5 gap-5 shadow-md bg-white z-50">
         <RouterLink :to="{ name: 'year', params: { year: new Date().getFullYear() } }">
             <div class="flex items-center gap-3 select-none cursor-pointer">
                 <SvgIcon type="mdi" :path="mdiFinance" :size="36" />
@@ -57,7 +57,7 @@ watch(windowWidth, () => {
             <ProfileAvatar />
             <SvgIcon type="mdi" :path="mdiMenu" class="cursor-pointer hover:bg-grays-light-100 md:hidden" @click="drawerVisible = true" />
         </div>
-    </div>
+    </nav>
     <Drawer
         v-if="windowWidth < 768"
         v-model:visible="drawerVisible"
