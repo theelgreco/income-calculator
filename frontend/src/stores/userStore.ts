@@ -23,29 +23,25 @@ export const useUserStore = defineStore("user", () => {
     }
 
     async function login(email_or_username: string, password: string) {
-        if (email_or_username && password) {
-            try {
-                const { jwt } = await authServer.login({ email_or_username, password });
+        try {
+            const { jwt } = await authServer.login({ email_or_username, password });
 
-                localStorage.setItem("jwt", jwt);
+            localStorage.setItem("jwt", jwt);
 
-                user.value = await usersApi.apiUserGet();
+            user.value = await usersApi.apiUserGet();
 
-                router.replace({ name: "year", params: { year: new Date().getFullYear() } });
-            } catch (err: any) {
-                console.error(err);
-            }
+            router.replace({ name: "year", params: { year: new Date().getFullYear() } });
+        } catch (err: any) {
+            console.error(err);
         }
     }
 
     async function signUp(username: string, email: string, password: string) {
-        if (username && email && password) {
-            try {
-                await authServer.signUp({ email: email, password: password, username: username });
-                await login(email, password);
-            } catch (err: any) {
-                console.error(err);
-            }
+        try {
+            await authServer.signUp({ email: email, password: password, username: username });
+            await login(email, password);
+        } catch (err: any) {
+            console.error(err);
         }
     }
 
