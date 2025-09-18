@@ -3,7 +3,6 @@ import { type Transaction, TransactionsApi } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { onMounted, ref } from "vue";
-import Divider from "primevue/divider";
 import { mdiCardsOutline, mdiPencilOutline, mdiTrashCanOutline } from "@mdi/js";
 import { toast } from "vue-sonner";
 import ConfirmTransactionDeleteDialog from "@/components/dialogs/ConfirmTransactionDeleteDialog.vue";
@@ -64,7 +63,6 @@ onMounted(() => {
                 <p class="text-xl font-medium">{{ transaction.name }}</p>
                 <div class="flex items-center gap-3">
                     <p class="text-xl mr-1">£{{ parseFloat(transaction.amountInPence).toFixed(2) }}</p>
-                    <Divider layout="vertical" class="mx-0!" />
                     <div class="flex gap-2">
                         <RouterLink :to="{ name: 'editTransaction', params: { transaction: transaction.id } }">
                             <div v-tooltip.bottom="`Edit ${transaction.name}`">
