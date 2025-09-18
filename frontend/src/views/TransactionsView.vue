@@ -5,10 +5,8 @@ import SvgIcon from "@jamescoyle/vue-icon";
 import { onMounted, ref } from "vue";
 import Divider from "primevue/divider";
 import { mdiCardsOutline, mdiPencilOutline, mdiTrashCanOutline } from "@mdi/js";
-import { useToast } from "primevue/usetoast";
 import { useConfirm } from "primevue/useconfirm";
-
-const toast = useToast();
+import { toast } from "vue-sonner";
 
 const confirm = useConfirm();
 
@@ -53,7 +51,7 @@ const confirmDelete = (transaction: Transaction) => {
         },
         accept: async () => {
             deleteTransaction(transaction.id);
-            toast.add({ severity: "info", summary: "Deleted", detail: `You have deleted ${transaction.name}`, life: 3000 });
+            toast(`You have deleted ${transaction.name}`);
         },
     });
 };

@@ -7,7 +7,6 @@ import Primevue from "primevue/config";
 //@ts-ignore
 import Aura from "@/presets/aura";
 import Tooltip from "primevue/tooltip";
-import ToastService from "primevue/toastservice";
 import ConfirmationService from "primevue/confirmationservice";
 
 const app = createApp(App);
@@ -18,8 +17,6 @@ app.use(Primevue, {
     unstyled: true,
     pt: Aura,
 });
-
-app.use(ToastService);
 
 app.use(ConfirmationService);
 
