@@ -17,6 +17,25 @@ export const useUserStore = defineStore("user", () => {
 
     const usersApi = new UsersApi(defaultApiConfiguration);
 
+    // @ts-ignore
+    const googleClient = google.accounts.oauth2.initTokenClient({
+        client_id: "545142393929-1jg47rom4v7hcfjvpjgkuhtkca9a73kb.apps.googleusercontent.com",
+        scope: "openid email profile",
+        callback: (response: any) => {
+            console.log(response);
+            const { access_token } = response;
+            fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
+            })
+                .then((res) => res.json())
+                .then((user) => {
+                    console.log("Google user:", user);
+                });
+        },
+    });
+
     async function validateJWT() {
         await authenticationApi.apiValidateJWTGet();
 
@@ -57,11 +76,15 @@ export const useUserStore = defineStore("user", () => {
         }
     }
 
+    function signInWithGoogle() {
+        googleClient.requestAccessToken();
+    }
+
     function logout() {
         localStorage.removeItem("jwt");
         user.value = null;
         router.replace({ name: "login" });
     }
 
-    return { user, login, signUp, logout, validateJWT };
+    return { user, validateJWT, login, signUp, signInWithGoogle, logout };
 });
