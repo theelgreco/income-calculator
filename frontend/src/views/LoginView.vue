@@ -15,15 +15,15 @@ const email = ref<string>();
 
 const username = ref<string>();
 
-const email_or_username = ref<string>();
+const emailOrUsername = ref<string>();
 
 const password = ref<string>();
 
 const activeTab = ref<TabChoices>(TabChoices.LOGIN);
 
 function handleLogin() {
-    if (email_or_username.value && password.value) {
-        login(email_or_username.value, password.value);
+    if (emailOrUsername.value && password.value) {
+        login(emailOrUsername.value, password.value);
     }
 }
 
@@ -35,7 +35,7 @@ function handleSignUp() {
 
 function clearForm() {
     email.value = undefined;
-    email_or_username.value = undefined;
+    emailOrUsername.value = undefined;
     username.value = undefined;
     password.value = undefined;
 }
@@ -49,12 +49,12 @@ watch(activeTab, () => {
     <div class="flex flex-col items-center justify-center h-full w-full">
         <div class="flex flex-col gap-14 border-1 border-gray-200 p-6 rounded-sm w-[500px] max-w-full max-h-full shadow-lg">
             <h1 class="text-3xl">{{ activeTab === TabChoices.LOGIN ? "Login" : "Sign up" }}</h1>
-            <form @submit.prevent="handleLogin" class="flex flex-col gap-12">
+            <form @submit.prevent="" class="flex flex-col gap-12">
                 <div class="flex flex-col gap-5">
                     <template v-if="activeTab === TabChoices.LOGIN">
                         <div class="flex flex-col">
-                            <label for="email_or_username">Email or username</label>
-                            <Input type="text" id="email_or_username" v-model="email_or_username" />
+                            <label for="emailOrUsername">Email or username</label>
+                            <Input type="text" id="emailOrUsername" v-model="emailOrUsername" />
                         </div>
                     </template>
                     <template v-if="activeTab === TabChoices.SIGN_UP">
