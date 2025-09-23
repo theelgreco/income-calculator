@@ -47,7 +47,7 @@ export const useUserStore = defineStore("user", () => {
 
     async function signUp(email: string, password: string) {
         try {
-            const response = await authClient.postSignUp({ body: { username: "ste", email, password, serviceName: "income_calculator" } });
+            const response = await authClient.postSignUp({ body: { username: email, email, password, serviceName: "income_calculator" } });
 
             if (response.status !== 200) throw new Error();
 
