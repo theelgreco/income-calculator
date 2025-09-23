@@ -17,25 +17,6 @@ export const useUserStore = defineStore("user", () => {
 
     const usersApi = new UsersApi(defaultApiConfiguration);
 
-    // @ts-ignore
-    const googleClient = google.accounts.oauth2.initTokenClient({
-        client_id: "545142393929-1jg47rom4v7hcfjvpjgkuhtkca9a73kb.apps.googleusercontent.com",
-        scope: "openid email profile",
-        callback: (response: any) => {
-            console.log(response);
-            const { access_token } = response;
-            fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-                headers: {
-                    Authorization: `Bearer ${access_token}`,
-                },
-            })
-                .then((res) => res.json())
-                .then((user) => {
-                    console.log("Google user:", user);
-                });
-        },
-    });
-
     async function validateJWT() {
         await authenticationApi.apiValidateJWTGet();
 
@@ -44,9 +25,9 @@ export const useUserStore = defineStore("user", () => {
         }
     }
 
-    async function login(emailOrUsername: string, password: string) {
+    async function login(email: string, password: string) {
         try {
-            const response = await authClient.postLogin({ body: { serviceName: "income_calculator", emailOrUsername, password } });
+            const response = await authClient.postLogin({ body: { serviceName: "income_calculator", emailOrUsername: email, password } });
 
             if (response.status !== 200) {
                 throw new Error();
@@ -64,9 +45,9 @@ export const useUserStore = defineStore("user", () => {
         }
     }
 
-    async function signUp(username: string, email: string, password: string) {
+    async function signUp(email: string, password: string) {
         try {
-            const response = await authClient.postSignUp({ body: { username, email, password, serviceName: "income_calculator" } });
+            const response = await authClient.postSignUp({ body: { username: "ste", email, password, serviceName: "income_calculator" } });
 
             if (response.status !== 200) throw new Error();
 
@@ -76,8 +57,33 @@ export const useUserStore = defineStore("user", () => {
         }
     }
 
-    function signInWithGoogle() {
-        googleClient.requestAccessToken();
+    function googleRedirect() {
+        const params = new URLSearchParams({
+            scope: "openid email profile",
+            include_granted_scopes: "true",
+            response_type: "token",
+            redirect_uri:
+                process.env.NODE_ENV === "production" ? "https://income-calculator-ten.vercel.app/login" : "http://localhost:5173/login",
+            client_id: "545142393929-1jg47rom4v7hcfjvpjgkuhtkca9a73kb.apps.googleusercontent.com",
+        });
+        const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+        window.location.href = googleAuthURL;
+    }
+
+    async function signInWithGoogle(token: string) {
+        const response = await authClient.postGoogleSignIn({ body: { serviceName: "income_calculator", token } });
+
+        if (response.status !== 200) {
+            throw new Error();
+        }
+
+        const { jwt } = response.body;
+
+        localStorage.setItem("jwt", jwt);
+
+        user.value = await usersApi.apiUserGet();
+
+        router.replace({ name: "year", params: { year: new Date().getFullYear() } });
     }
 
     function logout() {
@@ -86,5 +92,5 @@ export const useUserStore = defineStore("user", () => {
         router.replace({ name: "login" });
     }
 
-    return { user, validateJWT, login, signUp, signInWithGoogle, logout };
+    return { user, validateJWT, login, signUp, signInWithGoogle, googleRedirect, logout };
 });
