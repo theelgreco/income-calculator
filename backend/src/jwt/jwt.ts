@@ -21,19 +21,19 @@ export function authenticateJWT(request: Request & { user?: User | null }, respo
 
             try {
                 if (JWT && typeof JWT === "object") {
-                    request.user = await getUser(JWT.user_id);
+                    request.user = await getUser(JWT.userId);
 
                     if (!request.user) {
                         const userData: {
-                            user_id: string;
+                            authId: string;
                             username: string;
                             email: string;
                             image: string;
                         } = {
-                            user_id: JWT.user_id,
+                            authId: JWT.userId,
                             username: JWT.name,
                             email: JWT.email,
-                            image: getDefaultUserImage(),
+                            image: JWT.image || getDefaultUserImage(),
                         };
 
                         request.user = await createUser(userData);
