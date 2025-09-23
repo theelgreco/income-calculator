@@ -31,7 +31,7 @@
         "vue": "^3.4.29",
         "vue-router": "^4.3.3",
         "vue-sonner": "^2.0.8",
-        "zod": "^4.1.9"
+        "zod": "^4.1.11"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.1.13",
