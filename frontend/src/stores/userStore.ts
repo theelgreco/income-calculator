@@ -35,7 +35,7 @@ export const useUserStore = defineStore("user", () => {
             }
 
             if (response.status !== 200) {
-                throw new Error();
+                throw response.body;
             }
 
             const { jwt } = response.body;
@@ -59,7 +59,7 @@ export const useUserStore = defineStore("user", () => {
             }
 
             if (response.status !== 200) {
-                throw new Error();
+                throw response.body;
             }
 
             await login(email, password);
