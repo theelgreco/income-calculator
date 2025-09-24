@@ -16,7 +16,7 @@ provide<FormContext>("formContext", props.form as FormContext);
 </script>
 
 <template>
-    <form @submit.prevent="">
+    <form>
         <slot />
     </form>
 </template>

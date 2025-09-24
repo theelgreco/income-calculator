@@ -26,7 +26,7 @@ const handleSignUp = form.submit(() => {
 </script>
 
 <template>
-    <Form :formSchema="formSchema" :form="form" class="flex flex-col gap-4 flex-grow p-15 shadow-xl bg-white rounded-xl">
+    <Form :formSchema="formSchema" :form="form" class="flex flex-col gap-4 flex-grow p-15 shadow-xl bg-white rounded-xl" @submit.prevent="">
         <FormHeader></FormHeader>
         <FormFieldGroup field="email">
             <FormField>
@@ -52,6 +52,7 @@ const handleSignUp = form.submit(() => {
                 <img class="absolute left-2" src="@/assets/icons/google.svg" width="20" />
                 Sign in with Google
             </Button>
+            <Button>Reset form</Button>
         </FormFooter>
     </Form>
 </template>
