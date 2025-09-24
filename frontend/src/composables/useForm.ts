@@ -26,10 +26,10 @@ export default function useForm<FormSchemaType>(formSchema: z.ZodObject) {
      * - If invalid → populates `errors`.
      */
     const submit = (callback: () => any): (() => void) => {
-        return () => {
+        return async () => {
             try {
                 formSchema.parse(form.value);
-                callback();
+                await callback();
             } catch (err: unknown) {
                 if (err instanceof z.ZodError) {
                     const typedErr = err as z.ZodError<FormSchemaType>;

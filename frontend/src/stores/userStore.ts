@@ -5,6 +5,7 @@ import authContract from "@stelan/auth-contract";
 import { initClient } from "@ts-rest/core";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import z from "zod";
 
 const authClient = initClient(authContract, {
     baseUrl: process.env.NODE_ENV === "production" ? "https://auth.cinewhere.co.uk" : "http://localhost:9090",
@@ -29,6 +30,10 @@ export const useUserStore = defineStore("user", () => {
         try {
             const response = await authClient.postLogin({ body: { serviceName: "income_calculator", emailOrUsername: email, password } });
 
+            if (response.status === 400 && response.body.name === "ValidationError") {
+                throw new z.ZodError(response.body.issues);
+            }
+
             if (response.status !== 200) {
                 throw new Error();
             }
@@ -40,8 +45,8 @@ export const useUserStore = defineStore("user", () => {
             user.value = await usersApi.apiUserGet();
 
             router.replace({ name: "year", params: { year: new Date().getFullYear() } });
-        } catch (err: any) {
-            console.error(err);
+        } catch (err: unknown) {
+            throw err;
         }
     }
 
@@ -49,11 +54,17 @@ export const useUserStore = defineStore("user", () => {
         try {
             const response = await authClient.postSignUp({ body: { username: email, email, password, serviceName: "income_calculator" } });
 
-            if (response.status !== 200) throw new Error();
+            if (response.status === 400 && response.body.name === "ValidationError") {
+                throw new z.ZodError(response.body.issues);
+            }
+
+            if (response.status !== 200) {
+                throw new Error();
+            }
 
             await login(email, password);
-        } catch (err: any) {
-            console.error(err);
+        } catch (err: unknown) {
+            throw err;
         }
     }
 
