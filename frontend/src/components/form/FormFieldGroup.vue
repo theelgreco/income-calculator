@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { inject, provide } from "vue";
+import { provide } from "vue";
 import type { FormContext } from "./Form.vue";
-
-inject<FormContext>("formContext");
 
 export interface FormFieldGroupProps {
     field: keyof FormContext["form"]["value"];
