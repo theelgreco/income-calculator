@@ -5,7 +5,7 @@ import { Lock, Mail } from "lucide-vue-next";
 import TextDivider from "@/components/TextDivider.vue";
 import z from "zod";
 import useForm from "@/composables/useForm";
-import { Form, FormHeader, FormFieldGroup, FormField, FormFieldInput, FormFieldIcon, FormFieldError, FormFooter } from "@/components/form";
+import { Form, FormFieldGroup, FormField, FormFieldInput, FormFieldIcon, FormFieldError, FormFooter } from "@/components/form";
 
 const { signUp, login, googleRedirect } = useUserStore();
 
@@ -23,8 +23,6 @@ const handleLogin = form.submit(async () => {
 const handleSignUp = form.submit(async () => {
     await signUp(form.form.value.email, form.form.value.password);
 });
-
-// form.setFieldError("email", ["ahahahahs"]);
 </script>
 
 <template>
@@ -34,7 +32,6 @@ const handleSignUp = form.submit(async () => {
         class="flex flex-col gap-4 p-15 my-auto md:shadow-xl bg-white rounded-xl"
         @submit.prevent=""
     >
-        <FormHeader></FormHeader>
         <FormFieldGroup field="email">
             <FormField>
                 <FormFieldInput placeholder="Email" />

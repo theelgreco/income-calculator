@@ -56,8 +56,17 @@ export default function useForm<FormSchemaType>(formSchema: z.ZodObject) {
     };
 
     /** Manually sets validation errors for a specific field. */
-    const setFieldError = (field: keyof FormSchemaType, error: string | string[] = []): void => {
+    const setFieldError = (field: keyof FormSchemaType, error: string): void => {
         if (errors.value) errors.value.fieldErrors[field] = [...error];
+        else {
+            errors.value = new z.ZodError([
+                {
+                    code: "custom",
+                    path: [field],
+                    message: error,
+                },
+            ]).flatten();
+        }
     };
 
     /** Checks if a specific field currently has one or more errors. */
