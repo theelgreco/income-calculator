@@ -52,7 +52,6 @@ const handleSignUp = form.submit(() => {
                 <img class="absolute left-2" src="@/assets/icons/google.svg" width="20" />
                 Sign in with Google
             </Button>
-            <Button @click="form.resetForm">Reset form</Button>
         </FormFooter>
     </Form>
 </template>
