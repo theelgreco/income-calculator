@@ -16,17 +16,24 @@ const formSchema = z.object({
 
 const form = useForm<z.infer<typeof formSchema>>(formSchema);
 
-const handleLogin = form.submit(() => {
-    login(form.form.value.email, form.form.value.password);
+const handleLogin = form.submit(async () => {
+    await login(form.form.value.email, form.form.value.password);
 });
 
-const handleSignUp = form.submit(() => {
-    signUp(form.form.value.email, form.form.value.password);
+const handleSignUp = form.submit(async () => {
+    await signUp(form.form.value.email, form.form.value.password);
 });
+
+// form.setFieldError("email", ["ahahahahs"]);
 </script>
 
 <template>
-    <Form :formSchema="formSchema" :form="form" class="flex flex-col gap-4 flex-grow p-15 shadow-xl bg-white rounded-xl" @submit.prevent="">
+    <Form
+        :formSchema="formSchema"
+        :form="form"
+        class="flex flex-col gap-4 p-15 my-auto md:shadow-xl bg-white rounded-xl"
+        @submit.prevent=""
+    >
         <FormHeader></FormHeader>
         <FormFieldGroup field="email">
             <FormField>
@@ -52,6 +59,10 @@ const handleSignUp = form.submit(() => {
                 <img class="absolute left-2" src="@/assets/icons/google.svg" width="20" />
                 Sign in with Google
             </Button>
+            <div class="flex flex-col gap-3 mt-20">
+                <small class="text-center">Want to try it out first?</small>
+                <Button variant="secondary" size="lg">Continue as guest</Button>
+            </div>
         </FormFooter>
     </Form>
 </template>
