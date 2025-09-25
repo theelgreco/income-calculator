@@ -1,23 +1,28 @@
 <script setup lang="ts">
 import LoginForm from "@/components/login/LoginForm.vue";
+import LoginInfo from "@/components/login/LoginInfo.vue";
+import { motion, type MotionProps } from "motion-v";
+
+const containerMotions: MotionProps = {
+    initial: {
+        backgroundImage:
+            "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 10%, rgba(255, 255, 255, 0) 90%, rgba(255, 255, 255, 0) 100%), radial-gradient(#000000 0px, #ffffff 0px)",
+    },
+    animate: {
+        backgroundImage:
+            "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 0) 100%), radial-gradient(#000000 1px, #ffffff 1px)",
+    },
+    transition: {
+        duration: 1,
+    },
+};
 </script>
 
 <template>
-    <div class="h-full flex bg-gradient-to-tr from-yellow-50 to-white to-40%">
-        <div class="flex flex-col gap-5 max-lg:hidden w-1/2 my-60 mx-20">
-            <div class="flex flex-wrap items-center gap-5">
-                <img class="bg-white border rounded-full p-5 shadow-lg w-[100px] h-[100px]" src="/192w/icon.png" />
-                <div>
-                    <h1 class="font-black text-3xl">Take control of your finances today</h1>
-                    <h2 class="text-lg font-light">One <i class="font-bold">simple</i> transaction at a time</h2>
-                </div>
-            </div>
-            <!-- <div class="w-full border h-full"></div> -->
-        </div>
-        <div
-            class="md:bg-[#F8F8F8] md:border md:shadow-2xl flex flex-col justify-center w-full lg:w-1/2 sm:px-10 md:px-35 rounded-3xl md:min-w-[700px]"
-        >
-            <LoginForm />
-        </div>
-    </div>
+    <motion.div v-bind="containerMotions" class="h-full flex justify-between login-container [background-size:100%,19px_19px]">
+        <LoginInfo class="flex flex-col justify-center gap-5 max-lg:hidden w-1/2 h-full px-20" />
+        <LoginForm
+            class="md:bg-[#F8F8F8] md:border md:shadow-2xl flex flex-col justify-center w-full lg:w-1/2 sm:px-10 md:px-35 rounded-3xl md:min-w-[700px] max-w-[1000px]"
+        />
+    </motion.div>
 </template>
