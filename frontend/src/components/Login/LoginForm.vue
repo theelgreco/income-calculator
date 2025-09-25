@@ -5,7 +5,7 @@ import { Lock, Mail } from "lucide-vue-next";
 import TextDivider from "@/components/TextDivider.vue";
 import z from "zod";
 import useForm from "@/composables/useForm";
-import { Form, FormFieldGroup, FormField, FormFieldInput, FormFieldIcon, FormFieldError, FormFooter, FormError } from "@/components/form";
+import { Form, FormFieldGroup, FormField, FormFieldInput, FormFieldIcon, FormFieldError, FormFooter } from "@/components/form";
 import { onMounted } from "vue";
 import { toast } from "vue-sonner";
 import { getErrorMessage } from "@/lib/utils";
