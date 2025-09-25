@@ -31,3 +31,11 @@ function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
 export function getErrorMessage(error: unknown) {
     return toErrorWithMessage(error).message;
 }
+
+export const delay = async (timeInMs: number = 1000): Promise<void> => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, timeInMs);
+    });
+};
