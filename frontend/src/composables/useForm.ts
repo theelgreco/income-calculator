@@ -42,8 +42,8 @@ export default function useForm<FormSchemaType>(formSchema: z.ZodObject) {
                 errors.value = typedErr.flatten();
             } else {
                 error.value = getErrorMessage(err);
+                throw err;
             }
-            throw err;
         } finally {
             submitting.value = false;
         }
