@@ -22,23 +22,39 @@ const formSchema = z.object({
 
 const form = useForm<z.infer<typeof formSchema>>(formSchema);
 
-const handleLogin = form.submit(async () => {
-    await login(form.form.value.email, form.form.value.password);
-});
+const handleLogin = () => {
+    const loginPromise = form.submit(async () => {
+        await login(form.form.value.email, form.form.value.password);
+    });
+    toast.promise(loginPromise, {
+        loading: "Logging you in...",
+        error: (err: unknown) => {
+            return getErrorMessage(err);
+        },
+    });
+};
 
-const handleSignUp = form.submit(async () => {
-    await signUp(form.form.value.email, form.form.value.password);
-});
+const handleSignUp = () => {
+    const signUpPromise = form.submit(async () => {
+        await signUp(form.form.value.email, form.form.value.password);
+    });
+    toast.promise(signUpPromise, {
+        loading: "Signing you up...",
+    });
+};
 
 async function handleGoogleSignIn(googleAccessToken: string) {
-    try {
-        form.submitting.value = true;
-        await signInWithGoogle(googleAccessToken);
-    } catch (err: unknown) {
-        toast.error(getErrorMessage(err));
-    } finally {
-        form.submitting.value = false;
-    }
+    const googlePromise = signInWithGoogle(googleAccessToken);
+    form.submitting.value = true;
+    toast.promise(googlePromise, {
+        loading: "Signing you in via Google...",
+        error: (err: any) => {
+            return getErrorMessage(err);
+        },
+        finally: () => {
+            form.submitting.value = false;
+        },
+    });
 }
 
 onMounted(() => {
@@ -53,7 +69,6 @@ onMounted(() => {
 
 <template>
     <Form :formSchema="formSchema" :form="form" class="flex flex-col gap-4 p-15 md:shadow-xl bg-white rounded-xl" @submit.prevent="">
-        <FormError class="mb-5" />
         <FormFieldGroup field="email">
             <FormField>
                 <FormFieldInput placeholder="Email" />
