@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="h-screen flex bg-gradient-to-tr from-yellow-50 to-white to-40%">
+    <div class="h-full flex bg-gradient-to-tr from-yellow-50 to-white to-40%">
         <div class="flex flex-col gap-5 max-lg:hidden w-1/2 my-60 mx-20">
             <div class="flex flex-wrap items-center gap-5">
                 <img class="bg-white border rounded-full p-5 shadow-lg w-[100px] h-[100px]" src="/192w/icon.png" />
