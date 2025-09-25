@@ -9,7 +9,7 @@ const field = inject<FormFieldGroupProps["field"]>("fieldContext")!;
 </script>
 
 <template>
-    <small class="text-destructive">
+    <small role="alert" class="text-destructive">
         {{ errors?.fieldErrors?.[field]?.[0] }}
     </small>
 </template>
