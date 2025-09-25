@@ -11,7 +11,7 @@ const route = useRoute();
 </script>
 
 <template>
-    <Toaster position="top-right" />
+    <Toaster position="top-center" richColors />
     <TooltipProvider>
         <SidebarProvider>
             <MobileSidebar />
