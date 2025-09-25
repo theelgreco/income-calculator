@@ -6,8 +6,14 @@ import TextDivider from "@/components/TextDivider.vue";
 import z from "zod";
 import useForm from "@/composables/useForm";
 import { Form, FormFieldGroup, FormField, FormFieldInput, FormFieldIcon, FormFieldError, FormFooter, FormError } from "@/components/form";
+import { onMounted } from "vue";
+import { toast } from "vue-sonner";
+import { getErrorMessage } from "@/lib/utils";
+import { useRoute } from "vue-router";
 
-const { signUp, login, googleRedirect } = useUserStore();
+const route = useRoute();
+
+const { signUp, login, googleRedirect, signInWithGoogle } = useUserStore();
 
 const formSchema = z.object({
     email: z.email().default(""),
@@ -22,6 +28,26 @@ const handleLogin = form.submit(async () => {
 
 const handleSignUp = form.submit(async () => {
     await signUp(form.form.value.email, form.form.value.password);
+});
+
+async function handleGoogleSignIn(googleAccessToken: string) {
+    try {
+        form.submitting.value = true;
+        await signInWithGoogle(googleAccessToken);
+    } catch (err: unknown) {
+        toast.error(getErrorMessage(err));
+    } finally {
+        form.submitting.value = false;
+    }
+}
+
+onMounted(() => {
+    const urlParams = new URLSearchParams(route.hash.replace("#", ""));
+    const googleAccessToken = urlParams.get("access_token");
+
+    if (googleAccessToken) {
+        handleGoogleSignIn(googleAccessToken);
+    }
 });
 </script>
 

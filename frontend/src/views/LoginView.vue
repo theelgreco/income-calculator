@@ -1,21 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useUserStore } from "@/stores/userStore";
-import { useRoute } from "vue-router";
 import LoginForm from "@/components/login/LoginForm.vue";
-
-const route = useRoute();
-
-const { signInWithGoogle } = useUserStore();
-
-onMounted(() => {
-    const urlParams = new URLSearchParams(route.hash.replace("#", ""));
-    const googleAccessToken = urlParams.get("access_token");
-
-    if (googleAccessToken) {
-        signInWithGoogle(googleAccessToken);
-    }
-});
 </script>
 
 <template>
