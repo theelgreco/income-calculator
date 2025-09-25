@@ -3,9 +3,9 @@ import { prisma } from "../../prisma/connect";
 import { groupTransactionsByDaysInMonth, groupTransactionsByMonth } from "../helpers/helpers";
 import { MonthSerializer } from "../types/types";
 
-export async function createUser(data: { user_id: string; username: string; email: string; image: string }): Promise<User> {
+export async function createUser(data: { authId: string; username: string; email: string; image: string }): Promise<User> {
     try {
-        return await prisma.user.create({ data: { id: data.user_id, email: data.email, image: data.image, username: data.username } });
+        return await prisma.user.create({ data });
     } catch (err) {
         throw err;
     } finally {
@@ -13,9 +13,9 @@ export async function createUser(data: { user_id: string; username: string; emai
     }
 }
 
-export async function getUser(authSlug: string): Promise<User | null> {
+export async function getUser(authId: string): Promise<User | null> {
     try {
-        return await prisma.user.findUnique({ where: { id: authSlug } });
+        return await prisma.user.findUnique({ where: { authId } });
     } catch (err: any) {
         throw err;
     } finally {

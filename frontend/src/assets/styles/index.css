@@ -61,7 +61,7 @@
     --destructive-foreground: oklch(0.577 0.245 27.325);
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
+    --ring: oklch(0% 0 0);
     --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.6 0.118 184.704);
     --chart-3: oklch(0.398 0.07 227.392);
@@ -113,11 +113,52 @@
     --sidebar-ring: oklch(0.439 0 0);
 }
 
+/* These are the base defaults for HTML elements */
+
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentcolor);
     }
+
+    html {
+        @apply max-w-screen max-h-screen overflow-x-hidden;
+    }
+
+    body {
+        @apply bg-background text-foreground p-0! w-screen max-w-screen h-screen max-h-screen overscroll-none;
+    }
+
+    label {
+        user-select: none;
+    }
+
+    button {
+        cursor: pointer;
+    }
+}
+
+/* 
+Any component classes, e.g `button`, `card`, etc. Defining these in the components layer means that you can then override the styles later.
+Read more here: https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
+*/
+@layer components {
+}
+
+/* 
+Any utilities that don't ship with tailwind. Defining as a utility means you can then also use it with hover:, focus:, etc.
+Read more here: https://tailwindcss.com/docs/adding-custom-styles#simple-utilities
+*/
+
+@utility ellipsis {
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

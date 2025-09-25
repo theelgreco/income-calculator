@@ -11,11 +11,11 @@ const route = useRoute();
 </script>
 
 <template>
-    <Toaster position="top-right" />
+    <Toaster position="top-center" richColors />
     <TooltipProvider>
         <SidebarProvider>
             <MobileSidebar />
-            <main class="w-full h-full flex flex-col gap-5 overscroll-none">
+            <main class="w-full flex flex-col gap-5 overscroll-none">
                 <Nav v-if="route.meta.showNav" />
                 <RouterView />
             </main>
