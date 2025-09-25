@@ -2,13 +2,26 @@ import { AuthenticationApi, UsersApi, type User } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
 import router from "@/router";
 import authContract from "@stelan/auth-contract";
-import { initClient } from "@ts-rest/core";
+import { initClient, tsRestFetchApi, type ApiFetcherArgs } from "@ts-rest/core";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import z from "zod";
 
 const authClient = initClient(authContract, {
     baseUrl: process.env.NODE_ENV === "production" ? "https://auth.cinewhere.co.uk" : "http://localhost:9090",
+    api: async (args: ApiFetcherArgs) => {
+        const response = (await tsRestFetchApi(args)) as any;
+
+        if (response.status === 400 && response?.body?.name === "ValidationError") {
+            throw new z.ZodError(response.body.issues);
+        }
+
+        if ((response.status < 200 || response.status > 299) && response?.body) {
+            throw response.body;
+        }
+
+        return response;
+    },
 });
 
 export const useUserStore = defineStore("user", () => {
@@ -30,21 +43,15 @@ export const useUserStore = defineStore("user", () => {
         try {
             const response = await authClient.postLogin({ body: { serviceName: "income_calculator", emailOrUsername: email, password } });
 
-            if (response.status === 400 && response.body.name === "ValidationError") {
-                throw new z.ZodError(response.body.issues);
+            if (response.status === 200) {
+                const { jwt } = response.body;
+
+                localStorage.setItem("jwt", jwt);
+
+                user.value = await usersApi.apiUserGet();
+
+                await router.replace({ name: "year", params: { year: new Date().getFullYear() } });
             }
-
-            if (response.status !== 200) {
-                throw response.body;
-            }
-
-            const { jwt } = response.body;
-
-            localStorage.setItem("jwt", jwt);
-
-            user.value = await usersApi.apiUserGet();
-
-            router.replace({ name: "year", params: { year: new Date().getFullYear() } });
         } catch (err: unknown) {
             throw err;
         }
@@ -54,15 +61,9 @@ export const useUserStore = defineStore("user", () => {
         try {
             const response = await authClient.postSignUp({ body: { username: email, email, password, serviceName: "income_calculator" } });
 
-            if (response.status === 400 && response.body.name === "ValidationError") {
-                throw new z.ZodError(response.body.issues);
+            if (response.status === 200) {
+                await login(email, password);
             }
-
-            if (response.status !== 200) {
-                throw response.body;
-            }
-
-            await login(email, password);
         } catch (err: unknown) {
             throw err;
         }
@@ -84,17 +85,15 @@ export const useUserStore = defineStore("user", () => {
     async function signInWithGoogle(token: string) {
         const response = await authClient.postGoogleSignIn({ body: { serviceName: "income_calculator", token } });
 
-        if (response.status !== 200) {
-            throw new Error();
+        if (response.status === 200) {
+            const { jwt } = response.body;
+
+            localStorage.setItem("jwt", jwt);
+
+            user.value = await usersApi.apiUserGet();
+
+            await router.replace({ name: "year", params: { year: new Date().getFullYear() } });
         }
-
-        const { jwt } = response.body;
-
-        localStorage.setItem("jwt", jwt);
-
-        user.value = await usersApi.apiUserGet();
-
-        router.replace({ name: "year", params: { year: new Date().getFullYear() } });
     }
 
     function logout() {
