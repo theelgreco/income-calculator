@@ -1,4 +1,4 @@
-import { getErrorMessage } from "@/lib/utils";
+import { delay, getErrorMessage } from "@/lib/utils";
 import { ref } from "vue";
 import z from "zod";
 
@@ -30,25 +30,43 @@ export default function useForm<FormSchemaType>(formSchema: z.ZodObject) {
      * - If valid → runs the callback.
      * - If invalid → populates `errors`.
      */
-    const submit = (callback: () => Promise<any>): (() => void) => {
-        return async () => {
-            try {
-                resetErrors();
-                submitting.value = true;
-                formSchema.parse(form.value);
-                await callback();
-            } catch (err: unknown) {
-                if (err instanceof z.ZodError) {
-                    const typedErr = err as z.ZodError<FormSchemaType>;
-                    errors.value = typedErr.flatten();
-                } else {
-                    error.value = getErrorMessage(err);
-                }
-            } finally {
-                submitting.value = false;
+    const submit = async (callback: () => Promise<any>): Promise<void> => {
+        try {
+            submitting.value = true;
+            resetErrors();
+            formSchema.parse(form.value);
+            await callback();
+        } catch (err: unknown) {
+            if (err instanceof z.ZodError) {
+                const typedErr = err as z.ZodError<FormSchemaType>;
+                errors.value = typedErr.flatten();
+            } else {
+                error.value = getErrorMessage(err);
             }
-        };
+            throw err;
+        } finally {
+            submitting.value = false;
+        }
     };
+    // const submit = (callback: () => Promise<any>): (() => void) => {
+    //     return async () => {
+    //         try {
+    //             submitting.value = true;
+    //             resetErrors();
+    //             formSchema.parse(form.value);
+    //             await callback();
+    //         } catch (err: unknown) {
+    //             if (err instanceof z.ZodError) {
+    //                 const typedErr = err as z.ZodError<FormSchemaType>;
+    //                 errors.value = typedErr.flatten();
+    //             } else {
+    //                 error.value = getErrorMessage(err);
+    //             }
+    //         } finally {
+    //             submitting.value = false;
+    //         }
+    //     };
+    // };
 
     /** Resets the form back to its initial state and clears all errors. */
     const resetForm = (): void => {
