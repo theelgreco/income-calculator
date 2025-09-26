@@ -1,5 +1,6 @@
 import type { ClassValue } from "clsx";
 import { clsx } from "clsx";
+import type { MotionProps } from "motion-v";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -39,3 +40,51 @@ export const delay = async (timeInMs: number = 1000): Promise<void> => {
         }, timeInMs);
     });
 };
+
+type DeepMerge<T, U> = {
+    [K in keyof T | keyof U]: K extends keyof T
+        ? K extends keyof U
+            ? T[K] extends object
+                ? U[K] extends object
+                    ? DeepMerge<T[K], U[K]> // deep merge objects
+                    : U[K]
+                : U[K]
+            : T[K]
+        : K extends keyof U
+        ? U[K]
+        : never;
+};
+
+export function mergeMotions<T extends MotionProps, U extends MotionProps>(a: T, b: U): DeepMerge<T, U>;
+
+export function mergeMotions<T extends MotionProps, U extends MotionProps, V extends MotionProps>(
+    a: T,
+    b: U,
+    c: V
+): DeepMerge<DeepMerge<T, U>, V>;
+
+// fallback for any number
+export function mergeMotions(...motions: MotionProps[]): MotionProps {
+    return motions.reduce<MotionProps>((acc, motion) => {
+        const merged: MotionProps = { ...acc, ...motion };
+
+        const deepKeys: (keyof MotionProps)[] = [
+            "initial",
+            "animate",
+            "exit",
+            "variants",
+            "whileHover",
+            "whileFocus",
+            "whileDrag",
+            "transition",
+        ];
+
+        for (const key of deepKeys) {
+            if (acc[key] && motion[key]) {
+                merged[key] = { ...(acc[key] as object), ...(motion[key] as object) };
+            }
+        }
+
+        return merged;
+    }, {});
+}
