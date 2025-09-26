@@ -28,6 +28,7 @@ declare module 'vue' {
     CalendarHeadCell: typeof import('./src/components/ui/calendar/CalendarHeadCell.vue')['default']
     CalendarHeader: typeof import('./src/components/ui/calendar/CalendarHeader.vue')['default']
     CalendarHeading: typeof import('./src/components/ui/calendar/CalendarHeading.vue')['default']
+    CalendarNavigator: typeof import('./src/components/financial-calendar/CalendarNavigator.vue')['default']
     CalendarNextButton: typeof import('./src/components/ui/calendar/CalendarNextButton.vue')['default']
     CalendarPrevButton: typeof import('./src/components/ui/calendar/CalendarPrevButton.vue')['default']
     ConfirmTransactionDeleteDialog: typeof import('./src/components/dialogs/ConfirmTransactionDeleteDialog.vue')['default']
