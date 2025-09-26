@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import Button from "@/components/ui/button/Button.vue";
 import { useUserStore } from "@/stores/userStore";
 import { Lock, Mail } from "lucide-vue-next";
-import TextDivider from "@/components/TextDivider.vue";
 import z from "zod";
 import useForm from "@/composables/useForm";
-import { Form, FormFieldGroup, FormField, FormFieldInput, FormFieldIcon, FormFieldError, FormFooter } from "@/components/form";
 import { onMounted } from "vue";
 import { toast } from "vue-sonner";
 import { getErrorMessage } from "@/lib/utils";
@@ -107,7 +104,16 @@ onMounted(() => {
             </div> -->
                 <div class="flex flex-col items-center mt-10 mx-auto">
                     <small class="text-center"> Want to try it out first? </small>
-                    <small class="text-violet-600">Continue as guest</small>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <small class="text-violet-600">Continue as guest</small>
+                            </TooltipTrigger>
+                            <TooltipContent asChild :motions="{ initial: { scale: 0 }, animate: { scale: 1 } }">
+                                <p>Coming soon</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                 </div>
             </FormFooter>
         </Form>
