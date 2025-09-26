@@ -46,6 +46,7 @@ function changeYear(newDirection: Direction) {
         </svg>
         <Button
             variant="ghost"
+            aria-label="previous year"
             class="grid place-items-center border rounded-full h-full aspect-square p-0 shadow-md active:shadow-[inset_0_1px_4px_0_rgba(0,0,0,0.25)] group hover:bg-white"
             @click="changeYear('PREV')"
         >
@@ -73,6 +74,7 @@ function changeYear(newDirection: Direction) {
         </div>
         <Button
             variant="ghost"
+            aria-label="next year"
             class="grid place-items-center border rounded-full h-full aspect-square p-0 shadow-md active:shadow-[inset_0_1px_4px_0_rgba(0,0,0,0.25)] group hover:bg-white"
             @click="changeYear('NEXT')"
         >
