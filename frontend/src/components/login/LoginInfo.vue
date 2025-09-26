@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { motion, type MotionProps } from "motion-v";
-import { Calendar, Currency, Globe } from "lucide-vue-next";
+import { CalendarIcon, Currency, Globe } from "lucide-vue-next";
 import InfoCard from "@/components/login/InfoCard.vue";
 
 const iconMotions: MotionProps = {
@@ -36,7 +36,7 @@ const headingMotions: MotionProps = {
         <div class="mt-5 xl:mt-10 w-full flex flex-col gap-3">
             <InfoCard title="Track Your Income Effortlessly" description="Easily log and categorize your income and transactions.">
                 <motion.svg asChild v-bind="iconMotions" :transition="{ type: 'spring' }">
-                    <Calendar :size="200" class="absolute top-0 rotate-0 opacity-5" />
+                    <CalendarIcon :size="200" class="absolute top-0 rotate-0 opacity-5" />
                 </motion.svg>
             </InfoCard>
             <InfoCard title="Visualise Your Progress" description="Get clear monthly and yearly overviews with interactive charts.">

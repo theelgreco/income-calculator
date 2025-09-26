@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import Input from "../ui/input/Input.vue";
 import type { FormContext } from "./Form.vue";
 import type { FormFieldGroupProps } from "./FormFieldGroup.vue";
 

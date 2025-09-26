@@ -1,15 +1,4 @@
 <script setup lang="ts">
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import Button from "../ui/button/Button.vue";
 import { ref, defineExpose } from "vue";
 
 const open = ref(false);

@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import Button from "./ui/button/Button.vue";
 import { ChevronUp } from "lucide-vue-next";
 import { useUserStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 const userStore = useUserStore();
 

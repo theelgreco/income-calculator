@@ -11,7 +11,9 @@ export default defineConfig({
     plugins: [
         vue(),
         vueDevTools(),
-        Components(),
+        Components({
+            dts: true,
+        }),
         VitePWA({
             registerType: "autoUpdate",
             manifest: {

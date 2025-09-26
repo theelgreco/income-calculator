@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
-import Skeleton from "./ui/skeleton/Skeleton.vue";
 
 interface Props {
     monthName: string;

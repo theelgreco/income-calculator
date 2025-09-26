@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { mdiCardsOutline, mdiFinance, mdiMenu, mdiPlusOutline } from "@mdi/js";
-import Button from "./ui/button/Button.vue";
 import SvgIcon from "@jamescoyle/vue-icon";
-import ProfileAvatar from "./ProfileAvatar.vue";
 import { RouterLink } from "vue-router";
-import SidebarTrigger from "./ui/sidebar/SidebarTrigger.vue";
 </script>
 
 <template>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import SvgIcon from "@jamescoyle/vue-icon";
-import Button from "./ui/button/Button.vue";
 
 interface Props {
     icon: string;

@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { onMounted, ref, defineProps, defineEmits, watch } from "vue";
-import CalendarYear from "./CalendarYear.vue";
-import CalendarMonth from "./CalendarMonth.vue";
 import { useRoute } from "vue-router";
 import router from "@/router";
 import { TransactionsApi, type GetTransactionYearResponseInner } from "@/api/generated";
@@ -138,7 +136,7 @@ onMounted(async () => {
 
 <template>
     <div class="w-full h-full flex flex-col gap-4">
-        <CalendarYear
+        <FinancialCalendarYear
             v-model:year="year"
             @update:year="
                 months = nullMonths;
@@ -151,7 +149,7 @@ onMounted(async () => {
                 v-for="(month, index) in months"
                 :to="{ name: 'month', params: { year, month: month.monthName } }"
             >
-                <CalendarMonth
+                <FinancialCalendarMonth
                     :key="month.monthName"
                     :monthName="month.monthName"
                     :income="month.income"
