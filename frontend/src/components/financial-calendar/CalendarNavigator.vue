@@ -27,7 +27,7 @@ watch(
         v-if="year > currentYear"
         class="fixed bottom-0 left-1/2 translate-x-[-155px] -translate-y-5 h-[50px] aspect-square rounded-full p-[3px] bg-white shadow-xl"
     >
-        <CalendarNavigatorButton :direction="NavigatorDirection.PREVIOUS" isDouble @click="emit('update:year', currentYear)" />
+        <CalendarNavigatorButton :direction="NavigatorDirection.PREVIOUS" @click="emit('update:year', currentYear)" isSkip />
     </div>
     <div
         class="fixed bottom-0 left-1/2 -translate-x-1/2 -translate-y-5 bg-white flex justify-between items-center w-[200px] h-[50px] shadow-xl p-[3px] rounded-full border"
@@ -62,6 +62,6 @@ watch(
         v-if="year < currentYear"
         class="fixed bottom-0 left-1/2 translate-x-[105px] -translate-y-5 h-[50px] aspect-square rounded-full p-[3px] bg-white shadow-xl"
     >
-        <CalendarNavigatorButton :direction="NavigatorDirection.NEXT" isDouble @click="emit('update:year', currentYear)" />
+        <CalendarNavigatorButton :direction="NavigatorDirection.NEXT" @click="emit('update:year', currentYear)" isSkip />
     </div>
 </template>
