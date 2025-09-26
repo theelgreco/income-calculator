@@ -30,3 +30,5 @@ coverage
 *.tsbuildinfo
 
 google-secret.json
+*storybook.log
+storybook-static
