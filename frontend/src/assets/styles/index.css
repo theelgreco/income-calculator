@@ -162,3 +162,7 @@ Read more here: https://tailwindcss.com/docs/adding-custom-styles#simple-utiliti
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@utility bg-size-* {
+    background-size: --value(--bg-size- *);
+}

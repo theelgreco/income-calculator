@@ -18,24 +18,10 @@ const containerMotions: MotionProps = {
 </script>
 
 <template>
-    <motion.div v-bind="containerMotions" class="h-full flex justify-between login-bg">
+    <motion.div v-bind="containerMotions" class="h-full flex justify-between bg-size-[100%,19px_19px]">
         <LoginInfo class="flex flex-col justify-center gap-5 max-lg:hidden w-1/2 h-full px-20" />
         <LoginForm
             class="md:bg-[#F8F8F8] md:border md:shadow-2xl flex flex-col justify-center w-full lg:w-1/2 sm:px-10 md:px-35 rounded-3xl md:min-w-[700px] max-w-[1000px]"
         />
     </motion.div>
 </template>
-
-<style scoped>
-.login-bg {
-    background-size: 100%, 19px 19px;
-    background-image: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 1) 10%,
-            rgba(255, 255, 255, 1) 90%,
-            rgba(255, 255, 255, 0) 100%
-        ),
-        radial-gradient(#000000 1px, #ffffff 1px);
-}
-</style>
