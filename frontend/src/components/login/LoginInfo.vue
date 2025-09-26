@@ -23,7 +23,7 @@ const headingMotions: MotionProps = {
                 :whilePress="{ scale: 0.9 }"
                 :drag="true"
                 :dragConstraints="{ top: 0, right: 0, bottom: 0, left: 0 }"
-                class="bg-white border rounded-full p-5 shadow-lg min-w-[100px] w-[100px] h-[100px] [-webkit-user-drag:none]"
+                class="bg-white border rounded-full p-5 shadow-lg min-w-[100px] w-[100px] h-[100px] drag-none z-1"
                 src="/192w/icon.png"
             />
             <div class="flex flex-col justify-center">

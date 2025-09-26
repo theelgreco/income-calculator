@@ -166,3 +166,8 @@ Read more here: https://tailwindcss.com/docs/adding-custom-styles#simple-utiliti
 @utility bg-size-* {
     background-size: --value(--bg-size- *);
 }
+
+/* Stops images from being draggable */
+@utility drag-none {
+    -webkit-user-drag: none;
+}
