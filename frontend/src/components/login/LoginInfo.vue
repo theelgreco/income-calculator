@@ -21,17 +21,19 @@ const headingMotions: MotionProps = {
             <motion.img
                 v-bind="headingMotions"
                 :whilePress="{ scale: 0.9 }"
-                class="bg-white border rounded-full p-5 shadow-lg min-w-[100px] w-[100px] h-[100px]"
+                :drag="true"
+                :dragConstraints="{ top: 0, right: 0, bottom: 0, left: 0 }"
+                class="bg-white border rounded-full p-5 shadow-lg min-w-[100px] w-[100px] h-[100px] [-webkit-user-drag:none]"
                 src="/192w/icon.png"
             />
             <div class="flex flex-col justify-center">
-                <motion.h1 v-bind="headingMotions" class="font-black text-xl xl:text-3xl">Take control of your finances today</motion.h1>
-                <motion.h2 v-bind="headingMotions" class="text-lg font-light">
+                <motion.h1 v-bind="headingMotions" class="font-black text-lg xl:text-3xl">Take control of your finances today</motion.h1>
+                <motion.h2 v-bind="headingMotions" class="text-sm xl:text-lg font-light">
                     One <i class="font-bold">simple</i> transaction at a time
                 </motion.h2>
             </div>
         </div>
-        <div class="mt-10 w-full flex flex-col gap-3">
+        <div class="mt-5 xl:mt-10 w-full flex flex-col gap-3">
             <InfoCard title="Track Your Income Effortlessly" description="Easily log and categorize your income and transactions.">
                 <motion.svg asChild v-bind="iconMotions" :transition="{ type: 'spring' }">
                     <Calendar :size="200" class="absolute top-0 rotate-0 opacity-5" />
