@@ -13,4 +13,5 @@ export const enum NavigatorDirection {
 
 export interface CalendarNavigatorButtonProps {
     direction: NavigatorDirection;
+    isSkip?: boolean;
 }

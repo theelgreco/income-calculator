@@ -20,16 +20,14 @@ watch(
 </script>
 
 <template>
+    <!-- This is a fixed overlay that sits behind the navigator. It acts as an accidental touch protection and also adds some visual appeal. -->
     <div class="bg-neutral-300/50 fixed bottom-0 left-0 h-[75px] w-full blur-xl"></div>
+    <!-- Button to skip back to current year -->
     <div
         v-if="year > currentYear"
-        class="fixed bottom-0 left-1/2 translate-x-[-150px] -translate-y-5 h-[50px] aspect-square rounded-full p-[3px]"
+        class="fixed bottom-0 left-1/2 translate-x-[-155px] -translate-y-5 h-[50px] aspect-square rounded-full p-[3px] bg-white shadow-xl"
     >
-        <CalendarNavigatorButton
-            :direction="NavigatorDirection.PREVIOUS"
-            class="bg-white border-white hover:bg-white"
-            @click="emit('update:year', currentYear)"
-        />
+        <CalendarNavigatorButton :direction="NavigatorDirection.PREVIOUS" isDouble @click="emit('update:year', currentYear)" />
     </div>
     <div
         class="fixed bottom-0 left-1/2 -translate-x-1/2 -translate-y-5 bg-white flex justify-between items-center w-[200px] h-[50px] shadow-xl p-[3px] rounded-full border"
@@ -59,14 +57,11 @@ watch(
         <SvgInnerShadow />
         <CalendarNavigatorButton :direction="NavigatorDirection.NEXT" @click="emit('update:year', year + 1)" />
     </div>
+    <!-- Button to skip forward to current year -->
     <div
         v-if="year < currentYear"
-        class="fixed bottom-0 left-1/2 translate-x-[105px] -translate-y-5 h-[50px] aspect-square rounded-full p-[3px]"
+        class="fixed bottom-0 left-1/2 translate-x-[105px] -translate-y-5 h-[50px] aspect-square rounded-full p-[3px] bg-white shadow-xl"
     >
-        <CalendarNavigatorButton
-            :direction="NavigatorDirection.NEXT"
-            class="bg-white border-white hover:bg-white"
-            @click="emit('update:year', currentYear)"
-        />
+        <CalendarNavigatorButton :direction="NavigatorDirection.NEXT" isDouble @click="emit('update:year', currentYear)" />
     </div>
 </template>
