@@ -153,7 +153,6 @@ onMounted(async () => {
             </RouterLink>
         </div>
         <CalendarNavigator
-            class="fixed bottom-0 left-1/2 -translate-x-1/2 -translate-y-5"
             v-model:year="year"
             @update:year="
                 months = nullMonths;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { AnimatePresence, motion } from "motion-v";
 import { NavigatorDirection, type CalendarNavigatorEmits, type CalendarNavigatorProps } from "./types";
 
@@ -9,17 +9,33 @@ const emit = defineEmits<CalendarNavigatorEmits>();
 
 const direction = ref<NavigatorDirection>();
 
-function changeYear(newDirection: NavigatorDirection) {
-    direction.value = newDirection;
-    const newYear = newDirection === NavigatorDirection.NEXT ? props.year + 1 : props.year - 1;
-    emit("update:year", newYear);
-}
+const currentYear = new Date().getFullYear();
+
+watch(
+    () => props.year,
+    (newValue, oldValue) => {
+        direction.value = newValue > oldValue ? NavigatorDirection.NEXT : NavigatorDirection.PREVIOUS;
+    }
+);
 </script>
 
 <template>
-    <div class="bg-white flex justify-between items-center w-[200px] h-[50px] shadow-xl p-[3px] rounded-full border">
+    <div class="bg-neutral-300/50 fixed bottom-0 left-0 h-[75px] w-full blur-xl"></div>
+    <div
+        v-if="year > currentYear"
+        class="fixed bottom-0 left-1/2 translate-x-[-150px] -translate-y-5 h-[50px] aspect-square rounded-full p-[3px]"
+    >
+        <CalendarNavigatorButton
+            :direction="NavigatorDirection.PREVIOUS"
+            class="bg-white border-white hover:bg-white"
+            @click="emit('update:year', currentYear)"
+        />
+    </div>
+    <div
+        class="fixed bottom-0 left-1/2 -translate-x-1/2 -translate-y-5 bg-white flex justify-between items-center w-[200px] h-[50px] shadow-xl p-[3px] rounded-full border"
+    >
         <SvgInnerShadow />
-        <CalendarNavigatorButton :direction="NavigatorDirection.PREVIOUS" @click="changeYear(NavigatorDirection.PREVIOUS)" />
+        <CalendarNavigatorButton :direction="NavigatorDirection.PREVIOUS" @click="emit('update:year', year - 1)" />
         <div class="flex-grow h-full p-[4px]">
             <div
                 class="relative bg-neutral-50 shadow-[inset_0_1px_4px_0_rgba(0,0,0,0.25)] w-full h-full rounded-full font-black text-xl overflow-hidden"
@@ -40,6 +56,17 @@ function changeYear(newDirection: NavigatorDirection) {
                 </AnimatePresence>
             </div>
         </div>
-        <CalendarNavigatorButton :direction="NavigatorDirection.NEXT" @click="changeYear(NavigatorDirection.NEXT)" />
+        <SvgInnerShadow />
+        <CalendarNavigatorButton :direction="NavigatorDirection.NEXT" @click="emit('update:year', year + 1)" />
+    </div>
+    <div
+        v-if="year < currentYear"
+        class="fixed bottom-0 left-1/2 translate-x-[105px] -translate-y-5 h-[50px] aspect-square rounded-full p-[3px]"
+    >
+        <CalendarNavigatorButton
+            :direction="NavigatorDirection.NEXT"
+            class="bg-white border-white hover:bg-white"
+            @click="emit('update:year', currentYear)"
+        />
     </div>
 </template>
