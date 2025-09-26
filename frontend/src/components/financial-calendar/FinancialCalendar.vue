@@ -136,14 +136,7 @@ onMounted(async () => {
 
 <template>
     <div class="w-full h-full flex flex-col gap-4">
-        <FinancialCalendarYear
-            v-model:year="year"
-            @update:year="
-                months = nullMonths;
-                router.replace({ name: 'year', params: { year } });
-            "
-        />
-        <div class="flex flex-wrap justify-between max-w-full max-h-full gap-4">
+        <div class="flex flex-wrap justify-between max-w-full max-h-full gap-4 pb-24">
             <RouterLink
                 class="min-w-[300px] max-w-full w-[30%] grow"
                 v-for="(month, index) in months"
@@ -159,5 +152,13 @@ onMounted(async () => {
                 />
             </RouterLink>
         </div>
+        <CalendarNavigator
+            class="fixed bottom-0 left-1/2 -translate-x-1/2 -translate-y-5"
+            v-model:year="year"
+            @update:year="
+                months = nullMonths;
+                router.replace({ name: 'year', params: { year } });
+            "
+        />
     </div>
 </template>
