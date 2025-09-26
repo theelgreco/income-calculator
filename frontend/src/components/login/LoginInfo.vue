@@ -1,18 +1,31 @@
 <script setup lang="ts">
 import { motion, type MotionProps } from "motion-v";
-import { CalendarIcon, Currency, Globe } from "lucide-vue-next";
+import { CalendarIcon, CurrencyIcon, GlobeIcon } from "lucide-vue-next";
 import InfoCard from "@/components/login/InfoCard.vue";
-
-const iconMotions: MotionProps = {
-    initial: { strokeWidth: 0, opacity: 0, rotate: -90, left: "10%" },
-    animate: { strokeWidth: 0.25, opacity: 0.05, rotate: 0, left: "0%" },
-};
 
 const headingMotions: MotionProps = {
     initial: { y: 25, opacity: 0 },
     animate: { y: 0, opacity: 1 },
     transition: { type: "spring" },
 };
+
+const infoCards = [
+    {
+        title: "Track Your Income Effortlessly",
+        description: "Easily log and categorize your income and transactions.",
+        icon: CalendarIcon,
+    },
+    {
+        title: "Visualise Your Progress",
+        description: "Get clear monthly and yearly overviews with interactive charts.",
+        icon: CurrencyIcon,
+    },
+    {
+        title: "Secure & Private",
+        description: "Your data is protected with industry-standard security. So you can manage your finances with confidence.",
+        icon: GlobeIcon,
+    },
+];
 </script>
 
 <template>
@@ -34,24 +47,7 @@ const headingMotions: MotionProps = {
             </div>
         </div>
         <div class="mt-5 xl:mt-10 w-full flex flex-col gap-3">
-            <InfoCard title="Track Your Income Effortlessly" description="Easily log and categorize your income and transactions.">
-                <motion.svg asChild v-bind="iconMotions" :transition="{ type: 'spring' }">
-                    <CalendarIcon :size="200" class="absolute top-0 rotate-0 opacity-5" />
-                </motion.svg>
-            </InfoCard>
-            <InfoCard title="Visualise Your Progress" description="Get clear monthly and yearly overviews with interactive charts.">
-                <motion.svg asChild v-bind="iconMotions" :transition="{ type: 'spring', delay: 0.25 }">
-                    <Currency :size="200" class="absolute top-0 -rotate-0 opacity-5" />
-                </motion.svg>
-            </InfoCard>
-            <InfoCard
-                title="Secure & Private"
-                description="Your data is protected with industry-standard security. So you can manage your finances with confidence."
-            >
-                <motion.svg asChild v-bind="iconMotions" :transition="{ type: 'spring', delay: 0.5 }">
-                    <Globe :size="200" class="absolute top-0 opacity-5" />
-                </motion.svg>
-            </InfoCard>
+            <InfoCard v-for="(infoCard, index) in infoCards" :key="infoCard.title" :delayIndex="index" v-bind="infoCard" />
         </div>
     </div>
 </template>
