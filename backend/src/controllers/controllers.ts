@@ -12,7 +12,7 @@ import { Transaction, User } from "@prisma/client";
 import { GetTransactionMonthParams, GetTransactionYearParams } from "../schema/transaction.schema";
 import { validMonthStrings } from "../constants";
 
-export function validateJWT(request: Request, response: Response) {
+export function validateJWT(_request: Request, response: Response) {
     response.status(200).send({ msg: "Your JWT is valid" });
 }
 
