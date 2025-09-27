@@ -13,7 +13,7 @@ defineProps<CalendarNavigatorButtonProps>();
     >
         <SkipBackIcon
             v-if="isSkip"
-            class="fill-neutral-600 stroke-neutral-600 group-active:fill-neutral-800 group-active:translate-y-[1px]"
+            class="fill-neutral-600 stroke-neutral-600 group-active:fill-neutral-700 group-active:translate-y-[1px]"
             :class="{
                 '-translate-x-0.5 group-active:translate-x-[-2px]': direction === NavigatorDirection.PREVIOUS,
                 'translate-x-0.5 group-active:translate-x-[2px] rotate-180': direction === NavigatorDirection.NEXT,
@@ -21,7 +21,7 @@ defineProps<CalendarNavigatorButtonProps>();
         />
         <TriangleIcon
             v-else
-            class="fill-neutral-600 stroke-neutral-600 group-active:fill-neutral-800 group-active:translate-y-[1px]"
+            class="fill-neutral-600 stroke-neutral-600 group-active:fill-neutral-700 group-active:translate-y-[1px]"
             :class="{
                 '-translate-x-0.5 group-active:translate-x-[-2px] -rotate-90': direction === NavigatorDirection.PREVIOUS,
                 'translate-x-0.5 group-active:translate-x-[2px] rotate-90': direction === NavigatorDirection.NEXT,

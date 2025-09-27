@@ -152,6 +152,8 @@ onMounted(async () => {
                 />
             </RouterLink>
         </div>
+        <!-- This is a fixed overlay that sits behind the navigator. It acts as an accidental touch protection and also adds some visual appeal. -->
+        <div class="bg-neutral-300/50 fixed bottom-0 left-0 h-[75px] w-full blur-xl"></div>
         <CalendarNavigator
             v-model:year="year"
             @update:year="

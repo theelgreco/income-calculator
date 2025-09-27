@@ -20,17 +20,22 @@ watch(
 </script>
 
 <template>
-    <!-- This is a fixed overlay that sits behind the navigator. It acts as an accidental touch protection and also adds some visual appeal. -->
-    <div class="bg-neutral-300/50 fixed bottom-0 left-0 h-[75px] w-full blur-xl"></div>
     <!-- Button to skip back to current year -->
-    <div
+    <motion.div
         v-if="year > currentYear"
-        class="fixed bottom-0 left-1/2 translate-x-[-155px] -translate-y-5 h-[50px] aspect-square rounded-full p-[3px] bg-white shadow-xl"
+        :initial="{ translateX: 0, opacity: 0, scale: 0 }"
+        :animate="{ translateX: -155, opacity: 1, scale: 1 }"
+        :transition="{ type: 'tween', delay: direction ? 0 : 0.1 }"
+        class="fixed bottom-0 left-1/2 -translate-y-5 h-[50px] aspect-square rounded-full p-[3px] bg-white shadow-xl"
     >
         <CalendarNavigatorButton :direction="NavigatorDirection.PREVIOUS" @click="emit('update:year', currentYear)" isSkip />
-    </div>
-    <div
-        class="fixed bottom-0 left-1/2 -translate-x-1/2 -translate-y-5 bg-white flex justify-between items-center w-[200px] h-[50px] shadow-xl p-[3px] rounded-full border"
+    </motion.div>
+    <!-- Main navigation controls -->
+    <motion.div
+        :initial="{ translateY: 20 }"
+        :animate="{ translateY: -20 }"
+        :transition="{ type: 'tween' }"
+        class="fixed bottom-0 left-1/2 -translate-x-1/2 bg-white z-1 flex justify-between items-center w-[200px] h-[50px] shadow-xl p-[3px] rounded-full border"
     >
         <SvgInnerShadow />
         <CalendarNavigatorButton :direction="NavigatorDirection.PREVIOUS" @click="emit('update:year', year - 1)" />
@@ -56,12 +61,15 @@ watch(
         </div>
         <SvgInnerShadow />
         <CalendarNavigatorButton :direction="NavigatorDirection.NEXT" @click="emit('update:year', year + 1)" />
-    </div>
+    </motion.div>
     <!-- Button to skip forward to current year -->
-    <div
+    <motion.div
         v-if="year < currentYear"
-        class="fixed bottom-0 left-1/2 translate-x-[105px] -translate-y-5 h-[50px] aspect-square rounded-full p-[3px] bg-white shadow-xl"
+        :initial="{ translateX: 0, opacity: 0, scale: 0 }"
+        :animate="{ translateX: 105, opacity: 1, scale: 1 }"
+        :transition="{ type: 'tween', delay: direction ? 0 : 0.1 }"
+        class="fixed bottom-0 left-1/2 -translate-y-5 h-[50px] aspect-square rounded-full p-[3px] bg-white shadow-xl"
     >
         <CalendarNavigatorButton :direction="NavigatorDirection.NEXT" @click="emit('update:year', currentYear)" isSkip />
-    </div>
+    </motion.div>
 </template>
