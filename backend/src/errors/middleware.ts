@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-export function handleCustomErrors(error: any, request: Request, response: Response, next: NextFunction) {
+export function handleCustomErrors(error: any, _request: Request, response: Response, next: NextFunction) {
     const { message, code, name } = error;
 
     console.log(`${code} | ${name} | ${message}`);
