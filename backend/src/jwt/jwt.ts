@@ -5,7 +5,7 @@ import type { Request, Response, NextFunction } from "express";
 import { User } from "@prisma/client";
 import { getDefaultUserImage } from "../firebase/storage";
 
-export function authenticateJWT(request: Request & { user?: User | null }, response: Response, next: NextFunction): void {
+export function authenticateJWT(request: Request & { user?: User | null }, _response: Response, next: NextFunction): void {
     const authHeader = request.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
 
