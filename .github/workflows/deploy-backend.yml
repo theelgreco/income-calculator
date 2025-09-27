@@ -38,8 +38,19 @@ jobs:
                   username: ${{ secrets.VPS_USER }}
                   key: ${{ secrets.VPS_SSH_KEY }}
                   script: |
+                      export DATABASE_URL=${{ secrets.ENV_DATABASE_URL }}
+                      export JWT_KEY=${{ secrets.ENV_JWT_KEY }}
+                      export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+                      export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+                      export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+                      export API_PORT=${{ vars.API_PORT }}
+                      export NODE_ENV=${{ vars.NODE_ENV }}
+                      export API_CONTAINER_NAME=${{ vars.API_CONTAINER_NAME }}
+                      export GITHUB_REPO=${{ github.repository }}
+                      export DOCKER_NETWORK_NAME=${{ vars.DOCKER_NETWORK_NAME }}
+
                       docker login ghcr.io -u ${{ github.repository_owner }} -p ${{ secrets.VPS_GHCR_PAT }}
-                      docker pull ghcr.io/${{ github.repository }}/backend:latest
-                      docker stop ${{ vars.API_CONTAINER_NAME }} || true
-                      docker rm ${{ vars.API_CONTAINER_NAME }} || true
-                      docker run -d -e DATABASE_URL="${{ secrets.ENV_DATABASE_URL }}" -e PORT="${{ vars.API_PORT }}" -e JWT_KEY="${{ secrets.ENV_JWT_KEY }}" -e NODE_ENV="${{ vars.NODE_ENV }}" --name ${{ vars.API_CONTAINER_NAME }} --network ${{ vars.DOCKER_NETWORK_NAME }} -p ${{ vars.API_PORT }}:${{ vars.API_PORT }} --restart unless-stopped ghcr.io/${{ github.repository }}/backend:latest
+
+                      docker compose -f /production/docker-compose.yml pull
+                      docker compose -f /production/docker-compose.yml config
+                      docker compose -f /production/docker-compose.yml up -d
