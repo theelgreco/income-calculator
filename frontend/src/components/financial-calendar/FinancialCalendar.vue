@@ -5,6 +5,7 @@ import router from "@/router";
 import { TransactionsApi, type GetTransactionYearResponseInner } from "@/api/generated";
 import { defaultApiConfiguration } from "@/fetch";
 import { RouterLink } from "vue-router";
+import debounce from "lodash.debounce";
 
 interface Props {
     updateTrigger: boolean;
@@ -101,7 +102,7 @@ const nullMonths = [
 
 const months = ref<{ monthName: string; income: number | null; expenses: number | null; remaining: number | null }[]>(nullMonths);
 
-async function getYearData() {
+const getYearData = debounce(async () => {
     try {
         months.value = nullMonths;
         const response = await transactionsApi.apiTransactionsYearGet({ year: year.value });
@@ -109,7 +110,7 @@ async function getYearData() {
     } catch (err: any) {
         console.error(err);
     }
-}
+}, 300);
 
 watch(
     () => props.updateTrigger,
