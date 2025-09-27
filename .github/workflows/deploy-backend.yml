@@ -52,6 +52,6 @@ jobs:
 
                       docker login ghcr.io -u ${{ github.repository_owner }} -p ${{ secrets.VPS_GHCR_PAT }}
 
-                      docker compose -f /production/docker-compose.yml pull
-                      docker compose -f /production/docker-compose.yml config
-                      docker compose -f /production/docker-compose.yml up -d
+                      docker compose -f /${{ secrets.VPS_USER }}/production/docker-compose.yml pull
+                      docker compose -f /${{ secrets.VPS_USER }}/production/docker-compose.yml config
+                      docker compose -f /${{ secrets.VPS_USER }}/production/docker-compose.yml up -d
