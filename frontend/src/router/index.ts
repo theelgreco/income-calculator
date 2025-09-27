@@ -81,7 +81,7 @@ router.beforeEach(async (to, from, next) => {
     }
 });
 
-router.afterEach((to, from) => {
+router.afterEach((to, _from) => {
     if (to.meta.hasYear) {
         let { year } = to.params;
 
