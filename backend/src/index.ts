@@ -76,9 +76,9 @@ app.use(authenticateJWT);
  *                                  type: string
  *                                  default: No JWT provided
  */
-// app.get("/api/validateJWT", (request: Request, response: Response) => {
-//     response.status(200).send({ msg: "Your JWT is valid" });
-// });
+app.get("/api/validateJWT", (request: Request, response: Response) => {
+    response.status(200).send({ msg: "Your JWT is valid" });
+});
 
 /**
  * @openapi
