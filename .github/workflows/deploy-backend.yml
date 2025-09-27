@@ -17,6 +17,9 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
+            - name: Debug VPS_HOST
+              run: echo "${{ secrets.VPS_HOST }}"
+
             - name: Log in to GHCR
               uses: docker/login-action@v3
               with:
