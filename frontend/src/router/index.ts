@@ -62,6 +62,8 @@ const router = createRouter({
 const previousRoute = usePreviousRoute();
 
 router.beforeEach(async (to, from, next) => {
+    console.log(process.env.NODE_ENV);
+
     if (from.path !== "/") {
         previousRoute.value = from;
     }
