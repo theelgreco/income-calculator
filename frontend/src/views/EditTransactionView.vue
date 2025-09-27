@@ -31,9 +31,7 @@ import type { DateValue } from "@internationalized/date";
 
 type FirstLastDayOfMonth = "first_business" | "last_business" | "last" | "specific";
 
-const df = new DateFormatter("en-GB", {
-    dateStyle: "long",
-});
+const df = new DateFormatter("en-GB", { dateStyle: "long" });
 
 const router = useRouter();
 
