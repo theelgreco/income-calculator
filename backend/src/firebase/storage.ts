@@ -1,17 +1,22 @@
 import { app } from "./firebase";
-import { getStorage, ref, connectStorageEmulator } from "firebase/storage";
+import { getStorage, ref, connectStorageEmulator, FirebaseStorage } from "firebase/storage";
 
-const storage = process.env.NODE_ENV === "production" ? getStorage(app, app.options.storageBucket) : getStorage();
+let firebaseURL;
+let storage: FirebaseStorage;
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV === "development") {
+    firebaseURL = "http://127.0.0.1:9199/";
+    storage = getStorage();
     connectStorageEmulator(storage, "127.0.0.1", 9199);
+} else {
+    firebaseURL = "https://firebasestorage.googleapis.com/";
+    storage = getStorage(app, app.options.storageBucket);
 }
 
 // A ref to the directory to upload user profile pictures to
 export const userImagesRef = ref(storage, "users/images");
 
-export function getDefaultUserImage() {
-    return process.env.NODE_ENV === "production"
-        ? "https://firebasestorage.googleapis.com/v0/b/income-tracker-88b7c.appspot.com/o/users%2Fimages%2Fdefault.png?alt=media"
-        : "http://127.0.0.1:9199/v0/b/income-tracker-88b7c.appspot.com/o/users%2Fimages%2Fdefault.png?alt=media";
-}
+const bucketLocation = "v0/b/income-tracker-88b7c.appspot.com/o/";
+const defaultImageFilename = "users%2Fimages%2Fdefault.png?alt=media";
+
+export const defaultUserImage = `${firebaseURL}${bucketLocation}${defaultImageFilename}`;
