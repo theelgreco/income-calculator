@@ -70,12 +70,19 @@ export const useUserStore = defineStore("user", () => {
     }
 
     function googleRedirect() {
+        let redirect_uri = "http://localhost:5173/login";
+
+        if (process.env.NODE_ENV === "production") {
+            redirect_uri = "https://www.fidelio.club/login";
+        } else if (process.env.NODE_ENV === "development") {
+            redirect_uri = "https://staging.fidelio.club/login";
+        }
+
         const params = new URLSearchParams({
             scope: "openid email profile",
             include_granted_scopes: "true",
             response_type: "token",
-            redirect_uri:
-                process.env.NODE_ENV === "production" ? "https://income-calculator-ten.vercel.app/login" : "http://localhost:5173/login",
+            redirect_uri,
             client_id: "545142393929-1jg47rom4v7hcfjvpjgkuhtkca9a73kb.apps.googleusercontent.com",
         });
         const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
