@@ -32,5 +32,3 @@ coverage
 google-secret.json
 *storybook.log
 storybook-static
-
-ENVIRONMENTS.md

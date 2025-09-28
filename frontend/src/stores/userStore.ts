@@ -8,7 +8,7 @@ import { ref } from "vue";
 import z from "zod";
 
 const authClient = initClient(authContract, {
-    baseUrl: process.env.NODE_ENV === "production" ? "https://auth.cinewhere.co.uk" : "http://localhost:9090",
+    baseUrl: process.env.NODE_ENV === "development" ? "http://localhost:9090" : "https://auth.cinewhere.co.uk",
     api: async (args: ApiFetcherArgs) => {
         const response = (await tsRestFetchApi(args)) as any;
 
@@ -74,7 +74,7 @@ export const useUserStore = defineStore("user", () => {
 
         if (process.env.NODE_ENV === "production") {
             redirect_uri = "https://www.fidelio.club/login";
-        } else if (process.env.NODE_ENV === "development") {
+        } else if (process.env.NODE_ENV === "staging") {
             redirect_uri = "https://staging.fidelio.club/login";
         }
 
