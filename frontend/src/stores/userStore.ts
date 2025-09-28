@@ -74,7 +74,7 @@ export const useUserStore = defineStore("user", () => {
 
         if (process.env.NODE_ENV === "production") {
             redirect_uri = "https://www.fidelio.club/login";
-        } else if (process.env.NODE_ENV === "development") {
+        } else if (process.env.NODE_ENV === "staging") {
             redirect_uri = "https://staging.fidelio.club/login";
         }
 
