@@ -8,7 +8,7 @@ import { ref } from "vue";
 import z from "zod";
 
 const authClient = initClient(authContract, {
-    baseUrl: process.env.NODE_ENV === "production" ? "https://auth.cinewhere.co.uk" : "http://localhost:9090",
+    baseUrl: process.env.NODE_ENV === "development" ? "http://localhost:9090" : "https://auth.cinewhere.co.uk",
     api: async (args: ApiFetcherArgs) => {
         const response = (await tsRestFetchApi(args)) as any;
 
