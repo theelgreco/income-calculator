@@ -59,6 +59,8 @@ jobs:
                       docker compose -f /${{ secrets.VPS_USER }}/production/docker-compose.yml config
                       docker compose -f /${{ secrets.VPS_USER }}/production/docker-compose.yml up -d
 
+                      docker image prune -af
+
     deploy-staging:
         if: github.ref == 'refs/heads/staging'
         runs-on: ubuntu-latest
@@ -107,3 +109,5 @@ jobs:
                       docker compose -f /${{ secrets.VPS_USER }}/projects/fidelio/docker-compose.yml pull
                       docker compose -f /${{ secrets.VPS_USER }}/projects/fidelio/docker-compose.yml config
                       docker compose -f /${{ secrets.VPS_USER }}/projects/fidelio/docker-compose.yml up -d
+
+                      docker image prune -af
