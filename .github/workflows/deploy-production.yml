@@ -1,4 +1,4 @@
-name: Build, Push, Deploy Cachee API
+name: Build, Push, Deploy Fidelio API
 
 on:
     push:
@@ -6,6 +6,7 @@ on:
             - main
         paths:
             - "backend/**"
+    workflow_dispatch:
 
 jobs:
     build:
