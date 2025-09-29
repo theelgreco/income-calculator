@@ -101,10 +101,6 @@ onMounted(() => {
                     <img class="absolute left-2" src="@/assets/icons/google.svg" width="20" />
                     Sign in with Google
                 </Button>
-                <!-- <div class="flex flex-col gap-3 mt-10">
-                <small class="text-center">Want to try it out first?</small>
-                <Button variant="secondary" size="lg" :disabled="form.submitting.value">Continue as guest</Button>
-            </div> -->
                 <div class="flex flex-col items-center mt-10 mx-auto">
                     <small class="text-center"> Want to try it out first? </small>
                     <TooltipProvider>
