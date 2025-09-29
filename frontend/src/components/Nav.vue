@@ -9,7 +9,7 @@ import { RouterLink } from "vue-router";
         <RouterLink :to="{ name: 'year', params: { year: new Date().getFullYear() } }">
             <div class="flex items-center gap-3 select-none cursor-pointer">
                 <SvgIcon type="mdi" :path="mdiFinance" :size="36" />
-                <h2 class="font-black">Income Tracker</h2>
+                <h2 class="font-black">Fidelio</h2>
             </div>
         </RouterLink>
         <div class="flex gap-5 items-center">
