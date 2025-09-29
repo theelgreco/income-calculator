@@ -92,9 +92,9 @@ onMounted(() => {
             <FormFooter class="flex flex-col gap-6">
                 <div class="flex flex-col mt-4 gap-3">
                     <Button class="rounded-xs py-5" @click="handleLogin" type="submit" :disabled="form.submitting.value">Login</Button>
-                    <Button variant="outline" class="rounded-xs py-5" @click="handleSignUp" type="submit" :disabled="form.submitting.value"
-                        >Sign up</Button
-                    >
+                    <Button variant="outline" class="rounded-xs py-5" @click="handleSignUp" type="submit" :disabled="form.submitting.value">
+                        Sign up
+                    </Button>
                 </div>
                 <TextDivider>or</TextDivider>
                 <Button variant="outline" class="relative rounded-xs py-5" @click="googleRedirect" :disabled="form.submitting.value">
