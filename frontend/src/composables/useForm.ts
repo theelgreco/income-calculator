@@ -34,7 +34,7 @@ export default function useForm<FormSchemaType>(formSchema: z.ZodObject) {
         try {
             submitting.value = true;
             resetErrors();
-            formSchema.parse(form.value);
+            form.value = formSchema.parse(form.value);
             await callback();
         } catch (err: unknown) {
             if (err instanceof z.ZodError) {
