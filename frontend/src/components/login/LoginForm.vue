@@ -13,7 +13,10 @@ const route = useRoute();
 const { signUp, login, googleRedirect, signInWithGoogle } = useUserStore();
 
 const formSchema = z.object({
-    email: z.email().default(""),
+    email: z
+        .email()
+        .default("")
+        .transform((str) => str.toLowerCase()),
     password: z.string().min(8, "Minimum 8 characters").default(""),
 });
 
