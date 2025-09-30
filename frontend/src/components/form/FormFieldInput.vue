@@ -8,7 +8,7 @@ interface Props {
     placeholder?: string;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const { form, resetFieldError, fieldHasError, submitting } = inject<FormContext>("formContext")!;
 
