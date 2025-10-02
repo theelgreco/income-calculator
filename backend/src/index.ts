@@ -14,18 +14,14 @@ import {
     getTransaction,
     updateTransaction,
 } from "./controllers/controllers";
-import path from "path";
 
 dotenv.config();
 
 const app: Express = express();
 const port = Number(process.env.PORT) || 3000;
 
-const publicDir = path.resolve(__dirname, "..", "public");
-
 app.use(express.json());
 app.use(cors());
-app.use(express.static(publicDir));
 app.use(authenticateJWT);
 
 app.get("/api/validateJWT", (_request: Request, response: Response) => {
