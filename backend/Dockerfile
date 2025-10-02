@@ -9,7 +9,7 @@ RUN npm ci
 # Copy source
 COPY . .
 
-# Run your build
+# Build
 RUN rm -rf dist && npx prisma generate && npx tsc && cp -R public dist/public
 
 # Stage 2: production
@@ -28,6 +28,6 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma ./prisma
 COPY --from=build /app/node_modules/.prisma ./node_modules/.prisma
 
-# Set working directory to dist if your entrypoint is there
+# Set working directory to dist
 WORKDIR /app
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/index.js"]
