@@ -9,7 +9,7 @@ const { currencies, getCurrencyFromCode } = useCurrency();
 
 <template>
     <Select v-model="settings.currency.code" @update:model-value="code => settings.currency = getCurrencyFromCode(code as string)!">
-        <SelectTrigger>
+        <SelectTrigger v-bind="$attrs">
             <SelectValue :placeholder="settings.currency.label" />
         </SelectTrigger>
         <SelectContent>
