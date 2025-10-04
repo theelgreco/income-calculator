@@ -62,7 +62,10 @@ const items = [
             </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>
-            <SidebarMenu>
+            <SidebarMenu class="flex flex-col gap-3">
+                <SidebarMenuItem>
+                    <CurrencySelect class="w-full" />
+                </SidebarMenuItem>
                 <SidebarMenuItem>
                     <ProfileAvatar class="w-full" />
                 </SidebarMenuItem>
