@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { ApiTransactionsYearMonthGetMonthEnum, TransactionsApi, type GetTransactionMonthResponseInner } from "@/api/generated";
+import { useCurrency } from "@/composables/currency";
 import { defaultApiConfiguration } from "@/fetch";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { storeToRefs } from "pinia";
 import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
+
+const { settings } = storeToRefs(useSettingsStore());
+const { getFormattedCurrencyString } = useCurrency();
 
 const year = ref<number>(Array.isArray(route.params.year) ? parseInt(route.params.year[0]) : parseInt(route.params.year));
 
@@ -60,7 +66,7 @@ onMounted(() => {
                 >
                     <p>{{ transaction.name }}</p>
                     <p class="font-medium" :class="{ 'text-state-danger-500': transaction.isExpense }">
-                        £{{ parseFloat(transaction.amountInPence).toFixed(2) }}
+                        {{ getFormattedCurrencyString(parseFloat(transaction.amountInPence), settings.currency.code) }}
                     </p>
                 </div>
             </div>

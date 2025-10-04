@@ -11,6 +11,13 @@ import TooltipTrigger from "@/components/ui/tooltip/TooltipTrigger.vue";
 import TooltipContent from "@/components/ui/tooltip/TooltipContent.vue";
 import Button from "@/components/ui/button/Button.vue";
 import { Trash } from "lucide-vue-next";
+import { storeToRefs } from "pinia";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { useCurrency } from "@/composables/currency";
+
+const { settings } = storeToRefs(useSettingsStore());
+
+const { getFormattedCurrencyString } = useCurrency();
 
 const transactionsApi = new TransactionsApi(defaultApiConfiguration);
 
@@ -67,7 +74,9 @@ onMounted(() => {
             >
                 <p class="text-xl font-medium">{{ transaction.name }}</p>
                 <div class="flex items-center gap-3">
-                    <p class="text-xl mr-1">£{{ parseFloat(transaction.amountInPence).toFixed(2) }}</p>
+                    <p class="text-xl mr-1">
+                        {{ getFormattedCurrencyString(parseFloat(transaction.amountInPence), settings.currency.code) }}
+                    </p>
                     <div class="flex">
                         <Tooltip>
                             <TooltipContent> Edit {{ transaction.name }} </TooltipContent>
