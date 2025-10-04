@@ -35,7 +35,7 @@ export const useSettingsStore = defineStore("settings", () => {
         (newValue) => {
             localStorage.setItem("settings", JSON.stringify(newValue));
         },
-        { immediate: false }
+        { immediate: true, deep: true }
     );
 
     return { settings };
