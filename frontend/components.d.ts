@@ -33,6 +33,7 @@ declare module 'vue' {
     CalendarNextButton: typeof import('./src/components/ui/calendar/CalendarNextButton.vue')['default']
     CalendarPrevButton: typeof import('./src/components/ui/calendar/CalendarPrevButton.vue')['default']
     ConfirmTransactionDeleteDialog: typeof import('./src/components/dialogs/ConfirmTransactionDeleteDialog.vue')['default']
+    CurrencySelect: typeof import('./src/components/CurrencySelect.vue')['default']
     Dialog: typeof import('./src/components/ui/dialog/Dialog.vue')['default']
     DialogClose: typeof import('./src/components/ui/dialog/DialogClose.vue')['default']
     DialogContent: typeof import('./src/components/ui/dialog/DialogContent.vue')['default']

@@ -3,3 +3,8 @@ declare namespace NodeJS {
         NODE_ENV: "production" | "staging" | "development";
     }
 }
+
+declare namespace Intl {
+    type SupportedValuesOfKey = "calendar" | "collation" | "currency" | "numberingSystem" | "timeZone" | "unit";
+    function supportedValuesOf(key: SupportedValuesOfKey): string[];
+}

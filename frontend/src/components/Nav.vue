@@ -25,6 +25,7 @@ import { RouterLink } from "vue-router";
                     <SvgIcon type="mdi" :path="mdiPlusOutline" :size="16" />
                 </RouterLink>
             </Button>
+            <CurrencySelect class="max-md:hidden" />
             <ProfileAvatar class="max-md:hidden" />
             <SidebarTrigger class="cursor-pointer md:hidden">
                 <SvgIcon type="mdi" :path="mdiMenu" />
