@@ -4,6 +4,15 @@ export const enum EmailSenders {
     ADMIN = "admin@fidelio.club",
     INFO = "info@fidelio.club",
     NOREPLY = "noreply@fidelio.club",
+    DEV = "noreply@fidelio.club",
+}
+
+export function getEmailSender(sender: EmailSenders) {
+    if (process.env.NODE_ENV === "production") {
+        return sender;
+    }
+
+    return EmailSenders.DEV;
 }
 
 export const emailTransporter = createTransport({
