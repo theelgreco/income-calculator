@@ -22,7 +22,7 @@ model Transaction {
   id                         String   @id @default(uuid())
   createdAt                  DateTime @default(now())
   userId                     String
-  user                       User     @relation(fields: [userId], references: [id])
+  user                       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   name                       String 
   isExpense                  Boolean  @default(false)
   amountInPence              Decimal @db.Decimal(20,2)

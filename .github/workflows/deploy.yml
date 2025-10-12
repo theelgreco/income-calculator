@@ -44,6 +44,12 @@ jobs:
                   script: |
                       export DATABASE_URL=${{ secrets.ENV_DATABASE_URL }}
                       export JWT_KEY=${{ secrets.ENV_JWT_KEY }}
+                      export EMAIL_HOST=${{ secrets.ENV_EMAIL_HOST }}
+                      export EMAIL_PORT=${{ secrets.ENV_EMAIL_PORT }}
+                      export EMAIL_SECURE=${{ secrets.ENV_EMAIL_SECURE }}
+                      export EMAIL_USER=${{ secrets.ENV_EMAIL_USER }}
+                      export EMAIL_PASSWORD=${{ secrets.ENV_EMAIL_PASSWORD }}
+
                       export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
                       export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
                       export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
@@ -72,9 +78,6 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - name: Debug port
-              run: echo "API_PORT=${{ vars.API_PORT }}"
-
             - name: Log in to GHCR
               uses: docker/login-action@v3
               with:
@@ -98,6 +101,12 @@ jobs:
                   script: |
                       export DATABASE_URL=${{ secrets.ENV_DATABASE_URL }}
                       export JWT_KEY=${{ secrets.ENV_JWT_KEY }}
+                      export EMAIL_HOST=${{ secrets.ENV_EMAIL_HOST }}
+                      export EMAIL_PORT=${{ secrets.ENV_EMAIL_PORT }}
+                      export EMAIL_SECURE=${{ secrets.ENV_EMAIL_SECURE }}
+                      export EMAIL_USER=${{ secrets.ENV_EMAIL_USER }}
+                      export EMAIL_PASSWORD=${{ secrets.ENV_EMAIL_PASSWORD }}
+
                       export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
                       export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
                       export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
