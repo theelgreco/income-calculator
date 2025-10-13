@@ -30,5 +30,5 @@ export default function WelcomeEmail({ name }: WelcomeProps) {
         </div>
     `;
 
-    return BaseEmail(content, "Welcome to Fidelio Club");
+    return { html: BaseEmail(content, "Welcome to Fidelio Club").html, subject: "Welcome to Fidelio Club" };
 }
