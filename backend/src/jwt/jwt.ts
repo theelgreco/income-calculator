@@ -42,11 +42,13 @@ export function authenticateJWT(request: Request & { user?: User | null }, _resp
 
                         request.user = user;
 
+                        const { html, subject } = WelcomeEmail({ name: user.username! });
+
                         sendEmail({
                             from: EmailSenders.NOREPLY,
                             to: user.email,
-                            subject: "Welcome to Fidelio Club",
-                            html: WelcomeEmail({ name: user.username! }),
+                            subject,
+                            html,
                         });
                     }
                 }

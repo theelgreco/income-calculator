@@ -1,5 +1,5 @@
 export default function BaseEmail(content: string, title?: string) {
-    return `
+    const html = `
         <!DOCTYPE html>
         <html>
             <head>
@@ -39,4 +39,6 @@ export default function BaseEmail(content: string, title?: string) {
             </body>
         </html>
 `;
+
+    return { html, subject: "Blank Email" };
 }
