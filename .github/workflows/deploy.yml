@@ -47,7 +47,6 @@ jobs:
                       export EMAIL_HOST=${{ secrets.ENV_EMAIL_HOST }}
                       export EMAIL_PORT=${{ secrets.ENV_EMAIL_PORT }}
                       export EMAIL_SECURE=${{ secrets.ENV_EMAIL_SECURE }}
-                      export EMAIL_USER=${{ secrets.ENV_EMAIL_USER }}
                       export EMAIL_PASSWORD=${{ secrets.ENV_EMAIL_PASSWORD }}
 
                       export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
@@ -104,7 +103,6 @@ jobs:
                       export EMAIL_HOST=${{ secrets.ENV_EMAIL_HOST }}
                       export EMAIL_PORT=${{ secrets.ENV_EMAIL_PORT }}
                       export EMAIL_SECURE=${{ secrets.ENV_EMAIL_SECURE }}
-                      export EMAIL_USER=${{ secrets.ENV_EMAIL_USER }}
                       export EMAIL_PASSWORD=${{ secrets.ENV_EMAIL_PASSWORD }}
 
                       export POSTGRES_DB=${{ secrets.POSTGRES_DB }}

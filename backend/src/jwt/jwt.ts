@@ -4,8 +4,8 @@ import { getUser, createUser } from "../models/models";
 import type { Request, Response, NextFunction } from "express";
 import { User } from "@prisma/client";
 import { defaultUserImage } from "../firebase/storage";
-import { EmailSenders, emailTransporter, getEmailSender } from "../emails";
-import WelcomeEmail from "../emails/templates/onboarding/welcome/welcome";
+import { EmailSenders, sendEmail } from "../emails";
+import WelcomeEmail from "../emails/templates/onboarding/Welcome";
 
 export function authenticateJWT(request: Request & { user?: User | null }, _response: Response, next: NextFunction): void {
     const authHeader = request.headers.authorization;
@@ -42,8 +42,8 @@ export function authenticateJWT(request: Request & { user?: User | null }, _resp
 
                         request.user = user;
 
-                        emailTransporter.sendMail({
-                            from: getEmailSender(EmailSenders.INFO),
+                        sendEmail({
+                            from: EmailSenders.NOREPLY,
                             to: user.email,
                             subject: "Welcome to Fidelio Club",
                             html: WelcomeEmail({ name: user.username! }),

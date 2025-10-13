@@ -1,26 +1,27 @@
 import { createTransport } from "nodemailer";
+import { MailOptions } from "nodemailer/lib/json-transport";
 
 export const enum EmailSenders {
-    ADMIN = "admin@fidelio.club",
-    INFO = "info@fidelio.club",
-    NOREPLY = "noreply@fidelio.club",
-    DEV = "noreply@fidelio.club",
+    BOSS = "stelios@fidelio.club",
+    NOREPLY = "no-reply@fidelio.club",
 }
 
-export function getEmailSender(sender: EmailSenders) {
-    if (process.env.NODE_ENV === "production") {
-        return sender;
+type EmailOptions = MailOptions & { from: EmailSenders };
+
+export async function sendEmail(emailOptions: EmailOptions) {
+    try {
+        const transporter = createTransport({
+            host: process.env.EMAIL_HOST,
+            port: parseInt(process.env.EMAIL_PORT as string),
+            secure: process.env.EMAIL_SECURE === "true",
+            auth: {
+                user: emailOptions.from,
+                pass: process.env.EMAIL_PASSWORD,
+            },
+        });
+
+        return await transporter.sendMail({ ...emailOptions });
+    } catch (err: unknown) {
+        console.error(err);
     }
-
-    return EmailSenders.DEV;
 }
-
-export const emailTransporter = createTransport({
-    host: process.env.EMAIL_HOST,
-    port: parseInt(process.env.EMAIL_PORT as string),
-    secure: process.env.EMAIL_SECURE === "true",
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-    },
-});

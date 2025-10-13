@@ -4,3 +4,4 @@ node_modules
 .DS_Store
 .firebase
 src/generated/prisma
+src/emails/_tests
