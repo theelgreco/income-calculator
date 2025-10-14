@@ -2,10 +2,11 @@ import { Secret, verify } from "jsonwebtoken";
 import { UnauthorisedError } from "../errors/errors";
 import { getUser, createUser } from "../models/models";
 import type { Request, Response, NextFunction } from "express";
-import { User } from "@prisma/client";
+
 import { defaultUserImage } from "../firebase/storage";
 import { EmailSenders, sendEmail } from "../emails";
 import WelcomeEmail from "../emails/templates/onboarding/Welcome";
+import { User } from "../generated/prisma";
 
 export function authenticateJWT(request: Request & { user?: User | null }, _response: Response, next: NextFunction): void {
     const authHeader = request.headers.authorization;

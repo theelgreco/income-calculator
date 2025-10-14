@@ -1,5 +1,5 @@
-import { Transaction, User } from "@prisma/client";
 import { prisma } from "../../prisma/connect";
+import { Transaction, User } from "../generated/prisma";
 import { groupTransactionsByDaysInMonth, groupTransactionsByMonth } from "../helpers/helpers";
 import { MonthSerializer } from "../types/types";
 
