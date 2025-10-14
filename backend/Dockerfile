@@ -28,6 +28,4 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma ./prisma
 COPY --from=build /app/node_modules/.prisma ./node_modules/.prisma
 
-# Set working directory to dist if your entrypoint is there
-WORKDIR /app
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/index.js"]
