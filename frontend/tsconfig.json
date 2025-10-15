@@ -11,6 +11,8 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
+            "@api-contract": ["../backend/api-contract"],
+            "@api-contract/*": ["../backend/api-contract/*"],
             "@/*": ["./src/*"]
         },
         "types": ["node"]

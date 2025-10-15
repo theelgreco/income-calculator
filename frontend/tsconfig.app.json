@@ -1,12 +1,14 @@
 {
     "extends": "@vue/tsconfig/tsconfig.dom.json",
-    "include": ["env.d.ts", "components.d.ts", "src/**/*"],
+    "include": ["env.d.ts", "components.d.ts", "src/**/*", "../backend/api-contract/**/*"],
     "exclude": ["src/**/__tests__/*"],
     "compilerOptions": {
         "composite": true,
         "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
         "baseUrl": ".",
         "paths": {
+            "@api-contract": ["../backend/api-contract"],
+            "@api-contract/*": ["../backend/api-contract/*"],
             "@/*": ["./src/*"]
         },
         "types": ["node"]

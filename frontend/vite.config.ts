@@ -54,6 +54,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
+            "@api-contract": fileURLToPath(new URL("../backend/api-contract", import.meta.url)),
             "@": fileURLToPath(new URL("./src", import.meta.url)),
         },
     },
