@@ -6,7 +6,7 @@ import type { Request, Response, NextFunction } from "express";
 import { defaultUserImage } from "../firebase/storage";
 import { EmailSenders, sendEmail } from "../emails";
 import WelcomeEmail from "../emails/templates/onboarding/Welcome";
-import { User } from "../generated/prisma";
+import { User } from "../../prisma/generated";
 
 export function authenticateJWT(request: Request & { user?: User | null }, _response: Response, next: NextFunction): void {
     const authHeader = request.headers.authorization;

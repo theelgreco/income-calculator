@@ -9,7 +9,7 @@ import {
     updateSingleTransaction,
 } from "../models/models";
 import { validMonthStrings } from "../constants";
-import { User } from "../generated/prisma";
+import { User } from "../../prisma/generated";
 
 export function validateJWT(_request: Request, response: Response) {
     response.status(200).send({ msg: "Your JWT is valid" });

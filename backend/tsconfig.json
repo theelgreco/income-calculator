@@ -17,5 +17,5 @@
         "strict": true,
         "skipLibCheck": true
     },
-    "include": ["src/**/*", "src/types/express/*.d.ts", "api-contract/**/*"]
+    "include": ["src/**/*", "src/types/express/*.d.ts", "api-contract/**/*", "prisma/**/*"]
 }

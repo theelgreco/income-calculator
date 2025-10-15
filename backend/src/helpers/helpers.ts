@@ -12,8 +12,8 @@ import {
     subBusinessDays,
 } from "date-fns";
 import { MonthDate, MonthSerializer } from "../types/types";
-import { Decimal } from "../generated/prisma/runtime/library";
-import { Transaction } from "../generated/prisma";
+import { Decimal } from "../../prisma/generated/runtime/library";
+import { Transaction } from "../../prisma/generated";
 
 // Function to add the ordinal suffix
 export function getOrdinalSuffix(day: number): "th" | "st" | "nd" | "rd" {

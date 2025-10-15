@@ -1,4 +1,4 @@
-import { Transaction } from "../generated/prisma";
+import { Transaction } from "../../prisma/generated";
 
 export interface JWT {
     exp: Date;

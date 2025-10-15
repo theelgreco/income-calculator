@@ -10,7 +10,7 @@ RUN npm ci
 COPY . .
 
 # Build
-RUN rm -rf dist && npx prisma generate && npx tsc && cp -R public dist/public
+RUN rm -rf dist && npx prisma generate && npx tsc
 
 # Stage 2: production
 FROM node:22-alpine
