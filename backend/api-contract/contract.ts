@@ -14,5 +14,6 @@ export const contract = client.router(
         baseHeaders: {
             Authorization: z.string(),
         },
+        pathPrefix: "/api",
     }
 );

@@ -7,6 +7,7 @@ generator client {
 generator zod {
   provider = "zod-prisma-types"
   output = "./generated/zod"
+  prismaClientPath = "@prisma/client"
 }
 
 datasource db {

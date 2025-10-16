@@ -1,7 +1,7 @@
 import { prisma } from "../../prisma/connect";
 import { Transaction, User } from "../../prisma/generated";
 import { groupTransactionsByDaysInMonth, groupTransactionsByMonth } from "../helpers/helpers";
-import { MonthSerializer } from "../types/types";
+import { MonthSerializer } from "../@types/types";
 
 export async function createUser(data: { authId: string; username: string; email: string; image: string }): Promise<User> {
     try {
