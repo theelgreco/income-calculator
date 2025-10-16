@@ -36,6 +36,7 @@
         "jsonwebtoken": "^9.0.2",
         "nodemailer": "^7.0.9",
         "nodemon": "^3.1.7",
-        "zod": "^4.1.11"
+        "zod": "^4.1.11",
+        "zod-prisma-types": "^3.3.5"
     }
 }

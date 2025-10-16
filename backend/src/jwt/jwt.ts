@@ -8,9 +8,8 @@ import { EmailSenders, sendEmail } from "../emails";
 import WelcomeEmail from "../emails/templates/onboarding/Welcome";
 import { User } from "../../prisma/generated";
 
-export function authenticateJWT(request: Request & { user?: User | null }, _response: Response, next: NextFunction): void {
-    const authHeader = request.headers.authorization;
-    const token = authHeader && authHeader.split(" ")[1];
+export function authenticateJWT(request: Request, _response: Response, next: NextFunction): void {
+    const token = request.headers.authorization?.split(" ")[1];
 
     try {
         if (!token) {

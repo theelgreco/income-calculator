@@ -15,7 +15,7 @@ export function validateJWT(_request: Request, response: Response) {
     response.status(200).send({ msg: "Your JWT is valid" });
 }
 
-export async function getUserData(request: Request & { user?: any }, response: Response, next: NextFunction) {
+export async function getUserData(request: Request, response: Response, next: NextFunction) {
     try {
         response.status(200).send(request.user);
     } catch (err: any) {
