@@ -28,4 +28,4 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma ./prisma
 COPY --from=build /app/api-contract ./api-contract
 
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/index.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/server.js"]

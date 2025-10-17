@@ -1,11 +1,11 @@
 {
     "name": "backend",
     "version": "1.0.0",
-    "main": "dist/index.js",
+    "main": "dist/server.js",
     "scripts": {
         "build": "rm -rf dist; npx prisma generate; npx tsc",
-        "start": "npx prisma migrate deploy; node dist/src/index.js",
-        "dev": "npx tsx watch src/index.ts",
+        "start": "npx prisma migrate deploy; node dist/src/server.js",
+        "dev": "npx tsx watch src/server.ts",
         "firebase": "cd .firebase && npx firebase emulators:start --import=./data --export-on-exit",
         "email-tester": "npx tsx watch --env-file=.env src/emails/_tests/test.ts"
     },

@@ -16,4 +16,12 @@ export const transactionContract = client.router({
             200: z.array(TransactionSchema),
         },
     },
+    // getTransactionsYear: {
+    //     method: "GET",
+    //     path: "/transactions/:year",
+    //     summary: "Retrieve a list of the current user's transactions for a given year",
+    //     pathParams: z.object({
+    //         year: z.number(),
+    //     }),
+    // },
 });
