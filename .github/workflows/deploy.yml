@@ -44,6 +44,7 @@ jobs:
                   source: "backend/docker-compose.yml"
                   target: "/${{ secrets.VPS_USER }}/production/"
                   overwrite: true
+                  strip_components: true
 
             - name: Deploy on VPS (production)
               uses: appleboy/ssh-action@v1.1.0
@@ -110,6 +111,7 @@ jobs:
                   source: "backend/docker-compose.yml"
                   target: "/${{ secrets.VPS_USER }}/projects/fidelio/"
                   overwrite: true
+                  strip_components: true
 
             - name: Deploy on VPS (staging)
               uses: appleboy/ssh-action@v1.1.0
