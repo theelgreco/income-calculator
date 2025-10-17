@@ -5,3 +5,5 @@ node_modules
 .firebase
 src/generated/prisma
 src/emails/_tests
+dist
+prisma/generated
