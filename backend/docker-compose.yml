@@ -1,5 +1,7 @@
 version: "3.9"
 
+# Adding comment for testing
+
 services:
     db:
         image: postgres
